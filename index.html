@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<title>RPG Oracle</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        text-align: center ;
+    }
+    .container {
+        width: 100%;
+        margin: 10px auto;
+    }
+    .button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .clearButton {
+        background-color: red;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .result {
+        width: 100%;
+        margin: 10px auto;
+        background-color: #f0f0f0;
+        border: 0px solid #ccc;
+        border-radius: 5px;
+    }
+    .bloque01 {
+    	width: 100%;
+    } 
+    .bloque02 {
+    	width: 100%;
+        display: flex; /* Para que los elementos dentro de bloque se alineen horizontalmente */
+    }    
+    .bloque03 {
+        display: flex; /* Para que los elementos dentro de bloque se alineen horizontalmente */
+    }          
+</style>
+</head>
+<body>
+<h1> RPG Oracle </h1>
+	
+<div class="container">
+			<h3>Environment</h3>
+			    <div class="Terrain">
+			        <button class="button" onclick="generateResult('terrain')">Terrain</button>
+			        <button class="clearButton" onclick="clearResult('terrain')">Clear</button>
+			        <div id="terrainResult" class="result"></div> 
+			    </div>
+			    <div class="NewTerrain">
+			        <button class="button" onclick="generateResult('newterrain')">New Terrain</button>
+			        <button class="clearButton" onclick="clearResult('newterrain')">Clear</button>
+			        <div id="newterrainResult" class="result"></div>
+			    </div>  
+			    <div class="Weather">
+			        <button class="button" onclick="generateResult('Weather')">Weather</button>
+			        <button class="clearButton" onclick="clearResult('Weather')">Clear</button>
+			        <div id="WeatherResult" class="result"></div>
+			    </div>  
+		<h3>Discoveries</h3> 
+			<button class="button" onclick="generateResult('Ruin')">Ruin</button>
+			<button class="clearButton" onclick="clearResult('Ruin')">Clear</button>
+			<div id="RuinResult" class="result"></div>
+			<button class="button" onclick="generateResult('Settlement')">Settlement</button>
+			<button class="clearButton" onclick="clearResult('Settlement')">Clear</button>
+			<div id="SettlementResult" class="result"></div>
+			<button class="button" onclick="generateResult('Evidence')">Evidence</button>
+			<button class="clearButton" onclick="clearResult('Evidence')">Clear</button>
+			<div id="EvidenceResult" class="result"></div>		
+			<button class="button" onclick="generateResult('Passive')">Passive</button>
+			<button class="clearButton" onclick="clearResult('Passive')">Clear</button>
+			<div id="PassiveResult" class="result"></div>				
+    	<hr><h3>Dangers</h3> 
+			<button class="button" onclick="generateResult('DangerUnnatural')">Unnatural</button>
+			<button class="clearButton" onclick="clearResult('DangerUnnatural')">Clear</button>
+			<div id="DangerUnnaturalResult" class="result"></div>
+			<button class="button" onclick="generateResult('Hazard')">Hazard</button>
+			<button class="clearButton" onclick="clearResult('Hazard')">Clear</button>
+			<div id="HazardResult" class="result"></div>		
+    	<hr><h3>Encounter in Terrain</h3> 
+    		<button class="button" onclick="generateResult('EbT_Grasslands')">Grasslands</button>
+    		<button class="clearButton" onclick="clearResult('EbT_Grasslands')">Clear</button>
+			<div id="EbT_GrasslandsResult" class="result"></div>
+    		<button class="button" onclick="generateResult('EbT_Woods')">Woods</button>
+    		<button class="clearButton" onclick="clearResult('EbT_Woods')">Clear</button>
+			<div id="EbT_WoodsResult" class="result"></div>
+    		<button class="button" onclick="generateResult('EbT_Hills')">Hills</button>
+    		<button class="clearButton" onclick="clearResult('EbT_Hills')">Clear</button>
+			<div id="EbT_HillsResult" class="result"></div>
+    		<button class="button" onclick="generateResult('EbT_Mountains')">Mountains</button>
+    		<button class="clearButton" onclick="clearResult('EbT_Mountains')">Clear</button>
+			<div id="EbT_MountainsResult" class="result"></div>
+    		<button class="button" onclick="generateResult('EbT_Swamps')">Swamps</button>
+    		<button class="clearButton" onclick="clearResult('EbT_Swamps')">Clear</button>
+			<div id="EbT_SwampsResult" class="result"></div>	
+    		<button class="button" onclick="generateResult('EbT_Wastelands')">Wastelands</button>
+    		<button class="clearButton" onclick="clearResult('EbT_Wastelands')">Clear</button>
+			<div id="EbT_WastelandsResult" class="result"></div>
+    	<hr><h3>Encounter with ...</h3> 
+    		<button class="button" onclick="generateResult('Ewith_Human')">Human</button>
+    		<button class="clearButton" onclick="clearResult('Ewith_Human')">Clear</button>
+			<div id="Ewith_HumanResult" class="result"></div>
+    		<button class="button" onclick="generateResult('Ewith_Animal')">Animal</button>
+    		<button class="clearButton" onclick="clearResult('Ewith_Animal')">Clear</button>
+			<div id="Ewith_AnimalResult" class="result"></div>
+    		<button class="button" onclick="generateResult('Ewith_Humanoid')">Humanoid</button>
+    		<button class="clearButton" onclick="clearResult('Ewith_Humanoid')">Clear</button>
+			<div id="Ewith_HumanoidResult" class="result"></div>
+    		<button class="button" onclick="generateResult('Ewith_Smonster')">Small Monster</button>
+    		<button class="clearButton" onclick="clearResult('Ewith_Smonster')">Clear</button>
+    		<div id="Ewith_SmonsterResult" class="result"></div>
+    		<button class="button" onclick="generateResult('Ewith_Bmonster')">Big Monster</button>
+    		<button class="clearButton" onclick="clearResult('Ewith_Bmonster')">Clear</button>
+			<div id="Ewith_BmonsterResult" class="result"></div>
+			<button class="button" onclick="generateResult('Ewith_Unnatural')">Unnatural</button>
+    		<button class="clearButton" onclick="clearResult('Ewith_Unnatural')">Clear</button>
+			<div id="Ewith_UnnaturalResult" class="result"></div>
+    	<hr><h3>Settlements</h3> 
+
+
+    	<hr><h3>Descriptions</h3>
+
+    	<hr><h3>Characters</h3>
+
+    	<hr><h3>Settlements</h3>
+
+    	<hr><h3>Quests
+    		<button class="button" onclick="generateResult('Get_Quests')">Get Quest</button>
+    		<button class="clearButton" onclick="clearResult('Get_Quests')">Clear</button>
+			<div id="Get_QuestsResult" class="result"></div>
+    	</h3>
+    		<button class="button" onclick="generateResult('Quest_akd')">Attack, Kill, Destroy</button>
+    		<button class="clearButton" onclick="clearResult('Quest_akd')">Clear</button>
+			<div id="Quest_akdResult" class="result"></div>
+    		<button class="button" onclick="generateResult('Quest_fr')">Find, Recover</button>
+    		<button class="clearButton" onclick="clearResult('Quest_fr')">Clear</button>
+			<div id="Quest_frResult" class="result"></div>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+<script>
+    function generateResult(type) {
+        const results = {
+            'terrain': [
+                "Grasslands",
+                "Woods",
+                "Hills",
+                "Mountains",
+                "Swamp",
+                "Wasteland"
+            ],
+            'newterrain': ["Same", "New"],
+            'Weather': [
+            	"Sunny",
+            	"Cloudy",
+            	"Light Precipitation",  
+            	"Heavy Precipitation"
+            	],
+            'Unnatural': [
+            	"Portal",
+            	"Glowing",
+            	"Residue",
+            	"Cursed",
+            	"Burn",
+            	"Mutation"
+            	],
+            'Natural': [
+            	"1. aaa",
+            	"2. aaa",      
+            	],
+            'Ruin': [
+            	"1. bbb",
+            	"2. bbb",      
+            	],
+            'Settlement': [
+            	"1. ccc",
+            	"2. ccc",      
+            	],
+            'Evidence': [
+            	"1. ddd",
+            	"2. ddd",      
+            	],
+            'Passive': [
+            	"1. eee",
+            	"2. eee",      
+            	],  
+            'DangerUnnatural': [
+            	"1. DangerUnnatural",
+            	"2. DangerUnnatural",      
+            	], 
+            'Hazard': [
+            	"1. Hazard",
+            	"2. Hazard",      
+            	],            	 
+            'EbT_Grasslands': [
+            	"1. Human",
+            	"2. Human",      
+            	"3. Human",
+            	"4. Animal",
+            	"5. Animal",
+            	"6. Small Monster",
+            	],
+            'EbT_Woods': [
+            	"1. Human",
+            	"2. Human",      
+            	"3. Human",
+            	"4. Animal",
+            	"5. Small Monster",
+            	"6. Medium Monster",
+            	],
+            'EbT_Hills': [
+            	"1. Human",
+            	"2. Human",      
+            	"3. Animal",
+            	"4. Small Monster",
+            	"5. Medium Monster",
+            	"6. Big Monster",
+            	],
+            'EbT_Mountains': [
+            	"1. Human",
+            	"2. Human",      
+            	"3. Human",
+            	"4. Animal",
+            	"5. Medium Monster",
+            	"6. Medium Monster",
+            	],
+            'EbT_Swamps': [
+            	"1. Human",
+            	"2. Human",      
+            	"3. Animal",
+            	"4. Unnatural",
+            	"5. Unnatural",
+            	"6. Small Monster",
+            	],
+            'EbT_Wastelands': [
+            	"1. Human",
+            	"2. Human",      
+            	"3. Human",
+            	"4. Unnatural",
+            	"5. Small Monster",
+            	"6. Medium Monster",
+            	],
+            'Ewith_Human': [
+            	"1. NPC",
+            	"2. Common: HD(1)|AC/ATK(10)|Dmg(1)",      
+            	"3. Bandit: HD(1)|AC/ATK(11)|Dmg(d6)",
+            	"4. Soldier: HD(2)|AC/ATK(12)|Dmg(d6)",
+            	"5. Berserker: HD(3)|AC/ATK(13)|Dmg(d8)",
+            	"6. Mage: HD(2)|AC/ATK(12)|Dmg(d4) Spell(d6)",
+            	],
+            'Ewith_Animal': [
+            	"1. Beetle: HD(2)|AC/ATK(12)|Dmg(d4)",
+            	"2. Centipede: HD(2)|AC/ATK(12)|Dmg(d6)",      
+            	"3. Bear: HD(4)|AC/ATK(14)|Dmg(d6,d6)", 
+            	"4. Rat: HD(1)|AC/ATK(11)|Dmg(d4)", 
+            	"5. Lizard: HD(2)|AC/ATK(12)|Dmg(d6)", 
+            	"6. Hawk: HD(1)|AC/ATK(11)|Dmg(d6)", 
+            	],
+            'Ewith_Humanoid': [
+            	"1. NPC",
+            	"2. Gnoll: HD(2)|AC/ATK(12)|Dmg(d6)",      
+            	"3. Kobold: HD(2)|AC/ATK(12)|Dmg(d6)", 
+            	"4. Giant: HD(5)|AC/ATK(15)|Dmg(d10)", 
+            	"5. Troll: HD(4)|AC/ATK(14)|Dmg(d8)", 
+            	"6. Orc: HD(4)|AC/ATK(14)|Dmg(d6)", 
+            	],
+            'Ewith_Smonster': [
+            	"1. Ooze: HD(1)|AC/ATK(19)|Dmg(d4)",
+            	"2. Ogre: HD(3)|AC/ATK(13)|Dmg(d8)",      
+            	"3. Harpy: HD(3)|AC/ATK(13)|Dmg(d6)", 
+            	"4. Wererat: HD(2)|AC/ATK(12)|Dmg(d4)", 
+            	"5. Stirge: HD(2)|AC/ATK(12)|Dmg(d6)", 
+            	"6. Werewolf: HD(4)|AC/ATK(14)|Dmg(d6)", 
+            	],
+            'Ewith_Bmonster': [
+            	"1. Gargoyle: HD(4)|AC/ATK(14)|Dmg(d8)",
+            	"2. Manticore: HD(4)|AC/ATK(14)|Dmg(d6)",      
+            	"3. Hydra: HD(5)|AC/ATK(15)|Dmg(d4, d4, d4)", 
+            	"4. Construct: HD(4)|AC/ATK(14)|Dmg(d6)", 
+            	"5. Death Knight: HD(3)|AC/ATK(13)|Dmg(d6)", 
+            	"6. Dragon: HD(6)|AC/ATK(16)|Dmg(d8,d8)", 
+            	],
+            'Ewith_Unnatural': [
+            	"1. Ghoul: HD(2)|AC/ATK(12)|Dmg(d6)",
+            	"2. Zombie: HD(1)|AC/ATK(11)|Dmg(d6)",      
+            	"3. Skeleton: HD(1)|AC/ATK(11)|Dmg(d6)", 
+            	"4. Demon: HD(3)|AC/ATK(13)|Dmg(d6)", 
+            	"5. Elemental: HD(4)|AC/ATK(14)|Dmg(d6)", 
+            	"6. Wraith: HD(4)|AC/ATK(14)|Dmg(d4,d4)", 
+            	],
+            'Get_Quests': [
+            	"1. Attack, Kill, Destroy",
+            	"2. Find, Recover",      
+            	"3. Steal, Capture", 
+            	"4. Deliver", 
+            	"5. Explore, Discover", 
+            	"6. Survive, Escape", 
+            	],
+            'Quest_akd': [
+            	"1. Powerful person",
+            	"2. Organization",      
+            	"3. Culture", 
+            	"4. Artifact", 
+            	"5. Old god", 
+            	"6. Location", 
+            	],
+            'Quest_fr': [
+            	"1. A way to another world",
+            	"2. Individual",      
+            	"3. Hidden location", 
+            	"4. Artifact", 
+            	"5. Treasure", 
+            	"6. Magical location", 
+            	],
+
+
+        };
+        
+        const randomIndex = Math.floor(Math.random() * results[type].length);
+        document.getElementById(type + "Result").innerHTML = results[type][randomIndex];
+    }
+    function clearResult(type) {
+        document.getElementById(type + "Result").innerHTML = "";
+    }
+    // function generateResult(type) {
+    //     const results = {
+    //         '1d3': Math.floor(Math.random() * 3) + 1,
+    //         '1d6': Math.floor(Math.random() * 6) + 1,
+    //         '1d8': Math.floor(Math.random() * 8) + 1,
+    //         '1d10': Math.floor(Math.random() * 10) + 1,
+    //         '1d12': Math.floor(Math.random() * 12) + 1,
+    //         '1d20': Math.floor(Math.random() * 20) + 1,
+    //         '11to66': Math.floor(Math.random() * 56) + 11
+    //     };
+        
+    //     document.getElementById(type + "Result").innerHTML = results[type];
+    // }
+
+
+</script>
+</body>
+</html>
