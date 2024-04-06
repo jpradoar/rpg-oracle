@@ -115,6 +115,9 @@
     	<button class="button button2" onclick="generateResult('Danger_type')">Tipo de Peligro</button>
 		<button class="clearButton" onclick="clearResult('Danger_type')">X</button>
 		<div id="Danger_typeResult" class="result"></div>
+		<button class="button" onclick="generateResult('Danger_Natural')">Natural</button>
+		<button class="clearButton" onclick="clearResult('Danger_Natural')">X</button>
+		<div id="Danger_NaturalResult" class="result"></div>
 		<button class="button" onclick="generateResult('Danger_Unnatural')">Antinatural</button>
 		<button class="clearButton" onclick="clearResult('Danger_Unnatural')">X</button>
 		<div id="Danger_UnnaturalResult" class="result"></div>
@@ -441,20 +444,23 @@
 							"6. Mutación"
 							],
 							'Danger_type': [
-							"1. Encuentro en Terreno",
-							"2. Encuentro en Terreno",
-							"3. Encuentro en Terreno",
+							"1. Natural",
+							"2. Natural",
+							"3. Natural",
 							"4. Sobrenatural",
 							"5. Peligro",
 							"6. Encuentro en Terreno"
 							],
-							'Danger_Unnatural': [
-							"1. Ghoul",
-							"2. Zombi",
-							"3. Esqueleto",
-							"4. Demonio",
-							"5. Elemental",
-							"6. Espectro"
+					'Danger_Natural': [
+							"1. Encuentro en Terreno",
+							],
+					'Danger_Unnatural': [
+							"1. Maldición",
+							"2. Aberración",
+							"3. Anomalía",
+							"4. Corrupción",
+							"5. Entidad oscura",
+							"6. Energía caótica",
 							],
 							'Danger_Hazard': [
 							"1. Pantano",
