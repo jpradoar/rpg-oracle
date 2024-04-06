@@ -212,6 +212,9 @@
 		<button class="button" onclick="generateResult('magic_effect')">Efecto Mágico</button>
 		<button class="clearButton" onclick="clearResult('magic_effect')">X</button>
 		<div id="magic_effectResult" class="result"></div>
+		<button class="button" onclick="generateResult('food_item')">Comida</button>
+		<button class="clearButton" onclick="clearResult('food_item')">X</button>
+		<div id="food_itemResult" class="result"></div>
     </td>
     <td>
     	<button class="button button2" onclick="generateResult('TEnounters_type')">Tipo de Encuentro</button>
@@ -342,18 +345,85 @@
 		<button class="button" onclick="generateResult('DiceYN')">Si/No</button>
 		<button class="clearButton" onclick="clearResult('DiceYN')">X</button>
 		<div id="DiceYNResult" class="result"></div> 
+		<button class="button" onclick="generateResult('generic_hunch')">Corazonada</button>
+		<button class="clearButton" onclick="clearResult('generic_hunch')">X</button>
+		<div id="generic_hunchResult" class="result"></div> 
+
+<button class="button" onclick="generateResult('generic_hunch')">Ciudad</button>
+		<button class="clearButton" onclick="clearResult('generic_hunch')">X</button>
+		<div id="generic_hunchResult" class="result"></div> 
+
+
 		<button class="button" onclick="generateResult('Dice1D6')">1D6 xx</button>
 		<button class="clearButton" onclick="clearResult('Dice1D6')">X</button>
 		<div id="Dice1D6Result" class="result"></div> 
 
-
-
-
-
     </td>
   </tr>
+
+
+  </tr>
+  <tr>
+    <td><i class="fa fa-users" aria-hidden="true"></i> Mapa</td>
+    <td> - </td>
+   <td> - </td>
+    <td>Ejemplo</td>
+  </tr>
+  <tr>
+    <td>
+			<button class="button button2" onclick="generateResult('Mapa-select')">Zona mapa</button>
+			<button class="clearButton" onclick="clearResult('Mapa-select')">X</button>
+			<div id="Mapa-selectResult" class="result"></div> 
+			<button class="button" onclick="generateResult('Mapa-1')">Mapa-1</button>
+			<button class="clearButton" onclick="clearResult('Mapa-1')">X</button>
+			<div id="Mapa-1Result" class="result"></div>
+			<button class="button" onclick="generateResult('Mapa-2')">Mapa-2</button>
+			<button class="clearButton" onclick="clearResult('Mapa-2')">X</button>
+			<div id="Mapa-2Result" class="result"></div>
+			<button class="button" onclick="generateResult('Mapa-3')">Mapa-3</button>
+			<button class="clearButton" onclick="clearResult('Mapa-3')">X</button>
+			<div id="Mapa-3Result" class="result"></div>
+			<button class="button" onclick="generateResult('Mapa-4')">Mapa-4</button>
+			<button class="clearButton" onclick="clearResult('Mapa-4')">X</button>
+			<div id="Mapa-4Result" class="result"></div>
+			<button class="button" onclick="generateResult('Mapa-5')">Mapa-5</button>
+			<button class="clearButton" onclick="clearResult('Mapa-5')">X</button>
+			<div id="Mapa-5Result" class="result"></div>
+			<button class="button" onclick="generateResult('Mapa-6')">Mapa-6</button>
+			<button class="clearButton" onclick="clearResult('Mapa-6')">X</button>
+			<div id="Mapa-6Result" class="result"></div>
+			<button class="button" onclick="generateResult('Mapa-7')">Mapa-7</button>
+			<button class="clearButton" onclick="clearResult('Mapa-7')">X</button>
+			<div id="Mapa-7Result" class="result"></div>
+			
+    </td>
+    <td>
+    -
+    </td>
+    <td>
+		- 
+    </td>
+    <td>
+     -
+    </td>
+  </tr>
+
 </table>
 
+<br>
+<h3>Ejemplo de jugada</h3>
+
+<div align="left">
+Me encuentro atravesando las <b>[Tierras de pastoreo]</b>, el clima está <b>[Nublado]</b>.  Todo está muy tranquilo pero <b>[Noto que algo no anda bien por aquí]</b>.<br>
+Va a pasar algo? <b>[Si]</b>. Voy asegurarme de tener todo lo necesario para continuar. Perdí algo? <b>[No, pero]</b>, Veo a alguien o me encuentro con alguien más? <b>[Si, y...]</b>. 
+A lo lejos puedo ver la figura de un <b>[Humano]</b> con aspecto de <b>[Mago]</b>, y puedo percibir que está <b>[Asustado]</b>.  <br>
+Es amenazante o parece tener intenciones de amenaza? <b>[No]</b>.<br>
+Luego de acercarme cuidadosamente y hablar con <b>[Vlesk]</b> comenta que la motivación de su temor es que le robaron su <b>[Tesoro]</b> con un método de <b>[Chantaje]</b> y el ladron desapareció entre los pueblerinos <b>[Escape]</b>. <br>
+<b>[Vlesk]</b> Comenta que fue una emboscada y debe <b>[Sobrevivir]</b> <b>[A una batalla]</b>. <br>
+Debería ayudarlo? <b>[Si, pero]</b> le pediré algo a cambio. <br>
+Le pido un tipo de objeto <b>[común]</b>, precisamente <b>[Sierra de mano]</b>.<br>
+Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b>, más precisamente en <b>[Northglen]</b>.
+</div>
 
 
 <script>
@@ -373,7 +443,7 @@
 							"3. Colinas",
 							"4. Montañas",
 							"5. Pantano",
-							"6. Tierra baldía"
+							"6. Desierto"
 							],
 						'newterrain': [
 							"Igual",
@@ -385,7 +455,7 @@
 							"3. Nublado",
 							"4. Nublado",
 							"5. Precipitación ligera",
-							"6. Precipitación intensa"
+							"6. Precipitación intensa",
 							],
 						'Discovery_type': [
 							"1. Natural",
@@ -793,8 +863,12 @@
 							],
 						'Type_item': [
 							"1. Común",
-							"2. Raro",
+							"2. Común",
 							"3. Efecto mágico",
+							"4. Efecto mágico",
+							"5. Raro",
+							"6. Raro",
+							"7. Común",							
 							],
 							'Common_item': [
 							"11. Vela",
@@ -834,7 +908,15 @@
 							"65. Pedernal y acero",
 							"66. Lupa"
 							],
-							'Uncommon_item': [
+				'food_item': [
+							"1. Nada!, estaba podrido.",
+							"2. carne de buey a punto de pudrirse (1 día)",
+							"3. Galletas y 1/2 botella de vino (1 día)",
+							"4. pata de pollo (1 día)",
+							"5. bolsa de frutos secos (2 días)",
+							"6. Carne seca (3 días)",
+							],
+				'Uncommon_item': [
 							"11. Orbe",
 							"12. Anillo",
 							"13. Alfombra",
@@ -916,37 +998,54 @@
 					    "3. Un campo de hongos",
 					    "4. Un hombre encerrado en una jaula",
 					    "5. Un pequeño campamento de cazadores",
-					    "6. Una mujer marcada por cicatrices"
+					    "6. Una mujer marcada por cicatrices",
 					    ],
 					'TEnounters_A': [
-					    "1. colgado con algo",
+					    "1. con frutos silvestres",
 					    "2. radiando luz o sonido",
 					    "3. se abre al acercarse",
+					    "4. con un profundo agujero en la base.",
+					    "5. con frutos de color naranja.",
+					    "6. que cambia de color al acercarse",
 					    ],
 					'TEnounters_B': [
 					    "1. irradia calma",
 					    "2. provoca sueño",
 					    "3. induce olvido",
+					    "4. provoca adrenalina.",
+					    "5. simula un posible futuro sercano.",
+					    "6. irradia paz y tranquilidad.",
 					    ],
 					'TEnounters_C': [
 					    "1. que son venenosos",
 					    "2. que sacian el hambre",
 					    "3. que otorgan fuerza",
+					    "4. de colores que parecen comestibles.",
+					    "5. De colores llamativos y alarmantes.",
+					    "6. Paracen ser alusinojenos.",
 					    ],
 					'TEnounters_D': [
 					    "1. que promete ayuda si se libera",
 					    "2. que promete tesoro si se libera",
 					    "3. que habla de venganza",
+					    "4. Que habla de un camino secreto.",
+					    "5. Que pide que lo rescaten.",
 					    ],
 					'TEnounters_E': [
 					    "1. te da la bienvenida",
 					    "2. se para y te amenaza",
 					    "3. te pide ayuda con un problema",
+					    "4. atacado y devastado recientemente.",
+					    "5. Vacio, con fuego recien apagado.",
+					    "6. Te ven llegar y tienen aspecto sospechoso.",
 					    ],
 					'TEnounters_F': [
-					    "1. ofrece intercambiar comida por un arma",
-					    "2. habla de un mago en una torre",
-					    "3. asa un monstruo sobre el fuego",
+					    "1. Ofrece intercambiar comida por un arma",
+					    "2. Habla de un mago en una torre",
+					    "3. Pide que la escolten hacia un lugar.",
+					    "4. Suplica ayuda para liberarla de una maldición.",
+					    "5. Busca desesperadamente un artefacto perdido.",
+					    "6. Ofrece el 40% del botin por asaltar un lugar.",
 					    ],
 			'DiceYN': [
             	"1. Si",
@@ -955,6 +1054,14 @@
             	"4. No.", 
             	"5. No, pero", 
             	"6. No, y", 
+            	],
+			'generic_hunch': [
+							"1. un escalofrío repentino recorre tu espina dorsal.",
+							"2. un presentimiento te advierte que algo no anda bien por aquí.",
+							"3. un cosquilleo en la nuca te hace estar en guardia.",
+							"4. una sensación de inquietud te dice que algo falta.",
+							"5. un repentino sentimiento de esperanza te reconforta.",
+							"6. una voz interior te guía hacia una dirección correcta.",   	
             	], 					    		
 			'Dice1D6': [
             	"[1]",
@@ -963,7 +1070,71 @@
             	"[4]", 
             	"[5]", 
             	"[6]", 
-            	],        
+            	],   
+					'Mapa-select': [    
+							'1. Mapa-1',
+							'2. Mapa-2',
+							'3. Mapa-3',
+							'4. Mapa-4',
+							'5. Mapa-5',
+							'6. Mapa-6',
+							'7. Mapa-7',
+							],            	 
+					'Mapa-1': [
+							'1. Ulendi',
+							'2. Rat harbor',
+							'3. Bridgewater',
+							'4. Bosque de southglen',
+							'5. Las llanuras',
+							'6. Torre de Xidlim',
+							],
+						'Mapa-2': [
+							'1. Aguja de Xargex',
+							'2. Pantano de felgrim',
+							'3. Eastshore',
+							'4. Paso de los goblins',
+							'5. Minas goblin',
+							'6. Ciudad irontree',
+							],
+						'Mapa-3': [
+							'1. Spraymere',
+							'2. Rime Pass',
+							'3. Mounthame',
+							'4. Praderas',
+							'5. Escuela de magia',
+							'6. Brideton',
+							],
+						'Mapa-4': [
+							'1. Stonefoot',
+							'2. Roca comadreja',
+							'3. Mina enana',
+							'4. Tierras grises',
+							'5. Torre de cobre',
+							'6. Cueva de la perdición',
+							],
+						'Mapa-5': [
+							'1. Prision digreness',
+							'2. Llanuras Hardscrabble',
+							'3. Deep woods',
+							'4. Northglen',
+							'5. Leafton',
+							'6. Wintersea',
+							],
+						'Mapa-6': [
+							'1. Fosas pestilentes',
+							'2. Pantanos de cataract',
+							'3. Knollton',
+							'4. Dirt Sea',
+							'5. Scabville',
+							'6. Qa Zho',
+							],
+						'Mapa-7': [
+							'1. Pantano salado',
+							'2. Bosque tropical',
+							'3. Puerto Bazaar',
+							'4. Isla Kong',
+							],           
+
 			'template': [
             	"1. ",
             	"2. ",      
