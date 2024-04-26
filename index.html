@@ -26,6 +26,12 @@
     .button2 {
         background-color: #FFA500;
     }
+    .inputs {
+        color: black;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
     .clearButton {
         background-color: red;
         color: white;
@@ -33,13 +39,20 @@
         border-radius: 5px;
         cursor: pointer;
     }
-    .result {
+  .result {
         width: 100%;
         margin: 1px auto;
         background-color: #f0f0f0;
-        border: 0px solid #ccc;
         border-radius: 5px;
     }
+  .inputNumber {
+  		width: 10%;
+  		text-align: center;
+      border-radius: 3px;	
+  }
+  input {
+    width: 90%;
+  }	
 	table {
 	  border-collapse: collapse;
 	  width: 100%;
@@ -53,184 +66,238 @@
 
 	tr:nth-child(even) {
 	  background-color: #dddddd;
-	}       
+	}     
+  #historial {
+        text-align: left;
+        margin-top: 20px;
+        max-height: 200px; 			/* Altura máxima del historial */
+        overflow-y: auto; 			/* Activar scroll vertical si el contenido excede la altura */
+        border: 1px solid #ccc; /* Borde para el contenedor */
+        padding: 5px; 					/* Espaciado interno */
+    }	
+    /* Estilos para el pop-up */
+    #popup {
+        display: none; /* Inicialmente oculto */
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        z-index: 9999; /* Asegura que el pop-up esté por encima de otros elementos */
+    }
+    #popupText {
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+    #closeButton {
+        background-color: #ddd;
+        border: none;
+        color: #333;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-top: 10px;
+        cursor: pointer;
+        border-radius: 3px;
+    }
+    #closeButton:hover {
+        background-color: #ccc;
+    }
 </style>
 </head>
 <body>
-<h1> RPG Oracle </h1>
+<h2> RPG Oracle </h2>
 
 <table>
   <tr>
-    <th><i class="fa fa-cloud" aria-hidden="true"></i> Environment</th>
-    <th><i class="fa fa-eye" aria-hidden="true"></i> Discoveries</th>
-    <th><i class="fa fa-paw" aria-hidden="true"></i> Dangers</th>
-    <th><i class="fa fa-tree" aria-hidden="true"></i>Encounter in Terrain</th>  
+    <th><i class="fa fa-cloud" aria-hidden="true"></i> Entorno</th>
+    <th><i class="fa fa-eye" aria-hidden="true"></i> Descubrimientos</th>
+    <th><i class="fa fa-paw" aria-hidden="true"></i> Peligros</th>
+    <th><i class="fa fa-tree" aria-hidden="true"></i> Encuentros en Terreno</th>  
   </tr>
   <tr>
     <td>
 	    <div class="Terrain">
-	        <button class="button" onclick="generateResult('terrain')" title="randomize a terrain map" >Terrain</button>
+	        <button class="button" onclick="generateResult('terrain')" title="aleatorizar un mapa de terreno" >Terreno</button>
 	        <button class="clearButton" onclick="clearResult('terrain')">X</button>
 	        <div id="terrainResult" class="result"></div> 
 	    </div>
 	    <div class="NewTerrain">
-	        <button class="button" onclick="generateResult('newterrain')" title="to randomize nextone adjacent terrain" >New Terrain</button>
+	        <button class="button" onclick="generateResult('newterrain')" title="aleatorizar el terreno adyacente siguiente" >Nuevo Terreno</button>
 	        <button class="clearButton" onclick="clearResult('newterrain')">X</button>
 	        <div id="newterrainResult" class="result"></div>
 	    </div>  
 	    <div class="Weather">
-	        <button class="button" onclick="generateResult('Weather')" title="climate for next turn">Weather</button>
+	        <button class="button" onclick="generateResult('Weather')" title="clima para el próximo turno">Clima</button>
 	        <button class="clearButton" onclick="clearResult('Weather')">X</button>
 	        <div id="WeatherResult" class="result"></div>
 	    </div> 
 	    <div class="exploration">
-	        <button class="button" onclick="generateResult('exploration')" title="when you travel or cross a sector of the map">Exploration</button>
+	        <button class="button" onclick="generateResult('exploration')" title="cuando viajas o cruzas un sector del mapa">Exploración</button>
 	        <button class="clearButton" onclick="clearResult('exploration')">X</button>
 	        <div id="explorationResult" class="result"></div>
 	    </div> 	    
     </td>
     <td>
-    	<button class="button button2" onclick="generateResult('Discovery_type')">Discover type</button>
+    	<button class="button button2" onclick="generateResult('Discovery_type')">Tipo de Descubrimiento</button>
 		<button class="clearButton" onclick="clearResult('Discovery_type')">X</button>
 		<div id="Discovery_typeResult" class="result"></div>
-		<button class="button" onclick="generateResult('Discovery_Ruin')">Ruin</button>
+		<button class="button" onclick="generateResult('Discovery_Ruin')">Ruina</button>
 		<button class="clearButton" onclick="clearResult('Discovery_Ruin')">X</button>
 		<div id="Discovery_RuinResult" class="result"></div>
-		<button class="button" onclick="generateResult('Discovery_Unnatural')">Unnatural</button>
+		<button class="button" onclick="generateResult('Discovery_Unnatural')">Antinatural</button>
 		<button class="clearButton" onclick="clearResult('Discovery_Unnatural')">X</button>
 		<div id="Discovery_UnnaturalResult" class="result"></div>
 		<button class="button" onclick="generateResult('Discovery_Natural')">Natural</button>
 		<button class="clearButton" onclick="clearResult('Discovery_Natural')">X</button>
 		<div id="Discovery_NaturalResult" class="result"></div>
-		<button class="button" onclick="generateResult('Discovery_Settlement')">Settlement</button>
+		<button class="button" onclick="generateResult('Discovery_Settlement')">Asentamiento</button>
 		<button class="clearButton" onclick="clearResult('Discovery_Settlement')">X</button>
 		<div id="Discovery_SettlementResult" class="result"></div>
-		<button class="button" onclick="generateResult('Discovery_Evidence')">Evidence</button>
+		<button class="button" onclick="generateResult('Discovery_Evidence')">Evidencia</button>
 		<button class="clearButton" onclick="clearResult('Discovery_Evidence')">X</button>
 		<div id="Discovery_EvidenceResult" class="result"></div>		
-		<button class="button" onclick="generateResult('Discovery_Passive')">Passive</button>
+		<button class="button" onclick="generateResult('Discovery_Passive')">Pasivo</button>
 		<button class="clearButton" onclick="clearResult('Discovery_Passive')">X</button>
 		<div id="Discovery_PassiveResult" class="result"></div>	
     </td>
     <td>
-    	<button class="button button2" onclick="generateResult('Danger_type')">Danger type</button>
+    	<button class="button button2" onclick="generateResult('Danger_type')">Tipo de Peligro</button>
 		<button class="clearButton" onclick="clearResult('Danger_type')">X</button>
 		<div id="Danger_typeResult" class="result"></div>
-		<button class="button" onclick="generateResult('Danger_Unnatural')">Unnatural</button>
+		<button class="button" onclick="generateResult('Danger_Natural')">Natural</button>
+		<button class="clearButton" onclick="clearResult('Danger_Natural')">X</button>
+		<div id="Danger_NaturalResult" class="result"></div>
+		<button class="button" onclick="generateResult('Danger_Unnatural')">Antinatural</button>
 		<button class="clearButton" onclick="clearResult('Danger_Unnatural')">X</button>
 		<div id="Danger_UnnaturalResult" class="result"></div>
-		<button class="button" onclick="generateResult('Danger_Hazard')">Hazard</button>
+		<button class="button" onclick="generateResult('Danger_Hazard')">Peligro</button>
 		<button class="clearButton" onclick="clearResult('Danger_Hazard')">X</button>
 		<div id="Danger_HazardResult" class="result"></div>
     </td>
 	<td>
-		<button class="button" onclick="generateResult('EbT_Grasslands')">Grasslands</button>
+		<button class="button button2" onclick="generateResult('Terrain_type')">Tipo de Terreno</button>
+		<button class="clearButton" onclick="clearResult('Terrain_type')">X</button>
+		<div id="Terrain_typeResult" class="result"></div>
+		<button class="button" onclick="generateResult('EbT_Grasslands')">Praderas</button>
 		<button class="clearButton" onclick="clearResult('EbT_Grasslands')">X</button>
 		<div id="EbT_GrasslandsResult" class="result"></div>
-		<button class="button" onclick="generateResult('EbT_Woods')">Woods</button>
+		<button class="button" onclick="generateResult('EbT_Woods')">Bosques</button>
 		<button class="clearButton" onclick="clearResult('EbT_Woods')">X</button>
 		<div id="EbT_WoodsResult" class="result"></div>
-		<button class="button" onclick="generateResult('EbT_Hills')">Hills</button>
+		<button class="button" onclick="generateResult('EbT_Hills')">Colinas</button>
 		<button class="clearButton" onclick="clearResult('EbT_Hills')">X</button>
 		<div id="EbT_HillsResult" class="result"></div>
-		<button class="button" onclick="generateResult('EbT_Mountains')">Mountains</button>
+		<button class="button" onclick="generateResult('EbT_Mountains')">Montañas</button>
 		<button class="clearButton" onclick="clearResult('EbT_Mountains')">X</button>
 		<div id="EbT_MountainsResult" class="result"></div>
-		<button class="button" onclick="generateResult('EbT_Swamps')">Swamps</button>
+		<button class="button" onclick="generateResult('EbT_Swamps')">Pantanos</button>
 		<button class="clearButton" onclick="clearResult('EbT_Swamps')">X</button>
 		<div id="EbT_SwampsResult" class="result"></div>	
-		<button class="button" onclick="generateResult('EbT_Wastelands')">Wastelands</button>
+		<button class="button" onclick="generateResult('EbT_Wastelands')">Tierras Baldías</button>
 		<button class="clearButton" onclick="clearResult('EbT_Wastelands')">X</button>
 		<div id="EbT_WastelandsResult" class="result"></div>
 	</td> 
-
-<!-- RENGLON 02 -->
   </tr>
+<!-- RENGLON 02 -->
   <tr>
-    <td><i class="fa fa-bug" aria-hidden="true"></i> Encounter with ...</td>
-    <td><i class="fa fa-home" aria-hidden="true"></i> Settlements | <i class="fa fa-book" aria-hidden="true"></i> Descriptions</td>
-    <td><i class="fa fa-archive" aria-hidden="true"></i> Items | <i class="fa fa-magic" aria-hidden="true"></i> Magic Effects</td>
-    <td><i class="fa fa-map" aria-hidden="true"></i></i> Traveling Enounters</td>
+    <td><i class="fa fa-bug" aria-hidden="true"></i> Encuentro con ...</td>
+    <td><i class="fa fa-home" aria-hidden="true"></i> Asentamientos | <i class="fa fa-book" aria-hidden="true"></i> Descripciones</td>
+    <td><i class="fa fa-archive" aria-hidden="true"></i> Objetos | <i class="fa fa-magic" aria-hidden="true"></i> Efectos Mágicos</td>
+    <td><i class="fa fa-map" aria-hidden="true"></i> Encuentros de Viaje</td>
   </tr>
   <tr>
     <td>
-		<button class="button" onclick="generateResult('Ewith_Human')">Human</button>
+		<button class="button" onclick="generateResult('Ewith_Human')">Humano</button>
 		<button class="clearButton" onclick="clearResult('Ewith_Human')">X</button>
 		<div id="Ewith_HumanResult" class="result"></div>
 		<button class="button" onclick="generateResult('Ewith_Animal')">Animal</button>
 		<button class="clearButton" onclick="clearResult('Ewith_Animal')">X</button>
 		<div id="Ewith_AnimalResult" class="result"></div>
-		<button class="button" onclick="generateResult('Ewith_Humanoid')">Humanoid</button>
+		<button class="button" onclick="generateResult('Ewith_Humanoid')">Humanoide</button>
 		<button class="clearButton" onclick="clearResult('Ewith_Humanoid')">X</button>
 		<div id="Ewith_HumanoidResult" class="result"></div>
-		<button class="button" onclick="generateResult('Ewith_Smonster')">Small Monster</button>
+		<button class="button" onclick="generateResult('Ewith_Smonster')">Monstruo Pequeño</button>
 		<button class="clearButton" onclick="clearResult('Ewith_Smonster')">X</button>
 		<div id="Ewith_SmonsterResult" class="result"></div>
-		<button class="button" onclick="generateResult('Ewith_Bmonster')">Big Monster</button>
+		<button class="button" onclick="generateResult('Ewith_Bmonster')">Monstruo Grande</button>
 		<button class="clearButton" onclick="clearResult('Ewith_Bmonster')">X</button>
 		<div id="Ewith_BmonsterResult" class="result"></div>
-		<button class="button" onclick="generateResult('Ewith_Unnatural')">Unnatural</button>
+		<button class="button" onclick="generateResult('Ewith_Unnatural')">Antinatural</button>
 		<button class="clearButton" onclick="clearResult('Ewith_Unnatural')">X</button>
 		<div id="Ewith_UnnaturalResult" class="result"></div>
     </td>
     <td>
-		<button class="button" onclick="generateResult('Settlements_Quality')">Quality</button>
+		<button class="button" onclick="generateResult('Settlements_Quality')">Calidad</button>
 		<button class="clearButton" onclick="clearResult('Settlements_Quality')">X</button>
 		<div id="Settlements_QualityResult" class="result"></div>
-		<button class="button" onclick="generateResult('Settlements_Available')">Available</button>
+		<button class="button" onclick="generateResult('Settlements_Available')">Disponible</button>
 		<button class="clearButton" onclick="clearResult('Settlements_Available')">X</button>
 		<div id="Settlements_AvailableResult" class="result"></div>
-		<button class="button" onclick="generateResult('Settlements_Concerns')">Concerns</button>
+		<button class="button" onclick="generateResult('Settlements_Concerns')">Preocupaciones</button>
 		<button class="clearButton" onclick="clearResult('Settlements_Concerns')">X</button>
 		<div id="Settlements_ConcernsResult" class="result"></div>
 
-		<button class="button" onclick="generateResult('Descriptions_A')">Descriptions_A</button>
+		<button class="button" onclick="generateResult('Descriptions_A')">Descripciones_A</button>
 		<button class="clearButton" onclick="clearResult('Descriptions_A')">X</button>
 		<div id="Descriptions_AResult" class="result"></div>
-		<button class="button" onclick="generateResult('Descriptions_B')">Descriptions_B</button>
+		<button class="button" onclick="generateResult('Descriptions_B')">Descripciones_B</button>
 		<button class="clearButton" onclick="clearResult('Descriptions_B')">X</button>
 		<div id="Descriptions_BResult" class="result"></div>
-		<button class="button" onclick="generateResult('Descriptions_C')">Descriptions_C</button>
+		<button class="button" onclick="generateResult('Descriptions_C')">Descripciones_C</button>
 		<button class="clearButton" onclick="clearResult('Descriptions_C')">X</button>
 		<div id="Descriptions_CResult" class="result"></div>
 
     </td>
     <td>
-		<button class="button" onclick="generateResult('Common_item')">Common Item</button>
+    <button class="button button2" onclick="generateResult('Type_item')"> Objeto Tipo</button>
+		<button class="clearButton" onclick="clearResult('Type_item')">X</button>
+		<div id="Type_itemResult" class="result"></div>	
+		<button class="button" onclick="generateResult('Common_item')"> Común</button>
 		<button class="clearButton" onclick="clearResult('Common_item')">X</button>
 		<div id="Common_itemResult" class="result"></div>
-		<button class="button" onclick="generateResult('Uncommon_item')">Uncommon Item</button>
+		<button class="button" onclick="generateResult('Uncommon_item')">Raro</button>
 		<button class="clearButton" onclick="clearResult('Uncommon_item')">X</button>
 		<div id="Uncommon_itemResult" class="result"></div>
-		<button class="button" onclick="generateResult('magic_effect')">Magic Effect</button>
+		<button class="button" onclick="generateResult('magic_effect')">Efecto Mágico</button>
 		<button class="clearButton" onclick="clearResult('magic_effect')">X</button>
 		<div id="magic_effectResult" class="result"></div>
+		<button class="button" onclick="generateResult('food_item')">Comida</button>
+		<button class="clearButton" onclick="clearResult('food_item')">X</button>
+		<div id="food_itemResult" class="result"></div>
     </td>
     <td>
-    	<button class="button button2" onclick="generateResult('TEnounters_type')">Traveling Enounters Type</button>
+    	<button class="button button2" onclick="generateResult('TEnounters_type')">Tipo de Encuentro</button>
 		<button class="clearButton" onclick="clearResult('TEnounters_type')">X</button>
 		<div id="TEnounters_typeResult" class="result"></div>
-		<button class="button" onclick="generateResult('TEnounters_A')">A large tree</button>
+		<button class="button" onclick="generateResult('TEnounters_A')">Un árbol grande</button>
 		<button class="clearButton" onclick="clearResult('TEnounters_A')">X</button>
 		<div id="TEnounters_AResult" class="result"></div>
 
-		<button class="button" onclick="generateResult('TEnounters_B')">A mystical glade</button>
+		<button class="button" onclick="generateResult('TEnounters_B')">Un claro místico</button>
 		<button class="clearButton" onclick="clearResult('TEnounters_B')">X</button>
 		<div id="TEnounters_BResult" class="result"></div>
 
-		<button class="button" onclick="generateResult('TEnounters_C')">A field of mushrooms</button>
+		<button class="button" onclick="generateResult('TEnounters_C')">Un campo de hongos</button>
 		<button class="clearButton" onclick="clearResult('TEnounters_C')">X</button>
 		<div id="TEnounters_CResult" class="result"></div>
 
-		<button class="button" onclick="generateResult('TEnounters_D')">A man locked in a cage</button>
+		<button class="button" onclick="generateResult('TEnounters_D')">Un hombre encerrado en una jaula</button>
 		<button class="clearButton" onclick="clearResult('TEnounters_D')">X</button>
 		<div id="TEnounters_DResult" class="result"></div>
 
-		<button class="button" onclick="generateResult('TEnounters_E')">A small camp of hunters</button>
+		<button class="button" onclick="generateResult('TEnounters_E')">Un pequeño campamento de cazadores</button>
 		<button class="clearButton" onclick="clearResult('TEnounters_E')">X</button>
 		<div id="TEnounters_EResult" class="result"></div>
 
-		<button class="button" onclick="generateResult('TEnounters_F')">A scarred woman</button>
+		<button class="button" onclick="generateResult('TEnounters_F')">Una mujer marcada</button>
 		<button class="clearButton" onclick="clearResult('TEnounters_F')">X</button>
 		<div id="TEnounters_FResult" class="result"></div>
 
@@ -243,705 +310,958 @@
 
   </tr>
   <tr>
-    <td><i class="fa fa-users" aria-hidden="true"></i> Characters 1/2</td>
-    <td><i class="fa fa-users" aria-hidden="true"></i> Characters 2/2</td>
-    <td><i class="fa fa-list" aria-hidden="true"></i> Quest</td>
-    <td><i class="fa fa-refresh" aria-hidden="true"></i> Roll a dice</td>
+    <td><i class="fa fa-users" aria-hidden="true"></i> Personajes 1/2</td>
+    <td><i class="fa fa-users" aria-hidden="true"></i> Personajes 2/2</td>
+    <td><i class="fa fa-list" aria-hidden="true"></i> Misión</td>
+    <td><i class="fa fa-refresh" aria-hidden="true"></i> Generico</td>
   </tr>
   <tr>
     <td>
-		<button class="button button2" onclick="generateResult('Character_Traits')">Traits type</button>
+		<button class="button button2" onclick="generateResult('Character_Traits')">Tipo de Rasgos</button>
 		<button class="clearButton" onclick="clearResult('Character_Traits')">X</button>
 		<div id="Character_TraitsResult" class="result"></div>
-		<button class="button" onclick="generateResult('Character_Race')">Race</button>
+		<button class="button" onclick="generateResult('Character_Race')">Raza</button>
 		<button class="clearButton" onclick="clearResult('Character_Race')">X</button>
 		<div id="Character_RaceResult" class="result"></div>
-		<button class="button" onclick="generateResult('Character_Type')">Type</button>
+		<button class="button" onclick="generateResult('Character_Type')">Tipo</button>
 		<button class="clearButton" onclick="clearResult('Character_Type')">X</button>
 		<div id="Character_TypeResult" class="result"></div>
-		<button class="button" onclick="generateResult('Character_Financial')">Financial</button>
+		<button class="button" onclick="generateResult('Character_Financial')">Financiero</button>
 		<button class="clearButton" onclick="clearResult('Character_Financial')">X</button>
 		<div id="Character_FinancialResult" class="result"></div>
-		<button class="button" onclick="generateResult('Character_Traits_A')">Traits A</button>
+		<button class="button" onclick="generateResult('Character_Traits_A')">Rasgos A</button>
 		<button class="clearButton" onclick="clearResult('Character_Traits_A')">X</button>
 		<div id="Character_Traits_AResult" class="result"></div>
-		<button class="button" onclick="generateResult('Character_Traits_B')">Traits B</button>
+		<button class="button" onclick="generateResult('Character_Traits_B')">Rasgos B</button>
 		<button class="clearButton" onclick="clearResult('Character_Traits_B')">X</button>
 		<div id="Character_Traits_BResult" class="result"></div>
-		<button class="button" onclick="generateResult('Character_Traits_C')">Traits C</button>
+		<button class="button" onclick="generateResult('Character_Traits_C')">Rasgos C</button>
 		<button class="clearButton" onclick="clearResult('Character_Traits_C')">X</button>
 		<div id="Character_Traits_CResult" class="result"></div>
     </td>
     <td>
-    	<button class="button" onclick="generateResult('Character_Motivation')">Motivation</button>
+    	<button class="button" onclick="generateResult('Character_Motivation')">Motivación</button>
 		<button class="clearButton" onclick="clearResult('Character_Motivation')">X</button>
 		<div id="Character_MotivationResult" class="result"></div>
-		<button class="button" onclick="generateResult('Character_Interests')">Interests</button>
+		<button class="button" onclick="generateResult('Character_Interests')">Intereses</button>
 		<button class="clearButton" onclick="clearResult('Character_Interests')">X</button>
 		<div id="Character_InterestsResult" class="result"></div>
-		<button class="button" onclick="generateResult('Character_Methods')">Methods</button>
+		<button class="button" onclick="generateResult('Character_Methods')">Métodos</button>
 		<button class="clearButton" onclick="clearResult('Character_Methods')">X</button>
 		<div id="Character_MethodsResult" class="result"></div>
-    	<button class="button" onclick="generateResult('Character_Fname')">Female Names</button>
+    	<button class="button" onclick="generateResult('Character_Fname')">Nombres Femeninos</button>
 		<button class="clearButton" onclick="clearResult('Character_Fname')">X</button>
 		<div id="Character_FnameResult" class="result"></div>
-		<button class="button" onclick="generateResult('Character_Mname')">Male Names</button>
+		<button class="button" onclick="generateResult('Character_Mname')">Nombres Masculinos</button>
 		<button class="clearButton" onclick="clearResult('Character_Mname')">X</button>
 		<div id="Character_MnameResult" class="result"></div>  		
-		<button class="button" onclick="generateResult('Character_Settlements_Suffix')">Settlements Suffix</button>
+		<!--
+		<button class="button" onclick="generateResult('Character_Settlements_Suffix')">Sufijo de Asentamiento</button>
 		<button class="clearButton" onclick="clearResult('Character_Settlements_Suffix')">X</button>
 		<div id="Character_Settlements_SuffixResult" class="result"></div>
-		<button class="button" onclick="generateResult('Character_Settlements_Prefix')">Settlements Prefix</button>
+		<button class="button" onclick="generateResult('Character_Settlements_Prefix')">Prefijo de Asentamiento</button>
 		<button class="clearButton" onclick="clearResult('Character_Settlements_Prefix')">X</button>
 		<div id="Character_Settlements_PrefixResult" class="result"></div> 	
+		-->
     </td>
     <td>
-		<button class="button button2" onclick="generateResult('Quest_type')">Quest type</button>
+		<button class="button button2" onclick="generateResult('Quest_type')">Tipo de Misión</button>
 		<button class="clearButton" onclick="clearResult('Quest_type')">X</button>
 		<div id="Quest_typeResult" class="result"></div>   
-		<button class="button" onclick="generateResult('Quest_akd')">Attack, Kill, Destroy</button>
+		<button class="button" onclick="generateResult('Quest_akd')">Atacar, Matar, Destruir</button>
 		<button class="clearButton" onclick="clearResult('Quest_akd')">X</button>
 		<div id="Quest_akdResult" class="result"></div> 
-		<button class="button" onclick="generateResult('Quest_fr')">Find, Recove</button>
+		<button class="button" onclick="generateResult('Quest_fr')">Encontrar, Recuperar</button>
 		<button class="clearButton" onclick="clearResult('Quest_fr')">X</button>
 		<div id="Quest_frResult" class="result"></div> 
-		<button class="button" onclick="generateResult('Quest_sc')">Steal, Capture</button>
+		<button class="button" onclick="generateResult('Quest_sc')">Robar, Capturar</button>
 		<button class="clearButton" onclick="clearResult('Quest_sc')">X</button>
 		<div id="Quest_scResult" class="result"></div> 
-		<button class="button" onclick="generateResult('Quest_dr')">Deliver</button>
+		<button class="button" onclick="generateResult('Quest_dr')">Entregar</button>
 		<button class="clearButton" onclick="clearResult('Quest_dr')">X</button>
 		<div id="Quest_drResult" class="result"></div> 
-		<button class="button" onclick="generateResult('Quest_ed')">Explore, Discover</button>
+		<button class="button" onclick="generateResult('Quest_ed')">Explorar, Descubrir</button>
 		<button class="clearButton" onclick="clearResult('Quest_ed')">X</button>
 		<div id="Quest_edResult" class="result"></div> 
-		<button class="button" onclick="generateResult('Quest_se')">Survive, Escape</button>
+		<button class="button" onclick="generateResult('Quest_se')">Sobrevivir, Escapar</button>
 		<button class="clearButton" onclick="clearResult('Quest_se')">X</button>
 		<div id="Quest_seResult" class="result"></div> 
+		<!--
+		<button class="button" onclick="generateResult('Quest_f')">Fama, Prestigio</button>
+		<button class="clearButton" onclick="clearResult('Quest_f')">X</button>
+		<div id="Quest_fResult" class="result"></div> 
+		<button class="button" onclick="generateResult('Quest_r')">Riquezas</button>
+		<button class="clearButton" onclick="clearResult('Quest_r')">X</button>
+		<div id="Quest_rResult" class="result"></div> 
+		<button class="button" onclick="generateResult('Quest_k')">Conocimiento</button>
+		<button class="clearButton" onclick="clearResult('Quest_k')">X</button>
+		<div id="Quest_kResult" class="result"></div> 
+		-->
     </td>
-    <td> 
-        dice
+    <td>
+		<button class="button" onclick="generateResult('DiceYN')">Si/No</button>
+		<button class="clearButton" onclick="clearResult('DiceYN')">X</button>
+		<div id="DiceYNResult" class="result"></div> 
+		<button class="button" onclick="generateResult('FirstOrSecond')">uno u otro</button>
+		<button class="clearButton" onclick="clearResult('FirstOrSecond')">X</button>
+		<div id="FirstOrSecondResult" class="result"></div> 
+		<button class="button" onclick="generateResult('generic_hunch')">Corazonada</button>
+		<button class="clearButton" onclick="clearResult('generic_hunch')">X</button>
+		<div id="generic_hunchResult" class="result"></div> 
+		<button class="button" onclick="generateResult('Dice1D6')"> <i class="fa-solid fa-dice-five"></i> 1D6</button>
+		<button class="clearButton" onclick="clearResult('Dice1D6')">X</button>
+		<div id="Dice1D6Result" class="result"></div> 
+		<button class="button" onclick="generateResult('Dice1D8')"> <i class="fa-solid fa-dice-five"></i> 1D8</button>
+		<button class="clearButton" onclick="clearResult('Dice1D8')">X</button>
+		<div id="Dice1D8Result" class="result"></div> 
     </td>
   </tr>
 
 
-<!-- RENGLON 04 -->  
-<!--
   </tr>
   <tr>
-    <td> Title 01</td>
-    <td> Title 02</td>
-    <td> Title 03</td>
-    <td> Title 04</td>
+    <td><i class="fa fa-users" aria-hidden="true"></i> Mapa</td>
+    <td>Personaje	</td>
+   <td>Paso del tiempo</td>
+    <td>Inventario & Notas</td>
   </tr>
   <tr>
     <td>
-		<button class="button" onclick="generateResult('demo_button_01')">button 01</button>
-		<button class="clearButton" onclick="clearResult('demo_button_01')">X</button>
-		<div id="demo_button_01Result" class="result"></div> 
+			<button class="button button2" onclick="generateResult('Mapa-select')">Zona mapa</button>
+			<button class="clearButton" onclick="clearResult('Mapa-select')">X</button>
+			<div id="Mapa-selectResult" class="result"></div> 
+			<button class="button" onclick="generateResult('Mapa-1')">Mapa-1</button>
+			<button class="clearButton" onclick="clearResult('Mapa-1')">X</button>
+			<div id="Mapa-1Result" class="result"></div>
+			<button class="button" onclick="generateResult('Mapa-2')">Mapa-2</button>
+			<button class="clearButton" onclick="clearResult('Mapa-2')">X</button>
+			<div id="Mapa-2Result" class="result"></div>
+			<button class="button" onclick="generateResult('Mapa-3')">Mapa-3</button>
+			<button class="clearButton" onclick="clearResult('Mapa-3')">X</button>
+			<div id="Mapa-3Result" class="result"></div>
+			<button class="button" onclick="generateResult('Mapa-4')">Mapa-4</button>
+			<button class="clearButton" onclick="clearResult('Mapa-4')">X</button>
+			<div id="Mapa-4Result" class="result"></div>
+			<button class="button" onclick="generateResult('Mapa-5')">Mapa-5</button>
+			<button class="clearButton" onclick="clearResult('Mapa-5')">X</button>
+			<div id="Mapa-5Result" class="result"></div>
+			<button class="button" onclick="generateResult('Mapa-6')">Mapa-6</button>
+			<button class="clearButton" onclick="clearResult('Mapa-6')">X</button>
+			<div id="Mapa-6Result" class="result"></div>																																									
+			<button class="button" onclick="generateResult('Mapa-7')" id="Mapa-7" >Mapa-7</button>
+			<button class="clearButton" onclick="clearResult('Mapa-7')">X</button>
+			<div id="Mapa-7Result" class="result"></div>
+			
+			<button class="button button2" onclick="generateResult('Mapa-select', this)">Zona mapa</button>
+      <button class="clearButton" onclick="clearResult('Mapa-select')">X</button>
+      <div id="MapaSelectResult" class="result"></div> 
+			
     </td>
     <td>
-		<button class="button" onclick="generateResult('demo_button_01')">button 01</button>
-		<button class="clearButton" onclick="clearResult('demo_button_01')">X</button>
-		<div id="demo_button_01Result" class="result"></div> 
+			Salud:   <input type="number"  class="inputStats inputNumber" min="0" max="6"><br>
+			Fuerza: <input type="number"  class="inputStats inputNumber" min="0" max="6"><br>
+			Contador 1: <input type="number"  class="inputStats inputNumber"><br>
+			Contador 2: <input type="number"  class="inputStats inputNumber"><br>
+			Contador 3: <input type="number"  class="inputStats inputNumber"><br>
+			Contador 4: <input type="number"  class="inputStats inputNumber"><br>
+			Contador 5: <input type="number"  class="inputStats inputNumber"><br>
+			Contador 6: <input type="number"  class="inputStats inputNumber"><br>
+
     </td>
     <td>
-		<button class="button" onclick="generateResult('demo_button_01')">button 01</button>
-		<button class="clearButton" onclick="clearResult('demo_button_01')">X</button>
-		<div id="demo_button_01Result" class="result"></div> 
+		    Dias:   	<input type="number"  class="inputNumber" min="0" max="7"> <br>
+		    Semanas: 	<input type="number" class="inputNumber" min="0" max="4"> <br>
+		    Meses: 		<input type="number" class="inputNumber" min="0" max="12"> <br>
+		    Años: 		<input type="number" class="inputNumber" min="0" max="100"> <br>
+				Comida: 	<input type="number" class="inputNumber" min="0" max="31"> (raciones)<br>
+				Dinero: 	<input type="number" class="inputNumber" min="0" max="999999"> (monedas)
     </td>
     <td>
-		<button class="button" onclick="generateResult('demo_button_01')">button 01</button>
-		<button class="clearButton" onclick="clearResult('demo_button_01')">X</button>
-		<div id="demo_button_01Result" class="result"></div> 
+    <input type="text" class="inputs " ><br>
+    <input type="text" class="inputs"><br>
+    <input type="text" class="inputs"><br>
+    <input type="text" class="inputs"><br>
+    <input type="text" class="inputs"><br>
+    <input type="text" class="inputs"><br>
+    <input type="text" class="inputs"><br>
     </td>
   </tr>
--->
-
-
-
 </table>
+
+<h3>Historial de Eventos:</h3>
+
+<!-- hISTORIAL -->
+<div id="historial">
+  <ul id="eventList"></ul>
+</div>
+
+<!-- POP-UP -->
+<div id="popup">
+    <span id="popupText">
+    	<div align="left">
+			Te encuentras atravesando las <b><button class="button">Terreno</button> [Tierras de pastoreo]</b>, el clima está <b><button class="button">Clima</button>[Nublado]</b>.  Todo está muy tranquilo pero <b><button class="button">Corazonada</button>[Noto que algo no anda bien por aquí]</b>.<br>
+			Va a pasar algo? <b><button class="button">Si/No</button>[Si]</b>. Voy asegurarme de tener todo lo necesario para continuar. Perdí algo? <b><button class="button">Si/No</button>[No, pero]</b>, veo a alguien o me encuentro con alguien más? <b><button class="button">Si/No</button>[Si, y...]</b>. 
+			A lo lejos puedo ver la figura de un <b><button class="button">Raza</button>[Humano]</b> con aspecto de <b>[Mago]</b>, y puedo percibir que está <b>[Asustado]</b>.  <br>
+			Es amenazante o parece tener intenciones de amenaza? <b>[No]</b>.<br>
+			Luego de acercarme cuidadosamente y hablar con <b>[Vlesk]</b> comenta que la motivación de su temor es que le robaron su <b>[Tesoro]</b> con un método de <b>[Chantaje]</b> y el ladron desapareció entre los pueblerinos <b>[Escape]</b>. <br>
+			<b>[Vlesk]</b> Comenta que fue una emboscada y debe <b>[Sobrevivir]</b> <b>[A una batalla]</b>. <br>
+			Debería ayudarlo? <b>[Si, pero]</b> le pediré algo a cambio. <br>
+			Le pido un tipo de objeto <b>[común]</b>, precisamente <b>[Sierra de mano]</b>.<br>
+			Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b>, más precisamente en <b>[Northglen]</b>.
+		</div>
+		<button id="closeButton" onclick="togglePopup()">Cerrar</button>
+    </span>
+</div>
+
+<button id="closeButton" onclick="exportHistory()">Exportar Historial</button> <button id="closeButton" onclick="togglePopup()">Ejemplo de jugada</button>
 
 
 
 
 <script>
+
+
+/*
+ // Función para generar números aleatorios del 1 al 6
+    function generarAleatorio() {
+      return Math.floor(Math.random() * 6) + 1;
+    }
+    // Obtener los inputs y el botón
+    const inputs = document.querySelectorAll('.inputStats');
+    const botonGenerar = document.getElementById('GeninputStats');
+
+    // Agregar evento de clic al botón
+    botonGenerar.addEventListener('click', function() {
+      // Asignar números aleatorios a los inputs
+      inputs.forEach(function(input) {
+        input.value = generarAleatorio();
+      });
+    });
+*/
+
     function generateResult(type) {
         const results = {
-            'exploration': [
-                "1. Nothing",
-                "2. Nothing",
-                "3. Nothing",
-                "4. Omen",
-                "5. Discovery",
-                "6. Danger"
-            ],        	
-            'terrain': [
-                "1. Grasslands",
-                "2. Woods",
-                "3. Hills",
-                "4. Mountains",
-                "5. Swamp",
-                "6. Wasteland"
-            ],
-            'newterrain': [
-            	"Same", 
-            	"New"
+					'exploration': [
+                "1. Nada",
+                "2. Nada",
+                "3. Rumor",
+                "4. Presagio",
+                "5. Descubrimiento",
+                "6. Peligro"
+            	],     
+						'terrain': [
+							"1. Tierras de pastoreo",
+							"2. Bosque",
+							"3. Colinas",
+							"4. Montañas",
+							"5. Pantano",
+							"6. Desierto"
+							],
+						'newterrain': [
+							"Igual",
+							"Nuevo"
+							],
+							'Weather': [
+							"1. Soleado",
+							"2. Soleado",
+							"3. Nublado",
+							"4. Nublado",
+							"5. Precipitación ligera",
+							"6. Precipitación intensa",
+							],
+						'Discovery_type': [
+							"1. Natural",
+							"2. Sobrenatural",
+							"3. Ruina",
+							"4. Asentamiento",
+							"5. Evidencia",
+							"6. Pasivo"
+							],
+						'Discovery_Natural': [
+							"1. Cueva",
+							"2. Punto de referencia",
+							"3. Nido",
+							"4. Agua",
+							"5. Recurso",
+							"6. Barranco"
+							],
+						'Discovery_Ruin': [
+							"1. Abadía",
+							"2. Torre",
+							"3. Mansión",
+							"4. Guarida",
+							"5. Entierro",
+							"6. Mazmorra"
+							],
+						'Discovery_Settlement': [
+							"1. Aldea",
+							"2. Aldea",
+							"3. Aldea",
+							"4. Ciudad",
+							"5. Avanzada",
+							"6. Ciudad"
+							],
+						'Discovery_Evidence': [
+							"1. Huellas",
+							"2. Campamento",
+							"3. Huesos",
+							"4. Herramientas",
+							"5. Provisiones",
+							"6. Violencia"
+							],
+						'Discovery_Passive': [
+							"1. Herido",
+							"2. Viajero",
+							"3. Comerciante",
+							"4. Campamento",
+							"5. Clérigo",
+							"6. Animal"
+							],
+						'Discovery_Unnatural': [
+							"1. Portal",
+							"2. Resplandeciente",
+							"3. Residuo",
+							"4. Maldito",
+							"5. Quemadura",
+							"6. Mutación"
+							],
+					'Danger_type': [
+							"1. Natural",
+							"2. Natural",
+							"3. Natural",
+							"4. Sobrenatural",
+							"5. Peligro",
+							"6. Encuentro en Terreno"
+							],
+					'Danger_Natural': [
+							"1. Encuentro en Terreno",
+							],
+					'Danger_Unnatural': [
+							"1. Maldición",
+							"2. Aberración",
+							"3. Anomalía",
+							"4. Corrupción",
+							"5. Entidad oscura",
+							"6. Energía caótica",
+							],
+					'Danger_Hazard': [
+							"1. Pantano",
+							"2. Deslizamiento de tierra",
+							"3. Sumidero",
+							"4. Veneno",
+							"5. Recursos",
+							"6. Emboscada"
+							],
+					'Terrain_type': [
+							"1. Tierras de pastoreo",
+							"2. Bosque",
+							"3. Colinas",
+							"4. Montañas",
+							"5. Pantanos",
+							"6. Tierra baldía",
+							],
+					'EbT_Grasslands': [
+							"1. Humano",
+							"2. Humano",
+							"3. Humano",
+							"4. Animal",
+							"5. Animal",
+							"6. Monstruo pequeño",
+							],
+					'EbT_Woods': [
+							"1. Humano",
+							"2. Humano",
+							"3. Humano",
+							"4. Animal",
+							"5. Monstruo pequeño",
+							"6. Monstruo mediano",
+							],
+					'EbT_Hills': [
+							"1. Humano",
+							"2. Humano",
+							"3. Animal",
+							"4. Monstruo pequeño",
+							"5. Monstruo mediano",
+							"6. Gran monstruo",
+							],
+					'EbT_Mountains': [
+							"1. Humano",
+							"2. Humano",
+							"3. Humano",
+							"4. Animal",
+							"5. Monstruo mediano",
+							"6. Monstruo mediano",
+							],
+					'EbT_Swamps': [
+							"1. Humano",
+							"2. Humano",
+							"3. Animal",
+							"4. Sobrenatural",
+							"5. Sobrenatural",
+							"6. Monstruo pequeño",
+							],
+							'EbT_Wastelands': [
+							"1. Humano",
+							"2. Humano",
+							"3. Humano",
+							"4. Sobrenatural",
+							"5. Monstruo pequeño",
+							"6. Monstruo mediano",
+							],
+							'Ewith_Human': [
+							"1. PNJ",
+							"2. Común: HD(1)|AC/ATK(10)|Dmg(1)",
+							"3. Bandido: HD(1)|AC/ATK(11)|Dmg(d6)",
+							"4. Soldado: HD(2)|AC/ATK(12)|Dmg(d6)",
+							"5. Berserker: HD(3)|AC/ATK(13)|Dmg(d8)",
+							"6. Mago: HD(2)|AC/ATK(12)|Dmg(d4) Conjuro(d6)",
+							],
+							'Ewith_Animal': [
+							"1. Escarabajo: HD(2)|AC/ATK(12)|Dmg(d4)",
+							"2. Ciempies: HD(2)|AC/ATK(12)|Dmg(d6)",
+							"3. Oso: HD(4)|AC/ATK(14)|Dmg(d6,d6)",
+							"4. Rata: HD(1)|AC/ATK(11)|Dmg(d4)",
+							"5. Lagarto: HD(2)|AC/ATK(12)|Dmg(d6)",
+							"6. Halcón: HD(1)|AC/ATK(11)|Dmg(d6)",
+							],
+							'Ewith_Humanoid': [
+							"1. PNJ",
+							"2. Gnoll: HD(2)|AC/ATK(12)|Dmg(d6)",
+							"3. Kobold: HD(2)|AC/ATK(12)|Dmg(d6)",
+							"4. Gigante: HD(5)|AC/ATK(15)|Dmg(d10)",
+							"5. Trol: HD(4)|AC/ATK(14)|Dmg(d8)",
+							"6. Orco: HD(4)|AC/ATK(14)|Dmg(d6)",
+							],
+							'Ewith_Smonster': [
+							"1. Baba: HD(1)|AC/ATK(19)|Dmg(d4)",
+							"2. Ogro: HD(3)|AC/ATK(13)|Dmg(d8)",
+							"3. Arpía: HD(3)|AC/ATK(13)|Dmg(d6)",
+							"4. Hombre rata: HD(2)|AC/ATK(12)|Dmg(d4)",
+							"5. Stirge: HD(2)|AC/ATK(12)|Dmg(d6)",
+							"6. Hombre lobo: HD(4)|AC/ATK(14)|Dmg(d6)",
+							],
+							'Ewith_Bmonster': [
+							"1. Gárgola: HD(4)|AC/ATK(14)|Dmg(d8)",
+							"2. Mantícora: HD(4)|AC/ATK(14)|Dmg(d6)",
+							"3. Hidra: HD(5)|AC/ATK(15)|Dmg(d4, d4, d4)",
+							"4. Constructo: HD(4)|AC/ATK(14)|Dmg(d6)",
+							"5. Caballero de la Muerte: HD(3)|AC/ATK(13)|Dmg(d6)",
+							"6. Dragón: HD(6)|AC/ATK(16)|Dmg(d8,d8)",
+							],
+							'Ewith_Unnatural': [
+							"1. Ghoul: HD(2)|AC/ATK(12)|Dmg(d6)",
+							"2. Zombi: HD(1)|AC/ATK(11)|Dmg(d6)",
+							"3. Esqueleto: HD(1)|AC/ATK(11)|Dmg(d6)",
+							"4. Demonio: HD(3)|AC/ATK(13)|Dmg(d6)",
+							"5. Elemental: HD(4)|AC/ATK(14)|Dmg(d6)",
+							"6. Espectro: HD(4)|AC/ATK(14)|Dmg(d4,d4)",
+							],
+							'Settlements_Quality': [
+							"1. Desgastado",
+							"2. Pobre",
+							"3. Tranquilo",
+							"4. Desesperado",
+							"5. Adinerado",
+							"6. Temeroso",
+							],
+							'Settlements_Available': [
+							"1. Alojamiento",
+							"2. Equipo",
+							"3. Sanación",
+							"4. Magia",
+							"5. Bienes",
+							"6. Gremio",
+							],
+							'Settlements_Concerns': [
+							"1. Culto",
+							"2. Monstruo",
+							"3. Hechicero",
+							"4. Bandidos",
+							"5. Soldados",
+							"6. Plaga",
+							],
+							'Descriptions_A': [
+							"1. Alto",
+							"2. Remoto",
+							"3. Pequeño",
+							"4. Expuesto",
+							"5. Oscuro",
+							"6. Áspero",
+							],
+							'Descriptions_B': [
+							"1. Sombrío",
+							"2. Lúgubre",
+							"3. Bloqueado",
+							"4. Antiguo",
+							"5. Peligroso",
+							"6. Grande",
+							],
+							'Descriptions_C': [
+							"1. Amplio",
+							"2. Vacío",
+							"3. Angosto",
+							"4. Largo",
+							"5. Fantasmal",
+							"6. Peligrosamente Inclinado",
+							],
+							'Character_Traits': [
+							"1. Rasgos A",
+							"2. Rasgos B",
+							"3. Rasgos C",
+							],
+							'Character_Race': [
+							"1. Humano",
+							"2. Humano",
+							"3. Enano",
+							"4. Medianito",
+							"5. Gnomo",
+							"6. Elfo",
+							],
+							'Character_Type': [
+							"1. Mágico",
+							"2. Aventurero",
+							"3. Comerciante",
+							"4. Soldado",
+							"5. Noble",
+							"6. Plebeyo",
+							],
+							'Character_Financial': [
+							"1. Muy Pobre",
+							"2. Pobre",
+							"3. Moderado",
+							"4. Moderado",
+							"5. Rico",
+							"6. Muy Rico",
+							],
+							'Character_Traits_A': [
+							"1. Marcado",
+							"2. Tartamudo",
+							"3. Tatuado",
+							"4. Sucio",
+							"5. Ruborizado",
+							"6. Arrogante",
+							],
+							'Character_Traits_B': [
+							"1. Cruel",
+							"2. Humilde",
+							"3. Heroico",
+							"4. Atrevido",
+							"5. Amigable",
+							"6. Codicioso",
+							],
+							'Character_Traits_C': [
+							"1. Sencillo",
+							"2. Obstinado",
+							"3. Sarcástico",
+							"4. Asustado",
+							"5. Tímido",
+							"6. Paranoico",
+							],
+							'Character_Motivation': [
+							"1. Crimen",
+							"2. Venganza",
+							"3. Aventura",
+							"4. Riqueza",
+							"5. Poder",
+							"6. Escape",
+							],
+							'Character_Interests': [
+							"1. Tesoro",
+							"2. Arte",
+							"3. Música",
+							"4. Política",
+							"5. Arqueología",
+							"6. Juego",
+							],
+							'Character_Methods': [
+							"1. Astucia",
+							"2. Encanto",
+							"3. Violencia",
+							"4. Dinero",
+							"5. Chantaje",
+							"6. Sabotaje",
+							],
+							'Character_Fname': [
+							"1. Fiona",
+							"2. Isolde",
+							"3. Kate",
+							"4. Evelyn",
+							"5. Olivia",
+							"6. Zeena",
+							],
+							'Character_Mname': [
+							"1. Francis",
+							"2. Rusk",
+							"3. Vlesk",
+							"4. Duncan",
+							"5. Richard",
+							"6. Rildor",
+							],
+							'Character_FM': [
+							"1. Masculino",
+							"2. Masculino"
+							],
+							'Character_Settlements_Suffix': [
+							"1. villa",
+							"2. páramo",
+							"3. aldea",
+							"4. monte",
+							"5. loma",
+							"6. río",
+							],
+							'Character_Settlements_Prefix': [
+							"1. Tormenta",
+							"2. Roca",
+							"3. Nublado",
+							"4. Lamento",
+							"5. Negro",
+							"6. Colina",
+							],
+							'Quest_type': [
+							"1. Atacar, Matar, Destruir",
+							"2. Encontrar, Recuperar",
+							"3. Robar, Capturar",
+							"4. Entregar",
+							"5. Explorar, Descubrir",
+							"6. Sobrevivir, Escapar",
+							],
+							'Quest_akd': [
+							"1. Persona poderosa",
+							"2. Organización",
+							"3. Cultura",
+							"4. Artefacto",
+							"5. Antiguo dios",
+							"6. Ubicación",
+							],
+							'Quest_fr': [
+							"1. Un camino a otro mundo",
+							"2. Individuo",
+							"3. Ubicación oculta",
+							"4. Artefacto",
+							"5. Tesoro",
+							"6. Ubicación mágica",
+							],
+							'Quest_sc': [
+							"1. Enemigo",
+							"2. Energía mágica",
+							"3. Conocimiento",
+							"4. Criatura poderosa",
+							"5. Documento",
+							"6. Mensaje/Mensajero",
+							],
+							'Quest_dr': [
+							"1. Objeto",
+							"2. Prisionero",
+							"3. Mensaje",
+							"4. Artefacto",
+							"5. Comerciante",
+							"6. Criatura",
+							],
+							'Quest_ed': [
+							"1. Debilidad del enemigo",
+							"2. Recurso raro",
+							"3. Un nuevo camino",
+							"4. Templo",
+							"5. Verdad sobre una conspiración",
+							"6. Nueva región",
+							],
+							'Quest_se': [
+							"1. Tirano cruel",
+							"2. Prisión",
+							"3. Cazadores",
+							"4. Culto",
+							"5. Criatura grande",
+							"6. Una batalla",
+							],
+						'Type_item': [
+							"1. Común",
+							"2. Común",
+							"3. Efecto mágico",
+							"4. Efecto mágico",
+							"5. Raro",
+							"6. Raro",
+							"7. Común",							
+							],
+							'Common_item': [
+							"11. Vela",
+							"12. Lata de cera",
+							"13. Martillo",
+							"14. Ganzúas",
+							"15. Navaja",
+							"16. Bola de lana",
+							"21. Cantimplora",
+							"22. Canicas",
+							"23. Capa fina",
+							"24. Poesía",
+							"25. Tintero",
+							"26. Tarro de grasa",
+							"31. Baraja de cartas",
+							"32. Dados de jugar",
+							"33. Sierra de mano",
+							"34. Pendiente",
+							"35. Aguja",
+							"36. Saco de clavos",
+							"41. Collar",
+							"42. Pata de conejo",
+							"43. Cinta roja",
+							"44. Anillo",
+							"45. Punta de lanza",
+							"46. Pan de frutas",
+							"51. Peine",
+							"52. Antorcha",
+							"53. Cinturón",
+							"54. Gorro cálido",
+							"55. Caña de pescar",
+							"56. Pergamino",
+							"61. Fruta seca",
+							"62. Hierbas curativas",
+							"63. Frasco de antídoto",
+							"64. Carcaj/flechas",
+							"65. Pedernal y acero",
+							"66. Lupa"
+							],
+				'food_item': [
+							"1. Nada!, estaba podrido.",
+							"2. carne de buey a punto de pudrirse (1 día)",
+							"3. Galletas y 1/2 botella de vino (1 día)",
+							"4. pata de pollo (1 día)",
+							"5. bolsa de frutos secos (2 días)",
+							"6. Carne seca (3 días)",
+							],
+				'Uncommon_item': [
+							"11. Orbe",
+							"12. Anillo",
+							"13. Alfombra",
+							"14. Botas",
+							"15. Espada",
+							"16. Casco",
+							"21. Dardo",
+							"22. Cuero",
+							"23. Cartas de jugar",
+							"24. Cuerda",
+							"25. Capa",
+							"26. Escudo",
+							"31. Elixir",
+							"32. Fragmento",
+							"33. Bolsa",
+							"34. Laúd",
+							"35. Flauta",
+							"36. Varita",
+							"41. Bastón",
+							"42. Brújula",
+							"43. Bolsa",
+							"44. Anillo",
+							"45. Copa",
+							"46. Flecha",
+							"51. Tinta",
+							"52. Pulsera",
+							"53. Pendientes",
+							"54. Pluma",
+							"55. Amuleto",
+							"56. Máscara",
+							"61. Libro",
+							"62. Daga",
+							"63. Polvo",
+							"64. Guantes",
+							"65. Gema",
+							"66. Animal"
+							],
+							'magic_effect': [
+							"11. +1",
+							"12. +1",
+							"13. +2",
+							"14. +0",
+							"15. -1",
+							"16. -1",
+							"21. Velocidad",
+							"22. Luz",
+							"23. Levitación",
+							"24. Percepción",
+							"25. Fuerza",
+							"26. Escudo",
+							"31. Localización",
+							"32. Retención",
+							"33. Comer",
+							"34. Devorar",
+							"35. Encanto",
+							"36. Veneno",
+							"41. Apertura",
+							"42. Fuego",
+							"43. Hielo",
+							"44. Penetración",
+							"45. Sueño",
+							"46. Camuflaje",
+							"51. Encogimiento",
+							"52. Apariencia",
+							"53. Infinito",
+							"54. Agua",
+							"55. Sabiduría",
+							"56. Salud",
+							"61. Agujero",
+							"62. Vida",
+							"63. Poder",
+							"64. Peso",
+							"65. Gravedad",
+							"66. Animal"
+							],
+					'TEnounters_type': [
+					    "1. Un gran árbol",
+					    "2. Un claro místico",
+					    "3. Un campo de hongos",
+					    "4. Un hombre encerrado en una jaula",
+					    "5. Un pequeño campamento de cazadores",
+					    "6. Una mujer marcada por cicatrices",
+					    ],
+					'TEnounters_A': [
+					    "1. con frutos silvestres",
+					    "2. radiando luz o sonido",
+					    "3. se abre al acercarse",
+					    "4. con un profundo agujero en la base.",
+					    "5. con frutos de color naranja.",
+					    "6. que cambia de color al acercarse",
+					    ],
+					'TEnounters_B': [
+					    "1. irradia calma",
+					    "2. provoca sueño",
+					    "3. induce olvido",
+					    "4. provoca adrenalina.",
+					    "5. simula un posible futuro sercano.",
+					    "6. irradia paz y tranquilidad.",
+					    ],
+					'TEnounters_C': [
+					    "1. que son venenosos",
+					    "2. que sacian el hambre",
+					    "3. que otorgan fuerza",
+					    "4. de colores que parecen comestibles.",
+					    "5. De colores llamativos y alarmantes.",
+					    "6. Paracen ser alusinojenos.",
+					    ],
+					'TEnounters_D': [
+					    "1. que promete ayuda si se libera",
+					    "2. que promete tesoro si se libera",
+					    "3. que habla de venganza",
+					    "4. Que habla de un camino secreto.",
+					    "5. Que pide que lo rescaten.",
+					    ],
+					'TEnounters_E': [
+					    "1. te da la bienvenida",
+					    "2. se para y te amenaza",
+					    "3. te pide ayuda con un problema",
+					    "4. atacado y devastado recientemente.",
+					    "5. Vacio, con fuego recien apagado.",
+					    "6. Te ven llegar y tienen aspecto sospechoso.",
+					    ],
+					'TEnounters_F': [
+					    "1. Ofrece intercambiar comida por un arma",
+					    "2. Habla de un mago en una torre",
+					    "3. Pide que la escolten hacia un lugar.",
+					    "4. Suplica ayuda para liberarla de una maldición.",
+					    "5. Busca desesperadamente un artefacto perdido.",
+					    "6. Ofrece el 40% del botin por asaltar un lugar.",
+					    ],
+			'DiceYN': [
+            	"1. Si",
+            	"2. Si, pero",      
+            	"3. Si, y ", 
+            	"4. No.", 
+            	"5. No, pero", 
+            	"6. No, y", 
             	],
-            'Weather': [
-            	"1. Sunny",
-            	"2  Sunny",
-            	"3. Cloudy",
-            	"4. Cloudy",
-            	"5. Light Precipitation",  
-            	"6. Heavy Precipitation"
-            	],                   
-            'Discovery_type': [
-            	"1. Natural",
-            	"2. Unnatural",
-            	"3. Ruin",
-            	"4. Settlement",
-            	"5. Evidence",
-            	"6. Passive"
-            	],
-            'Discovery_Natural': [
-            	"1. Cave",
-            	"2. Landmark",   
-            	"3. Nest",
-            	"4. Water",
-            	"5. Resource",
-            	"6. Ravine"   
-            	],
-            'Discovery_Ruin': [
-            	"1. Abbey",
-            	"2. Tower",   
-            	"3. Estate",
-            	"4. Lair",
-            	"5. Burial",
-            	"6. Dungeon"   
-            	],
-            'Discovery_Settlement': [
-            	"1. Village",
-            	"2. Village",   
-            	"3. Village",
-            	"4. Town",
-            	"5. Outpost",
-            	"6. City"   
-            	],
-            'Discovery_Evidence': [
-             	"1. Tracks",
-            	"2. Camp",   
-            	"3. Bones",
-            	"4. Tools",
-            	"5. Supplies",
-            	"6. Violence"
-            	],
-            'Discovery_Passive': [
-            	"1. Wounded",
-            	"2. Traveler",   
-            	"3. Merchant",
-            	"4. Camp",
-            	"5. Cleric",
-            	"6. Animal"     
-            	],  
-            'Discovery_Unnatural': [
-            	"1. Portal",
-            	"2. Glowing",   
-            	"3. Residue",
-            	"4. Cursed",
-            	"5. Burn",
-            	"6. Mutation"     
-            	],  
-             'Danger_type': [
-            	"1. Encounter in Terrain",
-            	"2. Encounter in Terrain",
-            	"3. Encounter in Terrain",
-            	"4. Unnatural",
-            	"5. Hazard",
-            	"6. Encounter in Terrain"
-            	],             
-            'Danger_Unnatural': [
-            	"1. Ghoul",
-            	"2. Zombie", 
-            	"3. Skeleton",
-            	"4. Demon",
-            	"5. Elemental",
-            	"6. Wraith"     
+			'FirstOrSecond': [
+							"1. lo primero",
+							"2. lo segundo",
+				],
+			'generic_hunch': [
+							"1. un escalofrío repentino recorre tu espina dorsal.",
+							"2. un presentimiento te advierte que algo no anda bien por aquí.",
+							"3. un cosquilleo en la nuca te hace estar en guardia.",
+							"4. una sensación de inquietud te dice que algo falta.",
+							"5. un repentino sentimiento de esperanza te reconforta.",
+							"6. una voz interior te guía hacia una dirección correcta.",   	
+            	], 					    		
+			'Dice1D6': [
+            	"[1]",
+            	"[2]",      
+            	"[3]", 
+            	"[4]", 
+            	"[5]", 
+            	"[6]", 
             	], 
-            'Danger_Hazard': [
-            	"1. Bog",
-            	"2. Landslide", 
-            	"3. Sinkhole",
-            	"4. Poison",
-            	"5. Resources",
-            	"6. Ambush"       
-            	],              	           	 
-            'EbT_Grasslands': [
-            	"1. Human",
-            	"2. Human",      
-            	"3. Human",
-            	"4. Animal",
-            	"5. Animal",
-            	"6. Small Monster",
-            	],
-            'EbT_Woods': [
-            	"1. Human",
-            	"2. Human",      
-            	"3. Human",
-            	"4. Animal",
-            	"5. Small Monster",
-            	"6. Medium Monster",
-            	],
-            'EbT_Hills': [
-            	"1. Human",
-            	"2. Human",      
-            	"3. Animal",
-            	"4. Small Monster",
-            	"5. Medium Monster",
-            	"6. Big Monster",
-            	],
-            'EbT_Mountains': [
-            	"1. Human",
-            	"2. Human",      
-            	"3. Human",
-            	"4. Animal",
-            	"5. Medium Monster",
-            	"6. Medium Monster",
-            	],
-            'EbT_Swamps': [
-            	"1. Human",
-            	"2. Human",      
-            	"3. Animal",
-            	"4. Unnatural",
-            	"5. Unnatural",
-            	"6. Small Monster",
-            	],
-            'EbT_Wastelands': [
-            	"1. Human",
-            	"2. Human",      
-            	"3. Human",
-            	"4. Unnatural",
-            	"5. Small Monster",
-            	"6. Medium Monster",
-            	],
-            'Ewith_Human': [
-            	"1. NPC",
-            	"2. Common: 	HD(1)|AC/ATK(10)|Dmg(1)",      
-            	"3. Bandit: 	HD(1)|AC/ATK(11)|Dmg(d6)",
-            	"4. Soldier: 	HD(2)|AC/ATK(12)|Dmg(d6)",
-            	"5. Berserker: 	HD(3)|AC/ATK(13)|Dmg(d8)",
-            	"6. Mage: 		HD(2)|AC/ATK(12)|Dmg(d4) Spell(d6)",
-            	],
-            'Ewith_Animal': [
-            	"1. Beetle: 	HD(2)|AC/ATK(12)|Dmg(d4)",
-            	"2. Centipede: 	HD(2)|AC/ATK(12)|Dmg(d6)",      
-            	"3. Bear: 		HD(4)|AC/ATK(14)|Dmg(d6,d6)", 
-            	"4. Rat: 		HD(1)|AC/ATK(11)|Dmg(d4)", 
-            	"5. Lizard: 	HD(2)|AC/ATK(12)|Dmg(d6)", 
-            	"6. Hawk: 		HD(1)|AC/ATK(11)|Dmg(d6)", 
-            	],
-            'Ewith_Humanoid': [
-            	"1. NPC",
-            	"2. Gnoll: 	HD(2)|AC/ATK(12)|Dmg(d6)",      
-            	"3. Kobold: HD(2)|AC/ATK(12)|Dmg(d6)", 
-            	"4. Giant: 	HD(5)|AC/ATK(15)|Dmg(d10)", 
-            	"5. Troll: 	HD(4)|AC/ATK(14)|Dmg(d8)", 
-            	"6. Orc: 	HD(4)|AC/ATK(14)|Dmg(d6)", 
-            	],
-            'Ewith_Smonster': [
-            	"1. Ooze: 		HD(1)|AC/ATK(19)|Dmg(d4)",
-            	"2. Ogre: 		HD(3)|AC/ATK(13)|Dmg(d8)",      
-            	"3. Harpy: 		HD(3)|AC/ATK(13)|Dmg(d6)", 
-            	"4. Wererat: 	HD(2)|AC/ATK(12)|Dmg(d4)", 
-            	"5. Stirge: 	HD(2)|AC/ATK(12)|Dmg(d6)", 
-            	"6. Werewolf: 	HD(4)|AC/ATK(14)|Dmg(d6)", 
-            	],
-            'Ewith_Bmonster': [
-            	"1. Gargoyle: 		HD(4)|AC/ATK(14)|Dmg(d8)",
-            	"2. Manticore: 		HD(4)|AC/ATK(14)|Dmg(d6)",      
-            	"3. Hydra: 			HD(5)|AC/ATK(15)|Dmg(d4, d4, d4)", 
-            	"4. Construct: 		HD(4)|AC/ATK(14)|Dmg(d6)", 
-            	"5. Death Knight: 	HD(3)|AC/ATK(13)|Dmg(d6)", 
-            	"6. Dragon: 		HD(6)|AC/ATK(16)|Dmg(d8,d8)", 
-            	],
-            'Ewith_Unnatural': [
-            	"1. Ghoul: 		HD(2)|AC/ATK(12)|Dmg(d6)",
-            	"2. Zombie: 	HD(1)|AC/ATK(11)|Dmg(d6)",      
-            	"3. Skeleton: 	HD(1)|AC/ATK(11)|Dmg(d6)", 
-            	"4. Demon: 		HD(3)|AC/ATK(13)|Dmg(d6)", 
-            	"5. Elemental: 	HD(4)|AC/ATK(14)|Dmg(d6)", 
-            	"6. Wraith: 	HD(4)|AC/ATK(14)|Dmg(d4,d4)", 
-            	],
-			'Settlements_Quality': [
-            	"1. Worn",
-            	"2. Poor",      
-            	"3. Quiet", 
-            	"4. Desperate", 
-            	"5. Wealthy", 
-            	"6. Fearful", 
-            	],
-			'Settlements_Available': [
-            	"1. Accomodation",
-            	"2. Gear",      
-            	"3. Healing", 
-            	"4. Magic", 
-            	"5. Goods", 
-            	"6. Guild", 
-            	],
-			'Settlements_Concerns': [
-            	"1. Cult",
-            	"2. Monster",      
-            	"3. Sorceror", 
-            	"4. Bandits", 
-            	"5. Soldiers", 
-            	"6. Blight", 
-            	],
-			'Descriptions_A': [
-            	"1. High",
-            	"2. Remote",      
-            	"3. Small", 
-            	"4. Exposed", 
-            	"5. Dark", 
-            	"6. Rough", 
-            	],
-			'Descriptions_B': [
-            	"1. Shadowy",
-            	"2. Grim",      
-            	"3. Blocked", 
-            	"4. Ancient", 
-            	"5. Perilous", 
-            	"6. Big", 
-            	],
-			'Descriptions_C': [
-            	"1. Wide",
-            	"2. Empty",      
-            	"3. Narrow", 
-            	"4. Foul", 
-            	"5. Dead", 
-            	"6. Barren", 
-            	],
-			'Character_Traits': [
-            	"1. Traits A",
-            	"2. Traits B",      
-            	"3. Traits C", 
-            	],
-			'Character_Race': [
-            	"1. Human",
-            	"2. Human",      
-            	"3. Dwarf", 
-            	"4. Halfling", 
-            	"5. Gnome", 
-            	"6. Elf", 
-            	],
-			'Character_Type': [
-            	"1. Magical",
-            	"2. Adventurer",      
-            	"3. Merchant", 
-            	"4. Soldier", 
-            	"5. Noble", 
-            	"6. Commoner", 
-            	],
-			'Character_Financial': [
-            	"1. Very Poor",
-            	"2. Poor",      
-            	"3. Modest", 
-            	"4. Modest", 
-            	"5. Rich", 
-            	"6. Very Rich", 
-            	],
-			'Character_Traits_A': [
-            	"1. Scarred",
-            	"2. Stutters",      
-            	"3. Tattooed", 
-            	"4. Dirty", 
-            	"5. Florid", 
-            	"6. Haughty",
-            	],
-			'Character_Traits_B': [            	 
-            	"1. Cruel",
-            	"2. Humble",      
-            	"3. Heroic", 
-            	"4. Daring", 
-            	"5. Friendly",
-            	"6. Greedy",             	
-            	],
-			'Character_Traits_C': [             	 
-            	"1. Plain",
-            	"2. Stubborn",      
-            	"3. Sarcastic", 
-            	"4. Scared", 
-            	"5. Shy", 
-            	"6. Paranoid",             	            	
-            	],
-			'Character_Motivation': [
-            	"1. Crime",
-            	"2. Revenge",      
-            	"3. Adventure", 
-            	"4. Wealth", 
-            	"5. Power", 
-            	"6. Escape", 
-            	],
-			'Character_Interests': [
-            	"1. Treasure",
-            	"2. Art",      
-            	"3. Music", 
-            	"4. Politics", 
-            	"5. Archaeology", 
-            	"6. Gambling", 
-            	],
-			'Character_Methods': [
-            	"1. Wit",
-            	"2. Charm",      
-            	"3. Violence", 
-            	"4. Money", 
-            	"5. Blackmail", 
-            	"6. Sabotage", 
-            	],    
-            	'Character_Fname': [
-            	"1. Fiona",
-            	"2. Isolde",      
-            	"3. Kate", 
-            	"4. Evelyn", 
-            	"5. Olivia", 
-            	"6. Zeena", 
-            	],
-            	'Character_Mname': [
-            	"1. Francis",
-            	"2. Rusk",      
-            	"3. Vlesk", 
-            	"4. Duncan", 
-            	"5. Richard", 
-            	"6. Rildor", 
-            	],
-            	'Character_FM': [
-            	"1. Male",
-            	"2. Male"
-            	], 
-			'Character_Settlements_Suffix': [
-            	"1. ville",
-            	"2. moor",      
-            	"3. wick", 
-            	"4. mount", 
-            	"5. ridge", 
-            	"6. river", 
-            	],
-			'Character_Settlements_Prefix': [
-            	"1. Storm",
-            	"2. Rock",      
-            	"3. Clouded", 
-            	"4. Mourn", 
-            	"5. Black", 
-            	"6. Hill", 
-            	],            	            	       	            				
-            'Quest_type': [
-            	"1. Attack, Kill, Destroy",
-            	"2. Find, Recover",      
-            	"3. Steal, Capture", 
-            	"4. Deliver", 
-            	"5. Explore, Discover", 
-            	"6. Survive, Escape", 
-            	],
-            'Quest_akd': [
-            	"1. Powerful person",
-            	"2. Organization",      
-            	"3. Culture", 
-            	"4. Artifact", 
-            	"5. Old god", 
-            	"6. Location", 
-            	],
-            'Quest_fr': [
-            	"1. A way to another world",
-            	"2. Individual",      
-            	"3. Hidden location", 
-            	"4. Artifact", 
-            	"5. Treasure", 
-            	"6. Magical location", 
-            	],
-            'Quest_sc': [
-            	"1. Enemy",
-            	"2. Magical energy",      
-            	"3. Knowledge", 
-            	"4. Powerful creature", 
-            	"5. Document", 
-            	"6. Message/Messenger", 
-            	],
-            'Quest_dr': [
-            	"1. Item",
-            	"2. Prisoner",      
-            	"3. Message", 
-            	"4. Artifact", 
-            	"5. Merchant", 
-            	"6. Creature", 
-            	],
-            'Quest_ed': [
-            	"1. Enemy weakness",
-            	"2. Rare resource",      
-            	"3. A new path", 
-            	"4. Temple", 
-            	"5. Truth about a plot", 
-            	"6. New region", 
-            	],
-            'Quest_se': [
-            	"1.  Cruel tyrant",
-            	"2. Prison",      
-            	"3. Hunters", 
-            	"4. Cult", 
-            	"5. Large creature", 
-            	"6. A battle", 
-            	],
-            'Common_item': [
-			    "11. Candle",
-			    "12. Tin of wax",
-			    "13. Hammer",
-			    "14. Lockpicks",
-			    "15. Pocketknife",
-			    "16. Ball of yarn",
-			    "21. Waterskin",
-			    "22. Marbles",
-			    "23. Fine cloak",
-			    "24. Poetry",
-			    "25. Ink pot",
-			    "26. Pot of grease",
-			    "31. Deck of cards",
-			    "32. Playing dice",
-			    "33. Handsaw",
-			    "34. Earring",
-			    "35. Needle",
-			    "36. Sack of nails",
-			    "41. Necklace",
-			    "42. Rabbit foot",
-			    "43. Red ribbon",
-			    "44. Ring",
-			    "45. Spear tip",
-			    "46. Fruit bread",
-			    "51. Comb",
-			    "52. Torch",
-			    "53. Belt",
-			    "54. Warm Hat",
-			    "55. Fishing rod",
-			    "56. Parchment",
-			    "61. Dried fruit",
-			    "62. Healing herbs",
-			    "63. Antidote vial",
-			    "64. Quiver/arrows",
-			    "65. Flint & steel",
-			    "66. Magni-Glass"
-			    ],
-			'Uncommon_item': [
-			    "11. Orb",
-			    "12. Ring",
-			    "13. Carpet",
-			    "14. Boots",
-			    "15. Sword",
-			    "16. Helmet",
-			    "21. Dart",
-			    "22. Leather",
-			    "23. Playing cards",
-			    "24. Twine",
-			    "25. Cloak",
-			    "26. Shield",
-			    "31. Elixir",
-			    "32. Shard",
-			    "33. Bag",
-			    "34. Lute",
-			    "35. Flute",
-			    "36. Wand",
-			    "41. Staff",
-			    "42. Compass",
-			    "43. Pouch",
-			    "44. Ring",
-			    "45. Cup",
-			    "46. Arrow",
-			    "51. Ink",
-			    "52. Bracelet",
-			    "53. Earrings",
-			    "54. Feather",
-			    "55. Amulet",
-			    "56. Mask",
-			    "61. Book",
-			    "62. Dagger",
-			    "63. Dust",
-			    "64. Gloves",
-			    "65. Gem",
-			    "66. Animal"
-            	],
-			'magic_effect': [
-			    "11. +1",
-			    "12. +1",
-			    "13. +2",
-			    "14. +0",
-			    "15. -1",
-			    "16. -1",
-			    "21. Speed",
-			    "22. Light",
-			    "23. Levitation",
-			    "24. Perception",
-			    "25. Strength",
-			    "26. Shielding",
-			    "31. Locating",
-			    "32. Holding",
-			    "33. Eating",
-			    "34. Devouring",
-			    "35. Charming",
-			    "36. Poison",
-			    "41. Opening",
-			    "42. Fire",
-			    "43. Ice",
-			    "44. Piercing",
-			    "45. Sleep",
-			    "46. Blending",
-			    "51. Shrinking",
-			    "52. Appearance",
-			    "53. Endless",
-			    "54. Water",
-			    "55. Wisdom",
-			    "56. Health",
-			    "61. Hole",
-			    "62. Life",
-			    "63. Power",
-			    "64. Weight",
-			    "65. Gravity",
-			    "66. Animal"
-            	],
-			'TEnounters_type': [
-                "1. A large tree",
-                "2. A mystical glade",
-                "3. A field of mushrooms",
-                "4. A man locked in a cage",
-                "5. A small camp of hunters",
-                "6. A scarred woman"
-                ],
-            'TEnounters_A': [
-                "1. hung with something ",
-                "2. radiating light or sound",      
-                "3. opens when approached",
-                ],
-            'TEnounters_B': [
-                "1. radiates calm",
-                "2. causes sleep",      
-                "3. induces forgetfulness", 
-                ],
-            'TEnounters_C': [
-                "1. that are poisonous ",
-                "2. that satiate hunger",      
-                "3. that give strength", 
-                ],
+			'Dice1D8': [
+            	"[1]",
+            	"[2]",      
+            	"[3]", 
+            	"[4]", 
+            	"[5]", 
+            	"[6]",
+            	"[7]",
+            	"[8]", 
+            	],               	  
+					'Mapa-select': [    
+							'1. Mapa-1',
+							'2. Mapa-2',
+							'3. Mapa-3',
+							'4. Mapa-4',
+							'5. Mapa-5',
+							'6. Mapa-6',
+							'7. Mapa-7',
+							],            	 
+					'Mapa-1': [
+							'1. Ulendi',
+							'2. Rat harbor',
+							'3. Bridgewater',
+							'4. Bosque de southglen',
+							'5. Las llanuras',
+							'6. Torre de Xidlim',
+							],
+						'Mapa-2': [
+							'1. Aguja de Xargex',
+							'2. Pantano de felgrim',
+							'3. Eastshore',
+							'4. Paso de los goblins',
+							'5. Minas goblin',
+							'6. Ciudad irontree',
+							],
+						'Mapa-3': [
+							'1. Spraymere',
+							'2. Rime Pass',
+							'3. Mounthame',
+							'4. Praderas',
+							'5. Escuela de magia',
+							'6. Brideton',
+							],
+						'Mapa-4': [
+							'1. Stonefoot',
+							'2. Roca comadreja',
+							'3. Mina enana',
+							'4. Tierras grises',
+							'5. Torre de cobre',
+							'6. Cueva de la perdición',
+							],
+						'Mapa-5': [
+							'1. Prision digreness',
+							'2. Llanuras Hardscrabble',
+							'3. Deep woods',
+							'4. Northglen',
+							'5. Leafton',
+							'6. Wintersea',
+							],
+						'Mapa-6': [
+							'1. Fosas pestilentes',
+							'2. Pantanos de cataract',
+							'3. Knollton',
+							'4. Dirt Sea',
+							'5. Scabville',
+							'6. Qa Zho',
+							],
+						'Mapa-7': [
+							'1. Pantano salado',
+							'2. Bosque tropical',
+							'3. Puerto Bazaar',
+							'4. Isla Kong',
+							],           
 
-            'TEnounters_D': [
-                "1. that promises to help if let out",
-                "2. that promises treasure if let out",      
-                "3. that speaks of revenge", 
-                ],
-            'TEnounters_E': [
-                "1. welcomes you",
-                "2. stands and threatens you",      
-                "3. asks for your help with a problem", 
-                ],
-            'TEnounters_F': [
-                "1. offers to trade food for a weapon",
-                "2. speaks of a wizard in a tower",      
-                "3. roasts a monster over a fire", 
-                ],
-			'xxx': [
+			'template': [
             	"1. ",
             	"2. ",      
             	"3. ", 
@@ -953,24 +1273,42 @@
         };
         
         const randomIndex = Math.floor(Math.random() * results[type].length);
-        document.getElementById(type + "Result").innerHTML = results[type][randomIndex];
+        const result = results[type][randomIndex];
+        document.getElementById(type + "Result").innerHTML = result;
+        
+        // Agregar el evento al historial
+        addToEventHistory("(" + type + ") - " + result);
     }
+    
     function clearResult(type) {
         document.getElementById(type + "Result").innerHTML = "";
     }
-    // function generateResult(type) {
-    //     const results = {
-    //         '1d3': Math.floor(Math.random() * 3) + 1,
-    //         '1d6': Math.floor(Math.random() * 6) + 1,
-    //         '1d8': Math.floor(Math.random() * 8) + 1,
-    //         '1d10': Math.floor(Math.random() * 10) + 1,
-    //         '1d12': Math.floor(Math.random() * 12) + 1,
-    //         '1d20': Math.floor(Math.random() * 20) + 1,
-    //         '11to66': Math.floor(Math.random() * 56) + 11
-    //     };
-        
-    //     document.getElementById(type + "Result").innerHTML = results[type];
-    // }
+    
+    function addToEventHistory(event) {
+        const eventList = document.getElementById("eventList");
+        const li = document.createElement("li");
+        li.textContent = event;
+        eventList.appendChild(li);
+    }
+
+    function togglePopup() {
+        const popup = document.getElementById("popup");
+        popup.style.display = (popup.style.display === "none") ? "block" : "none";
+    }
+
+    function exportHistory() {
+        const eventList = document.getElementById("eventList");
+        const events = eventList.querySelectorAll("li");
+        let textToSave = "Historial de Eventos:\n";
+        events.forEach(function(event) {
+            textToSave += event.textContent + "\n";
+        });
+        const hiddenElement = document.createElement("a");
+        hiddenElement.href = "data:text/plain;charset=utf-8," + encodeURIComponent(textToSave);
+        hiddenElement.target = "_blank";
+        hiddenElement.download = "historial_eventos.txt";
+        hiddenElement.click();
+    }    
 
 
 </script>
