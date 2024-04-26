@@ -84,10 +84,12 @@ I'll create next version but with best practices.
     /* Estilos para el pop-up */
     #popup {
         display: none; /* Inicialmente oculto */
+        /*
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        */
         background-color: #f9f9f9;
         border: 1px solid #ddd;
         border-radius: 5px;
@@ -119,10 +121,12 @@ I'll create next version but with best practices.
     /* Estilos para el contenedor de la imagen */
     #imageContainer {
         display: none; /* Inicialmente oculto */
+        /*
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        */
         background-color: #f9f9f9;
         border: 1px solid #ddd;
         border-radius: 5px;
@@ -215,24 +219,24 @@ I'll create next version but with best practices.
 		<button class="button button2" onclick="generateResult('Terrain_type')">Tipo de Terreno</button>
 		<button class="clearButton" onclick="clearResult('Terrain_type')">X</button>
 		<div id="Terrain_typeResult" class="result"></div>
-		<button class="button" onclick="generateResult('EbT_Grasslands')">Praderas</button>
-		<button class="clearButton" onclick="clearResult('EbT_Grasslands')">X</button>
-		<div id="EbT_GrasslandsResult" class="result"></div>
-		<button class="button" onclick="generateResult('EbT_Woods')">Bosques</button>
-		<button class="clearButton" onclick="clearResult('EbT_Woods')">X</button>
-		<div id="EbT_WoodsResult" class="result"></div>
-		<button class="button" onclick="generateResult('EbT_Hills')">Colinas</button>
-		<button class="clearButton" onclick="clearResult('EbT_Hills')">X</button>
-		<div id="EbT_HillsResult" class="result"></div>
-		<button class="button" onclick="generateResult('EbT_Mountains')">Montañas</button>
-		<button class="clearButton" onclick="clearResult('EbT_Mountains')">X</button>
-		<div id="EbT_MountainsResult" class="result"></div>
-		<button class="button" onclick="generateResult('EbT_Swamps')">Pantanos</button>
-		<button class="clearButton" onclick="clearResult('EbT_Swamps')">X</button>
-		<div id="EbT_SwampsResult" class="result"></div>	
-		<button class="button" onclick="generateResult('EbT_Wastelands')">Tierras Baldías</button>
-		<button class="clearButton" onclick="clearResult('EbT_Wastelands')">X</button>
-		<div id="EbT_WastelandsResult" class="result"></div>
+		<button class="button" onclick="generateResult('terrain_encounters_Grasslands')">Praderas</button>
+		<button class="clearButton" onclick="clearResult('terrain_encounters_Grasslands')">X</button>
+		<div id="terrain_encounters_GrasslandsResult" class="result"></div>
+		<button class="button" onclick="generateResult('terrain_encounters_Woods')">Bosques</button>
+		<button class="clearButton" onclick="clearResult('terrain_encounters_Woods')">X</button>
+		<div id="terrain_encounters_WoodsResult" class="result"></div>
+		<button class="button" onclick="generateResult('terrain_encounters_Hills')">Colinas</button>
+		<button class="clearButton" onclick="clearResult('terrain_encounters_Hills')">X</button>
+		<div id="terrain_encounters_HillsResult" class="result"></div>
+		<button class="button" onclick="generateResult('terrain_encounters_Mountains')">Montañas</button>
+		<button class="clearButton" onclick="clearResult('terrain_encounters_Mountains')">X</button>
+		<div id="terrain_encounters_MountainsResult" class="result"></div>
+		<button class="button" onclick="generateResult('terrain_encounters_Swamps')">Pantanos</button>
+		<button class="clearButton" onclick="clearResult('terrain_encounters_Swamps')">X</button>
+		<div id="terrain_encounters_SwampsResult" class="result"></div>	
+		<button class="button" onclick="generateResult('terrain_encounters_Wastelands')">Tierras Baldías</button>
+		<button class="clearButton" onclick="clearResult('terrain_encounters_Wastelands')">X</button>
+		<div id="terrain_encounters_WastelandsResult" class="result"></div>
 	</td> 
   </tr>
 <!-- RENGLON 02 -->
@@ -244,24 +248,24 @@ I'll create next version but with best practices.
   </tr>
   <tr>
     <td>
-		<button class="button" onclick="generateResult('Ewith_Human')">Humano</button>
-		<button class="clearButton" onclick="clearResult('Ewith_Human')">X</button>
-		<div id="Ewith_HumanResult" class="result"></div>
-		<button class="button" onclick="generateResult('Ewith_Animal')">Animal</button>
-		<button class="clearButton" onclick="clearResult('Ewith_Animal')">X</button>
-		<div id="Ewith_AnimalResult" class="result"></div>
-		<button class="button" onclick="generateResult('Ewith_Humanoid')">Humanoide</button>
-		<button class="clearButton" onclick="clearResult('Ewith_Humanoid')">X</button>
-		<div id="Ewith_HumanoidResult" class="result"></div>
-		<button class="button" onclick="generateResult('Ewith_Smonster')">Monstruo Pequeño</button>
-		<button class="clearButton" onclick="clearResult('Ewith_Smonster')">X</button>
-		<div id="Ewith_SmonsterResult" class="result"></div>
-		<button class="button" onclick="generateResult('Ewith_Bmonster')">Monstruo Grande</button>
-		<button class="clearButton" onclick="clearResult('Ewith_Bmonster')">X</button>
-		<div id="Ewith_BmonsterResult" class="result"></div>
-		<button class="button" onclick="generateResult('Ewith_Unnatural')">Antinatural</button>
-		<button class="clearButton" onclick="clearResult('Ewith_Unnatural')">X</button>
-		<div id="Ewith_UnnaturalResult" class="result"></div>
+		<button class="button" onclick="generateResult('encounter_with_Human')">Humano</button>
+		<button class="clearButton" onclick="clearResult('encounter_with_Human')">X</button>
+		<div id="encounter_with_HumanResult" class="result"></div>
+		<button class="button" onclick="generateResult('encounter_with_Animal')">Animal</button>
+		<button class="clearButton" onclick="clearResult('encounter_with_Animal')">X</button>
+		<div id="encounter_with_AnimalResult" class="result"></div>
+		<button class="button" onclick="generateResult('encounter_with_Humanoid')">Humanoide</button>
+		<button class="clearButton" onclick="clearResult('encounter_with_Humanoid')">X</button>
+		<div id="encounter_with_HumanoidResult" class="result"></div>
+		<button class="button" onclick="generateResult('encounter_with_Smonster')">Monstruo Pequeño</button>
+		<button class="clearButton" onclick="clearResult('encounter_with_Smonster')">X</button>
+		<div id="encounter_with_SmonsterResult" class="result"></div>
+		<button class="button" onclick="generateResult('encounter_with_Bmonster')">Monstruo Grande</button>
+		<button class="clearButton" onclick="clearResult('encounter_with_Bmonster')">X</button>
+		<div id="encounter_with_BmonsterResult" class="result"></div>
+		<button class="button" onclick="generateResult('encounter_with_Unnatural')">Antinatural</button>
+		<button class="clearButton" onclick="clearResult('encounter_with_Unnatural')">X</button>
+		<div id="encounter_with_UnnaturalResult" class="result"></div>
     </td>
     <td>
 		<button class="button" onclick="generateResult('Settlements_Quality')">Calidad</button>
@@ -355,6 +359,11 @@ I'll create next version but with best practices.
 		<button class="button" onclick="generateResult('Character_Type')">Tipo</button>
 		<button class="clearButton" onclick="clearResult('Character_Type')">X</button>
 		<div id="Character_TypeResult" class="result"></div>
+
+		<button class="button" onclick="generateResult('Character_Aspect')">Aspecto</button>
+		<button class="clearButton" onclick="clearResult('Character_Aspect')">X</button>
+		<div id="Character_AspectResult" class="result"></div>
+
 		<button class="button" onclick="generateResult('Character_Financial')">Financiero</button>
 		<button class="clearButton" onclick="clearResult('Character_Financial')">X</button>
 		<div id="Character_FinancialResult" class="result"></div>
@@ -428,9 +437,9 @@ I'll create next version but with best practices.
 		-->
     </td>
     <td>
-		<button class="button" onclick="generateResult('DiceYN')">Si/No</button>
-		<button class="clearButton" onclick="clearResult('DiceYN')">X</button>
-		<div id="DiceYNResult" class="result"></div> 
+		<button class="button" onclick="generateResult('DiceYesNo')">Si/No</button>
+		<button class="clearButton" onclick="clearResult('DiceYesNo')">X</button>
+		<div id="DiceYesNoResult" class="result"></div> 
 		<button class="button" onclick="generateResult('FirstOrSecond')">uno u otro</button>
 		<button class="clearButton" onclick="clearResult('FirstOrSecond')">X</button>
 		<div id="FirstOrSecondResult" class="result"></div> 
@@ -524,14 +533,14 @@ I'll create next version but with best practices.
     <span id="popupText">
     	<div align="left">
 			Te encuentras atravesando las <b><button class="button">Terreno</button> [Tierras de pastoreo]</b>, el clima está <b><button class="button">Clima</button>[Nublado]</b>.  Todo está muy tranquilo pero <b><button class="button">Corazonada</button>[Noto que algo no anda bien por aquí]</b>.<br>
-			Va a pasar algo? <b><button class="button">Si/No</button>[Si]</b>. Voy asegurarme de tener todo lo necesario para continuar. Perdí algo? <b><button class="button">Si/No</button>[No, pero]</b>, veo a alguien o me encuentro con alguien más? <b><button class="button">Si/No</button>[Si, y...]</b>. 
-			A lo lejos puedo ver la figura de un <b><button class="button">Raza</button>[Humano]</b> con aspecto de <b>[Mago]</b>, y puedo percibir que está <b>[Asustado]</b>.  <br>
-			Es amenazante o parece tener intenciones de amenaza? <b>[No]</b>.<br>
-			Luego de acercarme cuidadosamente y hablar con <b>[Vlesk]</b> comenta que la motivación de su temor es que le robaron su <b>[Tesoro]</b> con un método de <b>[Chantaje]</b> y el ladron desapareció entre los pueblerinos <b>[Escape]</b>. <br>
-			<b>[Vlesk]</b> Comenta que fue una emboscada y debe <b>[Sobrevivir]</b> <b>[A una batalla]</b>. <br>
-			Debería ayudarlo? <b>[Si, pero]</b> le pediré algo a cambio. <br>
-			Le pido un tipo de objeto <b>[común]</b>, precisamente <b>[Sierra de mano]</b>.<br>
-			Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b>, más precisamente en <b>[Northglen]</b>.
+			Va a pasar algo? <b><button class="button">Si/No</button>[Si]</b>. Voy asegurarme de tener todo lo necesario para continuar. Perdí algo? <b><button class="button">Si/No</button>[No, pero]</b>, veo a alguien o me encuentro con alguien más? <b><button class="button">Si/No</button>[Si, y...]</b>.<br>
+			A lo lejos puedo ver la figura de un <b><button class="button">Raza</button>[Humano]</b> con aspecto <b><button class="button">Aspecto</button>[Elegante]</b>, y puedo percibir que está <b><button class="button">Rasgos_C</button>[Asustado]</b>.  <br>
+			Es amenazante o parece tener intenciones de amenaza? <b><button class="button">Si/No</button>[No]</b>.<br>
+			Luego de acercarme cuidadosamente y hablar con <b><button class="button">Nombres Masculinos</button>[Vlesk]</b> comenta que la motivación de su temor es que le robaron su <b><button class="button">Motivación</button>[Riqueza]</b> con un método de <button class="button">Metodo</button><b>[Chantaje]</b> y el ladron desapareció entre los pueblerinos de <b><button class="button button2">Zona Mapa</button>[Mapa-4] <button class="button">Mapa-4</button>[Torre de cobre]</b>. <br>
+			<b>Vlesk</b> comenta que fue una emboscada y debe <b><button class="button button2">Tipo de mision</button>[Sobrevivir]</b> a <b><button class="button">Sobrevivir, Escapar</button> [una batalla]</b>. <br>
+			Debería ayudarlo? <b><button class="button">Si/No</button>[Si, pero]</b> le pediré algo a cambio. <br>
+			Le pido un tipo de objeto <b><button class="button button2">Tipo de objeto</button>[común]</b>, precisamente <b><button class="button">Común</button>[Punta de lanza]</b>.<br>
+			El muestra en el mapa que debemos ir a buscarlo a <b><button class="button button2">Zona mapa</button>[Mapa-5]</b>, más precisamente en <b><button class="button">Mapa-5</button>[Northglen]</b>.
 		</div>
 		<button id="closeButton" onclick="togglePopup()">Cerrar</button>
     </span>
@@ -690,7 +699,7 @@ I'll create next version but with best practices.
 							"5. Pantanos",
 							"6. Tierra baldía",
 							],
-					'EbT_Grasslands': [
+					'terrain_encounters_Grasslands': [
 							"1. Humano",
 							"2. Humano",
 							"3. Humano",
@@ -698,7 +707,7 @@ I'll create next version but with best practices.
 							"5. Animal",
 							"6. Monstruo pequeño",
 							],
-					'EbT_Woods': [
+					'terrain_encounters_Woods': [
 							"1. Humano",
 							"2. Humano",
 							"3. Humano",
@@ -706,7 +715,7 @@ I'll create next version but with best practices.
 							"5. Monstruo pequeño",
 							"6. Monstruo mediano",
 							],
-					'EbT_Hills': [
+					'terrain_encounters_Hills': [
 							"1. Humano",
 							"2. Humano",
 							"3. Animal",
@@ -714,7 +723,7 @@ I'll create next version but with best practices.
 							"5. Monstruo mediano",
 							"6. Gran monstruo",
 							],
-					'EbT_Mountains': [
+					'terrain_encounters_Mountains': [
 							"1. Humano",
 							"2. Humano",
 							"3. Humano",
@@ -722,7 +731,7 @@ I'll create next version but with best practices.
 							"5. Monstruo mediano",
 							"6. Monstruo mediano",
 							],
-					'EbT_Swamps': [
+					'terrain_encounters_Swamps': [
 							"1. Humano",
 							"2. Humano",
 							"3. Animal",
@@ -730,7 +739,7 @@ I'll create next version but with best practices.
 							"5. Sobrenatural",
 							"6. Monstruo pequeño",
 							],
-							'EbT_Wastelands': [
+							'terrain_encounters_Wastelands': [
 							"1. Humano",
 							"2. Humano",
 							"3. Humano",
@@ -738,7 +747,7 @@ I'll create next version but with best practices.
 							"5. Monstruo pequeño",
 							"6. Monstruo mediano",
 							],
-							'Ewith_Human': [
+							'encounter_with_Human': [
 							"1. PNJ",
 							"2. Común: HD(1)|AC/ATK(10)|Dmg(1)",
 							"3. Bandido: HD(1)|AC/ATK(11)|Dmg(d6)",
@@ -746,7 +755,7 @@ I'll create next version but with best practices.
 							"5. Berserker: HD(3)|AC/ATK(13)|Dmg(d8)",
 							"6. Mago: HD(2)|AC/ATK(12)|Dmg(d4) Conjuro(d6)",
 							],
-							'Ewith_Animal': [
+							'encounter_with_Animal': [
 							"1. Escarabajo: HD(2)|AC/ATK(12)|Dmg(d4)",
 							"2. Ciempies: HD(2)|AC/ATK(12)|Dmg(d6)",
 							"3. Oso: HD(4)|AC/ATK(14)|Dmg(d6,d6)",
@@ -754,7 +763,7 @@ I'll create next version but with best practices.
 							"5. Lagarto: HD(2)|AC/ATK(12)|Dmg(d6)",
 							"6. Halcón: HD(1)|AC/ATK(11)|Dmg(d6)",
 							],
-							'Ewith_Humanoid': [
+							'encounter_with_Humanoid': [
 							"1. PNJ",
 							"2. Gnoll: HD(2)|AC/ATK(12)|Dmg(d6)",
 							"3. Kobold: HD(2)|AC/ATK(12)|Dmg(d6)",
@@ -762,7 +771,7 @@ I'll create next version but with best practices.
 							"5. Trol: HD(4)|AC/ATK(14)|Dmg(d8)",
 							"6. Orco: HD(4)|AC/ATK(14)|Dmg(d6)",
 							],
-							'Ewith_Smonster': [
+							'encounter_with_Smonster': [
 							"1. Baba: HD(1)|AC/ATK(19)|Dmg(d4)",
 							"2. Ogro: HD(3)|AC/ATK(13)|Dmg(d8)",
 							"3. Arpía: HD(3)|AC/ATK(13)|Dmg(d6)",
@@ -770,7 +779,7 @@ I'll create next version but with best practices.
 							"5. Stirge: HD(2)|AC/ATK(12)|Dmg(d6)",
 							"6. Hombre lobo: HD(4)|AC/ATK(14)|Dmg(d6)",
 							],
-							'Ewith_Bmonster': [
+							'encounter_with_Bmonster': [
 							"1. Gárgola: HD(4)|AC/ATK(14)|Dmg(d8)",
 							"2. Mantícora: HD(4)|AC/ATK(14)|Dmg(d6)",
 							"3. Hidra: HD(5)|AC/ATK(15)|Dmg(d4, d4, d4)",
@@ -778,7 +787,7 @@ I'll create next version but with best practices.
 							"5. Caballero de la Muerte: HD(3)|AC/ATK(13)|Dmg(d6)",
 							"6. Dragón: HD(6)|AC/ATK(16)|Dmg(d8,d8)",
 							],
-							'Ewith_Unnatural': [
+							'encounter_with_Unnatural': [
 							"1. Ghoul: HD(2)|AC/ATK(12)|Dmg(d6)",
 							"2. Zombi: HD(1)|AC/ATK(11)|Dmg(d6)",
 							"3. Esqueleto: HD(1)|AC/ATK(11)|Dmg(d6)",
@@ -843,11 +852,11 @@ I'll create next version but with best practices.
 							"1. Humano",
 							"2. Humano",
 							"3. Enano",
-							"4. Medianito",
+							"4. Mediano",
 							"5. Gnomo",
 							"6. Elfo",
 							],
-							'Character_Type': [
+					'Character_Type': [
 							"1. Mágico",
 							"2. Aventurero",
 							"3. Comerciante",
@@ -855,7 +864,16 @@ I'll create next version but with best practices.
 							"5. Noble",
 							"6. Plebeyo",
 							],
-							'Character_Financial': [
+
+					'Character_Aspect': [
+							"1. Elegante",
+							"2. Desaliñado",
+							"3. Atractivo",
+							"4. Casual",
+							"5. Impecable",
+							"6. Exótico"
+							],
+					'Character_Financial': [
 							"1. Muy Pobre",
 							"2. Pobre",
 							"3. Moderado",
@@ -1189,7 +1207,7 @@ I'll create next version but with best practices.
 					    "5. Busca desesperadamente un artefacto perdido.",
 					    "6. Ofrece el 40% del botin por asaltar un lugar.",
 					    ],
-			'DiceYN': [
+			'DiceYesNo': [
             	"1. Si",
             	"2. Si, pero",      
             	"3. Si, y ", 
