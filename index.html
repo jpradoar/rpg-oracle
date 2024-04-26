@@ -10,6 +10,7 @@ I'll create next version but with best practices.
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <title>RPG Oracle</title>
 <style>
     body {
@@ -147,13 +148,15 @@ I'll create next version but with best practices.
 </head>
 <body>
 <h2> RPG Oracle </h2>
+Esta es una web/aplicación para generar un historial de RPG simple. Puedes crear "sobre la marcha" la historia, el entorno, los objetivos, la misión y más. <br>... ¡¡¡Adelante y sé tú mismo en un mundo misterioso!!!
+
 
 <table>
   <tr>
-    <th><i class="fa fa-cloud" aria-hidden="true"></i> Entorno</th>
-    <th><i class="fa fa-eye" aria-hidden="true"></i> Descubrimientos</th>
-    <th><i class="fa fa-paw" aria-hidden="true"></i> Peligros</th>
-    <th><i class="fa fa-tree" aria-hidden="true"></i> Encuentros en Terreno</th>  
+    <td><i class="fa fa-cloud" ></i> Entorno</td>
+    <td><i class="fa fa-eye"></i> Descubrimientos</td>
+    <td><i class="fa fa-paw"></i> Peligros</td>
+    <td><i class="fa fa-tree"></i> Encuentros en Terreno</td>
   </tr>
   <tr>
     <td>
@@ -241,10 +244,10 @@ I'll create next version but with best practices.
   </tr>
 <!-- RENGLON 02 -->
   <tr>
-    <td><i class="fa fa-bug" aria-hidden="true"></i> Encuentro con ...</td>
-    <td><i class="fa fa-home" aria-hidden="true"></i> Asentamientos | <i class="fa fa-book" aria-hidden="true"></i> Descripciones</td>
-    <td><i class="fa fa-archive" aria-hidden="true"></i> Objetos | <i class="fa fa-magic" aria-hidden="true"></i> Efectos Mágicos</td>
-    <td><i class="fa fa-map" aria-hidden="true"></i> Encuentros de Viaje</td>
+    <td><i class="fa fa-bug"></i> Encuentro con ...</td>
+    <td><i class="fa fa-home"></i> Asentamientos | <i class="fa fa-book"></i> Descripciones</td>
+    <td><i class="fa fa-archive"></i> Objetos | <i class="fa fa-magic"></i> Efectos Mágicos</td>
+    <td><i class="fa fa-map"></i> Encuentros de Viaje</td>
   </tr>
   <tr>
     <td>
@@ -343,10 +346,10 @@ I'll create next version but with best practices.
 
   </tr>
   <tr>
-    <td><i class="fa fa-users" aria-hidden="true"></i> Personajes 1/2</td>
-    <td><i class="fa fa-users" aria-hidden="true"></i> Personajes 2/2</td>
-    <td><i class="fa fa-list" aria-hidden="true"></i> Misión</td>
-    <td><i class="fa fa-refresh" aria-hidden="true"></i> Generico</td>
+    <td><i class="fa fa-users"></i> Personajes 1/2</td>
+    <td><i class="fa fa-users"></i> Personajes 2/2</td>
+    <td><i class="fa fa-list"></i> Misión</td>
+    <td><i class="fa fa-refresh"></i> Generico</td>
   </tr>
   <tr>
     <td>
@@ -458,8 +461,8 @@ I'll create next version but with best practices.
 
   </tr>
   <tr>
-    <td><i class="fa fa-map" aria-hidden="true"></i> Mapa</td>
-    <td><i class="fa fa-user" aria-hidden="true"> Personaje	</td>
+    <td><i class="fa fa-map"></i> Mapa</td>
+    <td><i class="fa fa-user"></i> Personaje</td>
    <td>Paso del tiempo</td>
     <td>Inventario & Notas</td>
   </tr>
@@ -546,7 +549,15 @@ I'll create next version but with best practices.
     </span>
 </div>
 
-<button id="closeButton" onclick="toggleImage()">Mapa</button> <button id="closeButton" onclick="exportHistory()">Exportar Historial</button> <button id="closeButton" onclick="togglePopup()">Ejemplo de jugada</button>
+<button id="closeButton" onclick="toggleImage()">Mapa</button> 
+<button id="closeButton" onclick="exportHistory()">Exportar Historial</button> 
+<button id="closeButton" onclick="togglePopup()">Ejemplo de jugada</button>
+ <a href="https://github.com/jpradoar/rpg-oracle/" target="_blank"><button id="closeButton" ><i class="fab fa-github"></i></a></button>
+
+
+
+
+
 
 
 
@@ -556,6 +567,7 @@ I'll create next version but with best practices.
     <div id="imageCaption">Barbarian Vince: Full Map (Optional) v1.4 (Jan 2018) Rocco Privetera & Cinnamon Curtis</div>
     <button id="closeButton" onclick="toggleImage()">Cerrar</button>
 </div>
+
 
 <script>
 
