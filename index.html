@@ -148,6 +148,9 @@ I'll create next version but with best practices.
 </head>
 <body>
 <h2> RPG Oracle </h2>
+Esta es una web/aplicación para generar un historial de RPG simple. Puedes crear "sobre la marcha" la historia, el entorno, los objetivos, la misión y más. <br>... ¡¡¡Adelante y sé tú mismo en un mundo misterioso!!!
+
+
 <table>
   <tr>
     <td><i class="fa fa-cloud" ></i> Entorno</td>
@@ -549,7 +552,11 @@ I'll create next version but with best practices.
 <button id="closeButton" onclick="toggleImage()">Mapa</button> 
 <button id="closeButton" onclick="exportHistory()">Exportar Historial</button> 
 <button id="closeButton" onclick="togglePopup()">Ejemplo de jugada</button>
- <a href="https://github.com/jpradoar/rpg-oracle/" target="_blank"><button id="closeButton" ><i class="fab fa-github"></i></a></button>
+<button id="closeButton">
+	<a href="https://github.com/jpradoar/rpg-oracle/" target="_blank">
+		<i class="fab fa-github"></i>
+	</a>
+</button>
 
 
 
@@ -1348,16 +1355,21 @@ I'll create next version but with best practices.
         eventList.appendChild(li);
     }
 
+    let popupContainerVisible = false;
     function togglePopup() {
         const popup = document.getElementById("popup");
-        popup.style.display = (popup.style.display === "none") ? "block" : "none";
+        popup.style.display = popupContainerVisible ? "none" : "block";
+        popupContainerVisible = !popupContainerVisible;
     }
 
+
+    let imageContainerVisible = false;
     function toggleImage() {
         const imageContainer = document.getElementById("imageContainer");
         // Alternar entre mostrar y ocultar el contenedor de la imagen
-        imageContainer.style.display = (imageContainer.style.display === "none") ? "block" : "none";
-    }   
+        imageContainer.style.display = imageContainerVisible ? "none" : "block";
+        imageContainerVisible = !imageContainerVisible;
+    }
 
     function exportHistory() {
         const eventList = document.getElementById("eventList");
