@@ -1,13 +1,21 @@
+<!-- 
+I know, this is a super bad organization and this file is to big, 
+but it was designed to use whitout internet and use during a plane trip or similar.
+
+I'll create next version but with best practices.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <title>RPG Oracle</title>
 <style>
     body {
-        font-family: Arial, sans-serif;
+        font-family: sans-serif;
+        font: italic 1.2rem "Luminari, fantasy", serif;
         margin: 0;
         padding: 0;
         text-align: center ;
@@ -26,6 +34,12 @@
     .button2 {
         background-color: #FFA500;
     }
+    .inputs {
+        color: black;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
     .clearButton {
         background-color: red;
         color: white;
@@ -33,12 +47,20 @@
         border-radius: 5px;
         cursor: pointer;
     }
-    .result {
+  .result {
         width: 100%;
         margin: 1px auto;
         background-color: #f0f0f0;
         border-radius: 5px;
     }
+  .inputNumber {
+  		width: 10%;
+  		text-align: center;
+      border-radius: 3px;	
+  }
+  input {
+    width: 90%;
+  }	
 	table {
 	  border-collapse: collapse;
 	  width: 100%;
@@ -52,18 +74,90 @@
 
 	tr:nth-child(even) {
 	  background-color: #dddddd;
-	}       
+	}     
+  #historial {
+        text-align: left;
+        margin-top: 20px;
+        max-height: 200px; 			/* Altura máxima del historial */
+        overflow-y: auto; 			/* Activar scroll vertical si el contenido excede la altura */
+        border: 1px solid #ccc; /* Borde para el contenedor */
+        padding: 5px; 					/* Espaciado interno */
+    }	
+    /* Estilos para el pop-up */
+    #popup {
+        display: none; /* Inicialmente oculto */
+        /*
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        */
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        z-index: 9999; /* Asegura que el pop-up esté por encima de otros elementos */
+    }
+    #popupText {
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+    #closeButton {
+        background-color: #ddd;
+        border: none;
+        color: #333;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-top: 10px;
+        cursor: pointer;
+        border-radius: 3px;
+    }
+    #closeButton:hover {
+        background-color: #ccc;
+    }
+    /* Estilos para el contenedor de la imagen */
+    #imageContainer {
+        display: none; /* Inicialmente oculto */
+        /*
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        */
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        z-index: 9999; /* Asegura que el contenedor esté por encima de otros elementos */
+    }
+    
+    #imageContainer img {
+        max-width: 100%; /* Ajustar la imagen al ancho máximo del contenedor */
+        max-height: 80vh; /* Limitar la altura de la imagen para que quepa en la pantalla */
+    }    
+    #imageCaption {
+        font-size: 8px; /* Tamaño de fuente pequeño */
+        margin-top: 5px; /* Espacio superior */
+    }     
 </style>
 </head>
 <body>
 <h2> RPG Oracle </h2>
+Esta es una web/aplicación para generar un historial de RPG simple. Puedes crear "sobre la marcha" la historia, el entorno, los objetivos, la misión y más. <br>... ¡¡¡Adelante y sé tú mismo en un mundo misterioso!!!
+
 
 <table>
   <tr>
-    <th><i class="fa fa-cloud" aria-hidden="true"></i> Entorno</th>
-    <th><i class="fa fa-eye" aria-hidden="true"></i> Descubrimientos</th>
-    <th><i class="fa fa-paw" aria-hidden="true"></i> Peligros</th>
-    <th><i class="fa fa-tree" aria-hidden="true"></i> Encuentros en Terreno</th>  
+    <td><i class="fa fa-cloud" ></i> Entorno</td>
+    <td><i class="fa fa-eye"></i> Descubrimientos</td>
+    <td><i class="fa fa-paw"></i> Peligros</td>
+    <td><i class="fa fa-tree"></i> Encuentros en Terreno</td>
   </tr>
   <tr>
     <td>
@@ -129,53 +223,53 @@
 		<button class="button button2" onclick="generateResult('Terrain_type')">Tipo de Terreno</button>
 		<button class="clearButton" onclick="clearResult('Terrain_type')">X</button>
 		<div id="Terrain_typeResult" class="result"></div>
-		<button class="button" onclick="generateResult('EbT_Grasslands')">Praderas</button>
-		<button class="clearButton" onclick="clearResult('EbT_Grasslands')">X</button>
-		<div id="EbT_GrasslandsResult" class="result"></div>
-		<button class="button" onclick="generateResult('EbT_Woods')">Bosques</button>
-		<button class="clearButton" onclick="clearResult('EbT_Woods')">X</button>
-		<div id="EbT_WoodsResult" class="result"></div>
-		<button class="button" onclick="generateResult('EbT_Hills')">Colinas</button>
-		<button class="clearButton" onclick="clearResult('EbT_Hills')">X</button>
-		<div id="EbT_HillsResult" class="result"></div>
-		<button class="button" onclick="generateResult('EbT_Mountains')">Montañas</button>
-		<button class="clearButton" onclick="clearResult('EbT_Mountains')">X</button>
-		<div id="EbT_MountainsResult" class="result"></div>
-		<button class="button" onclick="generateResult('EbT_Swamps')">Pantanos</button>
-		<button class="clearButton" onclick="clearResult('EbT_Swamps')">X</button>
-		<div id="EbT_SwampsResult" class="result"></div>	
-		<button class="button" onclick="generateResult('EbT_Wastelands')">Tierras Baldías</button>
-		<button class="clearButton" onclick="clearResult('EbT_Wastelands')">X</button>
-		<div id="EbT_WastelandsResult" class="result"></div>
+		<button class="button" onclick="generateResult('terrain_encounters_Grasslands')">Praderas</button>
+		<button class="clearButton" onclick="clearResult('terrain_encounters_Grasslands')">X</button>
+		<div id="terrain_encounters_GrasslandsResult" class="result"></div>
+		<button class="button" onclick="generateResult('terrain_encounters_Woods')">Bosques</button>
+		<button class="clearButton" onclick="clearResult('terrain_encounters_Woods')">X</button>
+		<div id="terrain_encounters_WoodsResult" class="result"></div>
+		<button class="button" onclick="generateResult('terrain_encounters_Hills')">Colinas</button>
+		<button class="clearButton" onclick="clearResult('terrain_encounters_Hills')">X</button>
+		<div id="terrain_encounters_HillsResult" class="result"></div>
+		<button class="button" onclick="generateResult('terrain_encounters_Mountains')">Montañas</button>
+		<button class="clearButton" onclick="clearResult('terrain_encounters_Mountains')">X</button>
+		<div id="terrain_encounters_MountainsResult" class="result"></div>
+		<button class="button" onclick="generateResult('terrain_encounters_Swamps')">Pantanos</button>
+		<button class="clearButton" onclick="clearResult('terrain_encounters_Swamps')">X</button>
+		<div id="terrain_encounters_SwampsResult" class="result"></div>	
+		<button class="button" onclick="generateResult('terrain_encounters_Wastelands')">Tierras Baldías</button>
+		<button class="clearButton" onclick="clearResult('terrain_encounters_Wastelands')">X</button>
+		<div id="terrain_encounters_WastelandsResult" class="result"></div>
 	</td> 
   </tr>
 <!-- RENGLON 02 -->
   <tr>
-    <td><i class="fa fa-bug" aria-hidden="true"></i> Encuentro con ...</td>
-    <td><i class="fa fa-home" aria-hidden="true"></i> Asentamientos | <i class="fa fa-book" aria-hidden="true"></i> Descripciones</td>
-    <td><i class="fa fa-archive" aria-hidden="true"></i> Objetos | <i class="fa fa-magic" aria-hidden="true"></i> Efectos Mágicos</td>
-    <td><i class="fa fa-map" aria-hidden="true"></i> Encuentros de Viaje</td>
+    <td><i class="fa fa-bug"></i> Encuentro con ...</td>
+    <td><i class="fa fa-home"></i> Asentamientos | <i class="fa fa-book"></i> Descripciones</td>
+    <td><i class="fa fa-archive"></i> Objetos | <i class="fa fa-magic"></i> Efectos Mágicos</td>
+    <td><i class="fa fa-map"></i> Encuentros de Viaje</td>
   </tr>
   <tr>
     <td>
-		<button class="button" onclick="generateResult('Ewith_Human')">Humano</button>
-		<button class="clearButton" onclick="clearResult('Ewith_Human')">X</button>
-		<div id="Ewith_HumanResult" class="result"></div>
-		<button class="button" onclick="generateResult('Ewith_Animal')">Animal</button>
-		<button class="clearButton" onclick="clearResult('Ewith_Animal')">X</button>
-		<div id="Ewith_AnimalResult" class="result"></div>
-		<button class="button" onclick="generateResult('Ewith_Humanoid')">Humanoide</button>
-		<button class="clearButton" onclick="clearResult('Ewith_Humanoid')">X</button>
-		<div id="Ewith_HumanoidResult" class="result"></div>
-		<button class="button" onclick="generateResult('Ewith_Smonster')">Monstruo Pequeño</button>
-		<button class="clearButton" onclick="clearResult('Ewith_Smonster')">X</button>
-		<div id="Ewith_SmonsterResult" class="result"></div>
-		<button class="button" onclick="generateResult('Ewith_Bmonster')">Monstruo Grande</button>
-		<button class="clearButton" onclick="clearResult('Ewith_Bmonster')">X</button>
-		<div id="Ewith_BmonsterResult" class="result"></div>
-		<button class="button" onclick="generateResult('Ewith_Unnatural')">Antinatural</button>
-		<button class="clearButton" onclick="clearResult('Ewith_Unnatural')">X</button>
-		<div id="Ewith_UnnaturalResult" class="result"></div>
+		<button class="button" onclick="generateResult('encounter_with_Human')">Humano</button>
+		<button class="clearButton" onclick="clearResult('encounter_with_Human')">X</button>
+		<div id="encounter_with_HumanResult" class="result"></div>
+		<button class="button" onclick="generateResult('encounter_with_Animal')">Animal</button>
+		<button class="clearButton" onclick="clearResult('encounter_with_Animal')">X</button>
+		<div id="encounter_with_AnimalResult" class="result"></div>
+		<button class="button" onclick="generateResult('encounter_with_Humanoid')">Humanoide</button>
+		<button class="clearButton" onclick="clearResult('encounter_with_Humanoid')">X</button>
+		<div id="encounter_with_HumanoidResult" class="result"></div>
+		<button class="button" onclick="generateResult('encounter_with_Smonster')">Monstruo Pequeño</button>
+		<button class="clearButton" onclick="clearResult('encounter_with_Smonster')">X</button>
+		<div id="encounter_with_SmonsterResult" class="result"></div>
+		<button class="button" onclick="generateResult('encounter_with_Bmonster')">Monstruo Grande</button>
+		<button class="clearButton" onclick="clearResult('encounter_with_Bmonster')">X</button>
+		<div id="encounter_with_BmonsterResult" class="result"></div>
+		<button class="button" onclick="generateResult('encounter_with_Unnatural')">Antinatural</button>
+		<button class="clearButton" onclick="clearResult('encounter_with_Unnatural')">X</button>
+		<div id="encounter_with_UnnaturalResult" class="result"></div>
     </td>
     <td>
 		<button class="button" onclick="generateResult('Settlements_Quality')">Calidad</button>
@@ -253,10 +347,10 @@
 
   </tr>
   <tr>
-    <td><i class="fa fa-users" aria-hidden="true"></i> Personajes 1/2</td>
-    <td><i class="fa fa-users" aria-hidden="true"></i> Personajes 2/2</td>
-    <td><i class="fa fa-list" aria-hidden="true"></i> Misión</td>
-    <td><i class="fa fa-refresh" aria-hidden="true"></i> Generico</td>
+    <td><i class="fa fa-users"></i> Personajes 1/2</td>
+    <td><i class="fa fa-users"></i> Personajes 2/2</td>
+    <td><i class="fa fa-list"></i> Misión</td>
+    <td><i class="fa fa-refresh"></i> Generico</td>
   </tr>
   <tr>
     <td>
@@ -269,6 +363,11 @@
 		<button class="button" onclick="generateResult('Character_Type')">Tipo</button>
 		<button class="clearButton" onclick="clearResult('Character_Type')">X</button>
 		<div id="Character_TypeResult" class="result"></div>
+
+		<button class="button" onclick="generateResult('Character_Aspect')">Aspecto</button>
+		<button class="clearButton" onclick="clearResult('Character_Aspect')">X</button>
+		<div id="Character_AspectResult" class="result"></div>
+
 		<button class="button" onclick="generateResult('Character_Financial')">Financiero</button>
 		<button class="clearButton" onclick="clearResult('Character_Financial')">X</button>
 		<div id="Character_FinancialResult" class="result"></div>
@@ -342,32 +441,31 @@
 		-->
     </td>
     <td>
-		<button class="button" onclick="generateResult('DiceYN')">Si/No</button>
-		<button class="clearButton" onclick="clearResult('DiceYN')">X</button>
-		<div id="DiceYNResult" class="result"></div> 
+		<button class="button" onclick="generateResult('DiceYesNo')">Si/No</button>
+		<button class="clearButton" onclick="clearResult('DiceYesNo')">X</button>
+		<div id="DiceYesNoResult" class="result"></div> 
+		<button class="button" onclick="generateResult('FirstOrSecond')">uno u otro</button>
+		<button class="clearButton" onclick="clearResult('FirstOrSecond')">X</button>
+		<div id="FirstOrSecondResult" class="result"></div> 
 		<button class="button" onclick="generateResult('generic_hunch')">Corazonada</button>
 		<button class="clearButton" onclick="clearResult('generic_hunch')">X</button>
 		<div id="generic_hunchResult" class="result"></div> 
-
-<button class="button" onclick="generateResult('generic_hunch')">Ciudad</button>
-		<button class="clearButton" onclick="clearResult('generic_hunch')">X</button>
-		<div id="generic_hunchResult" class="result"></div> 
-
-
-		<button class="button" onclick="generateResult('Dice1D6')">1D6 xx</button>
+		<button class="button" onclick="generateResult('Dice1D6')"> <i class="fa-solid fa-dice-five"></i> 1D6</button>
 		<button class="clearButton" onclick="clearResult('Dice1D6')">X</button>
 		<div id="Dice1D6Result" class="result"></div> 
-
+		<button class="button" onclick="generateResult('Dice1D8')"> <i class="fa-solid fa-dice-five"></i> 1D8</button>
+		<button class="clearButton" onclick="clearResult('Dice1D8')">X</button>
+		<div id="Dice1D8Result" class="result"></div> 
     </td>
   </tr>
 
 
   </tr>
   <tr>
-    <td><i class="fa fa-users" aria-hidden="true"></i> Mapa</td>
-    <td> - </td>
-   <td> - </td>
-    <td>Ejemplo</td>
+    <td><i class="fa fa-map"></i> Mapa</td>
+    <td><i class="fa fa-user"></i> Personaje</td>
+   <td>Paso del tiempo</td>
+    <td>Inventario & Notas</td>
   </tr>
   <tr>
     <td>
@@ -391,42 +489,108 @@
 			<div id="Mapa-5Result" class="result"></div>
 			<button class="button" onclick="generateResult('Mapa-6')">Mapa-6</button>
 			<button class="clearButton" onclick="clearResult('Mapa-6')">X</button>
-			<div id="Mapa-6Result" class="result"></div>
-			<button class="button" onclick="generateResult('Mapa-7')">Mapa-7</button>
+			<div id="Mapa-6Result" class="result"></div>																																									
+			<button class="button" onclick="generateResult('Mapa-7')" id="Mapa-7" >Mapa-7</button>
 			<button class="clearButton" onclick="clearResult('Mapa-7')">X</button>
-			<div id="Mapa-7Result" class="result"></div>
-			
+			<div id="Mapa-7Result" class="result"></div>			
     </td>
     <td>
-    -
+			Salud:   <input type="number"  class="inputStats inputNumber" min="0" max="6"><br>
+			Fuerza: <input type="number"  class="inputStats inputNumber" min="0" max="6"><br>
+			Contador 1: <input type="number"  class="inputStats inputNumber"><br>
+			Contador 2: <input type="number"  class="inputStats inputNumber"><br>
+			Contador 3: <input type="number"  class="inputStats inputNumber"><br>
+			Contador 4: <input type="number"  class="inputStats inputNumber"><br>
+			Contador 5: <input type="number"  class="inputStats inputNumber"><br>
+			Contador 6: <input type="number"  class="inputStats inputNumber"><br>
+
     </td>
     <td>
-		- 
+		    Dias:   	<input type="number"  class="inputNumber" min="0" max="7"> <br>
+		    Semanas: 	<input type="number" class="inputNumber" min="0" max="4"> <br>
+		    Meses: 		<input type="number" class="inputNumber" min="0" max="12"> <br>
+		    Años: 		<input type="number" class="inputNumber" min="0" max="100"> <br>
+				Comida: 	<input type="number" class="inputNumber" min="0" max="31"> (raciones)<br>
+				Dinero: 	<input type="number" class="inputNumber" min="0" max="999999"> (monedas)
     </td>
     <td>
-     -
+    <input type="text" class="inputs " ><br>
+    <input type="text" class="inputs"><br>
+    <input type="text" class="inputs"><br>
+    <input type="text" class="inputs"><br>
+    <input type="text" class="inputs"><br>
+    <input type="text" class="inputs"><br>
+    <input type="text" class="inputs"><br>
     </td>
   </tr>
-
 </table>
 
-<br>
-<h3>Ejemplo de jugada</h3>
+<h3>Historial de Eventos:</h3>
 
-<div align="left">
-Me encuentro atravesando las <b>[Tierras de pastoreo]</b>, el clima está <b>[Nublado]</b>.  Todo está muy tranquilo pero <b>[Noto que algo no anda bien por aquí]</b>.<br>
-Va a pasar algo? <b>[Si]</b>. Voy asegurarme de tener todo lo necesario para continuar. Perdí algo? <b>[No, pero]</b>, Veo a alguien o me encuentro con alguien más? <b>[Si, y...]</b>. 
-A lo lejos puedo ver la figura de un <b>[Humano]</b> con aspecto de <b>[Mago]</b>, y puedo percibir que está <b>[Asustado]</b>.  <br>
-Es amenazante o parece tener intenciones de amenaza? <b>[No]</b>.<br>
-Luego de acercarme cuidadosamente y hablar con <b>[Vlesk]</b> comenta que la motivación de su temor es que le robaron su <b>[Tesoro]</b> con un método de <b>[Chantaje]</b> y el ladron desapareció entre los pueblerinos <b>[Escape]</b>. <br>
-<b>[Vlesk]</b> Comenta que fue una emboscada y debe <b>[Sobrevivir]</b> <b>[A una batalla]</b>. <br>
-Debería ayudarlo? <b>[Si, pero]</b> le pediré algo a cambio. <br>
-Le pido un tipo de objeto <b>[común]</b>, precisamente <b>[Sierra de mano]</b>.<br>
-Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b>, más precisamente en <b>[Northglen]</b>.
+<!-- hISTORIAL -->
+<div id="historial">
+  <ul id="eventList"></ul>
+</div>
+
+<!-- POP-UP -->
+<div id="popup">
+    <span id="popupText">
+    	<div align="left">
+			Te encuentras atravesando las <b><button class="button">Terreno</button> [Tierras de pastoreo]</b>, el clima está <b><button class="button">Clima</button>[Nublado]</b>.  Todo está muy tranquilo pero <b><button class="button">Corazonada</button>[Noto que algo no anda bien por aquí]</b>.<br>
+			Va a pasar algo? <b><button class="button">Si/No</button>[Si]</b>. Voy asegurarme de tener todo lo necesario para continuar. Perdí algo? <b><button class="button">Si/No</button>[No, pero]</b>, veo a alguien o me encuentro con alguien más? <b><button class="button">Si/No</button>[Si, y...]</b>.<br>
+			A lo lejos puedo ver la figura de un <b><button class="button">Raza</button>[Humano]</b> con aspecto <b><button class="button">Aspecto</button>[Elegante]</b>, y puedo percibir que está <b><button class="button">Rasgos_C</button>[Asustado]</b>.  <br>
+			Es amenazante o parece tener intenciones de amenaza? <b><button class="button">Si/No</button>[No]</b>.<br>
+			Luego de acercarme cuidadosamente y hablar con <b><button class="button">Nombres Masculinos</button>[Vlesk]</b> comenta que la motivación de su temor es que le robaron su <b><button class="button">Motivación</button>[Riqueza]</b> con un método de <button class="button">Metodo</button><b>[Chantaje]</b> y el ladron desapareció entre los pueblerinos de <b><button class="button button2">Zona Mapa</button>[Mapa-4] <button class="button">Mapa-4</button>[Torre de cobre]</b>. <br>
+			<b>Vlesk</b> comenta que fue una emboscada y debe <b><button class="button button2">Tipo de mision</button>[Sobrevivir]</b> a <b><button class="button">Sobrevivir, Escapar</button> [una batalla]</b>. <br>
+			Debería ayudarlo? <b><button class="button">Si/No</button>[Si, pero]</b> le pediré algo a cambio. <br>
+			Le pido un tipo de objeto <b><button class="button button2">Tipo de objeto</button>[común]</b>, precisamente <b><button class="button">Común</button>[Punta de lanza]</b>.<br>
+			El muestra en el mapa que debemos ir a buscarlo a <b><button class="button button2">Zona mapa</button>[Mapa-5]</b>, más precisamente en <b><button class="button">Mapa-5</button>[Northglen]</b>.
+		</div>
+		<button id="closeButton" onclick="togglePopup()">Cerrar</button>
+    </span>
+</div>
+
+<button id="closeButton" onclick="toggleImage()">Mapa</button> 
+<button id="closeButton" onclick="exportHistory()">Exportar Historial</button> 
+<button id="closeButton" onclick="togglePopup()">Ejemplo de jugada</button>
+ <a href="https://github.com/jpradoar/rpg-oracle/" target="_blank"><button id="closeButton" ><i class="fab fa-github"></i></a></button>
+
+
+
+
+
+
+
+
+<!-- Contenedor de la imagen -->
+<div id="imageContainer">
+    <img src="https://raw.githubusercontent.com/jpradoar/rpg-oracle/main/img/barbarian_vince_map.png">
+    <div id="imageCaption">Barbarian Vince: Full Map (Optional) v1.4 (Jan 2018) Rocco Privetera & Cinnamon Curtis</div>
+    <button id="closeButton" onclick="toggleImage()">Cerrar</button>
 </div>
 
 
 <script>
+
+
+/*
+ // Función para generar números aleatorios del 1 al 6
+    function generarAleatorio() {
+      return Math.floor(Math.random() * 6) + 1;
+    }
+    // Obtener los inputs y el botón
+    const inputs = document.querySelectorAll('.inputStats');
+    const botonGenerar = document.getElementById('GeninputStats');
+
+    // Agregar evento de clic al botón
+    botonGenerar.addEventListener('click', function() {
+      // Asignar números aleatorios a los inputs
+      inputs.forEach(function(input) {
+        input.value = generarAleatorio();
+      });
+    });
+*/
+
     function generateResult(type) {
         const results = {
 					'exploration': [
@@ -436,7 +600,7 @@ Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b
                 "4. Presagio",
                 "5. Descubrimiento",
                 "6. Peligro"
-            ],     
+            	],     
 						'terrain': [
 							"1. Tierras de pastoreo",
 							"2. Bosque",
@@ -505,7 +669,7 @@ Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b
 							"5. Clérigo",
 							"6. Animal"
 							],
-							'Discovery_Unnatural': [
+						'Discovery_Unnatural': [
 							"1. Portal",
 							"2. Resplandeciente",
 							"3. Residuo",
@@ -513,7 +677,7 @@ Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b
 							"5. Quemadura",
 							"6. Mutación"
 							],
-							'Danger_type': [
+					'Danger_type': [
 							"1. Natural",
 							"2. Natural",
 							"3. Natural",
@@ -532,7 +696,7 @@ Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b
 							"5. Entidad oscura",
 							"6. Energía caótica",
 							],
-							'Danger_Hazard': [
+					'Danger_Hazard': [
 							"1. Pantano",
 							"2. Deslizamiento de tierra",
 							"3. Sumidero",
@@ -540,7 +704,7 @@ Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b
 							"5. Recursos",
 							"6. Emboscada"
 							],
-							'Terrain_type': [
+					'Terrain_type': [
 							"1. Tierras de pastoreo",
 							"2. Bosque",
 							"3. Colinas",
@@ -548,7 +712,7 @@ Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b
 							"5. Pantanos",
 							"6. Tierra baldía",
 							],
-							'EbT_Grasslands': [
+					'terrain_encounters_Grasslands': [
 							"1. Humano",
 							"2. Humano",
 							"3. Humano",
@@ -556,7 +720,7 @@ Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b
 							"5. Animal",
 							"6. Monstruo pequeño",
 							],
-							'EbT_Woods': [
+					'terrain_encounters_Woods': [
 							"1. Humano",
 							"2. Humano",
 							"3. Humano",
@@ -564,7 +728,7 @@ Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b
 							"5. Monstruo pequeño",
 							"6. Monstruo mediano",
 							],
-							'EbT_Hills': [
+					'terrain_encounters_Hills': [
 							"1. Humano",
 							"2. Humano",
 							"3. Animal",
@@ -572,7 +736,7 @@ Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b
 							"5. Monstruo mediano",
 							"6. Gran monstruo",
 							],
-							'EbT_Mountains': [
+					'terrain_encounters_Mountains': [
 							"1. Humano",
 							"2. Humano",
 							"3. Humano",
@@ -580,7 +744,7 @@ Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b
 							"5. Monstruo mediano",
 							"6. Monstruo mediano",
 							],
-							'EbT_Swamps': [
+					'terrain_encounters_Swamps': [
 							"1. Humano",
 							"2. Humano",
 							"3. Animal",
@@ -588,7 +752,7 @@ Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b
 							"5. Sobrenatural",
 							"6. Monstruo pequeño",
 							],
-							'EbT_Wastelands': [
+							'terrain_encounters_Wastelands': [
 							"1. Humano",
 							"2. Humano",
 							"3. Humano",
@@ -596,7 +760,7 @@ Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b
 							"5. Monstruo pequeño",
 							"6. Monstruo mediano",
 							],
-							'Ewith_Human': [
+							'encounter_with_Human': [
 							"1. PNJ",
 							"2. Común: HD(1)|AC/ATK(10)|Dmg(1)",
 							"3. Bandido: HD(1)|AC/ATK(11)|Dmg(d6)",
@@ -604,7 +768,7 @@ Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b
 							"5. Berserker: HD(3)|AC/ATK(13)|Dmg(d8)",
 							"6. Mago: HD(2)|AC/ATK(12)|Dmg(d4) Conjuro(d6)",
 							],
-							'Ewith_Animal': [
+							'encounter_with_Animal': [
 							"1. Escarabajo: HD(2)|AC/ATK(12)|Dmg(d4)",
 							"2. Ciempies: HD(2)|AC/ATK(12)|Dmg(d6)",
 							"3. Oso: HD(4)|AC/ATK(14)|Dmg(d6,d6)",
@@ -612,7 +776,7 @@ Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b
 							"5. Lagarto: HD(2)|AC/ATK(12)|Dmg(d6)",
 							"6. Halcón: HD(1)|AC/ATK(11)|Dmg(d6)",
 							],
-							'Ewith_Humanoid': [
+							'encounter_with_Humanoid': [
 							"1. PNJ",
 							"2. Gnoll: HD(2)|AC/ATK(12)|Dmg(d6)",
 							"3. Kobold: HD(2)|AC/ATK(12)|Dmg(d6)",
@@ -620,7 +784,7 @@ Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b
 							"5. Trol: HD(4)|AC/ATK(14)|Dmg(d8)",
 							"6. Orco: HD(4)|AC/ATK(14)|Dmg(d6)",
 							],
-							'Ewith_Smonster': [
+							'encounter_with_Smonster': [
 							"1. Baba: HD(1)|AC/ATK(19)|Dmg(d4)",
 							"2. Ogro: HD(3)|AC/ATK(13)|Dmg(d8)",
 							"3. Arpía: HD(3)|AC/ATK(13)|Dmg(d6)",
@@ -628,7 +792,7 @@ Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b
 							"5. Stirge: HD(2)|AC/ATK(12)|Dmg(d6)",
 							"6. Hombre lobo: HD(4)|AC/ATK(14)|Dmg(d6)",
 							],
-							'Ewith_Bmonster': [
+							'encounter_with_Bmonster': [
 							"1. Gárgola: HD(4)|AC/ATK(14)|Dmg(d8)",
 							"2. Mantícora: HD(4)|AC/ATK(14)|Dmg(d6)",
 							"3. Hidra: HD(5)|AC/ATK(15)|Dmg(d4, d4, d4)",
@@ -636,7 +800,7 @@ Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b
 							"5. Caballero de la Muerte: HD(3)|AC/ATK(13)|Dmg(d6)",
 							"6. Dragón: HD(6)|AC/ATK(16)|Dmg(d8,d8)",
 							],
-							'Ewith_Unnatural': [
+							'encounter_with_Unnatural': [
 							"1. Ghoul: HD(2)|AC/ATK(12)|Dmg(d6)",
 							"2. Zombi: HD(1)|AC/ATK(11)|Dmg(d6)",
 							"3. Esqueleto: HD(1)|AC/ATK(11)|Dmg(d6)",
@@ -701,11 +865,11 @@ Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b
 							"1. Humano",
 							"2. Humano",
 							"3. Enano",
-							"4. Medianito",
+							"4. Mediano",
 							"5. Gnomo",
 							"6. Elfo",
 							],
-							'Character_Type': [
+					'Character_Type': [
 							"1. Mágico",
 							"2. Aventurero",
 							"3. Comerciante",
@@ -713,7 +877,16 @@ Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b
 							"5. Noble",
 							"6. Plebeyo",
 							],
-							'Character_Financial': [
+
+					'Character_Aspect': [
+							"1. Elegante",
+							"2. Desaliñado",
+							"3. Atractivo",
+							"4. Casual",
+							"5. Impecable",
+							"6. Exótico"
+							],
+					'Character_Financial': [
 							"1. Muy Pobre",
 							"2. Pobre",
 							"3. Moderado",
@@ -1047,7 +1220,7 @@ Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b
 					    "5. Busca desesperadamente un artefacto perdido.",
 					    "6. Ofrece el 40% del botin por asaltar un lugar.",
 					    ],
-			'DiceYN': [
+			'DiceYesNo': [
             	"1. Si",
             	"2. Si, pero",      
             	"3. Si, y ", 
@@ -1055,6 +1228,10 @@ Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b
             	"5. No, pero", 
             	"6. No, y", 
             	],
+			'FirstOrSecond': [
+							"1. lo primero",
+							"2. lo segundo",
+				],
 			'generic_hunch': [
 							"1. un escalofrío repentino recorre tu espina dorsal.",
 							"2. un presentimiento te advierte que algo no anda bien por aquí.",
@@ -1070,7 +1247,17 @@ Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b
             	"[4]", 
             	"[5]", 
             	"[6]", 
-            	],   
+            	], 
+			'Dice1D8': [
+            	"[1]",
+            	"[2]",      
+            	"[3]", 
+            	"[4]", 
+            	"[5]", 
+            	"[6]",
+            	"[7]",
+            	"[8]", 
+            	],               	  
 					'Mapa-select': [    
 							'1. Mapa-1',
 							'2. Mapa-2',
@@ -1147,24 +1334,48 @@ Me muestra en el map que debemos ir a buscarlo a la zona del mapa <b>[Mapa-5]</b
         };
         
         const randomIndex = Math.floor(Math.random() * results[type].length);
-        document.getElementById(type + "Result").innerHTML = results[type][randomIndex];
+        const result = results[type][randomIndex];
+        document.getElementById(type + "Result").innerHTML = result;
+        
+        // Agregar el evento al historial
+        addToEventHistory("(" + type + ") - " + result);
     }
+    
     function clearResult(type) {
         document.getElementById(type + "Result").innerHTML = "";
     }
-    // function generateResult(type) {
-    //     const results = {
-    //         '1d3': Math.floor(Math.random() * 3) + 1,
-    //         '1d6': Math.floor(Math.random() * 6) + 1,
-    //         '1d8': Math.floor(Math.random() * 8) + 1,
-    //         '1d10': Math.floor(Math.random() * 10) + 1,
-    //         '1d12': Math.floor(Math.random() * 12) + 1,
-    //         '1d20': Math.floor(Math.random() * 20) + 1,
-    //         '11to66': Math.floor(Math.random() * 56) + 11
-    //     };
-        
-    //     document.getElementById(type + "Result").innerHTML = results[type];
-    // }
+    
+    function addToEventHistory(event) {
+        const eventList = document.getElementById("eventList");
+        const li = document.createElement("li");
+        li.textContent = event;
+        eventList.appendChild(li);
+    }
+
+    function togglePopup() {
+        const popup = document.getElementById("popup");
+        popup.style.display = (popup.style.display === "none") ? "block" : "none";
+    }
+
+    function toggleImage() {
+        const imageContainer = document.getElementById("imageContainer");
+        // Alternar entre mostrar y ocultar el contenedor de la imagen
+        imageContainer.style.display = (imageContainer.style.display === "none") ? "block" : "none";
+    }   
+
+    function exportHistory() {
+        const eventList = document.getElementById("eventList");
+        const events = eventList.querySelectorAll("li");
+        let textToSave = "Historial de Eventos:\n";
+        events.forEach(function(event) {
+            textToSave += event.textContent + "\n";
+        });
+        const hiddenElement = document.createElement("a");
+        hiddenElement.href = "data:text/plain;charset=utf-8," + encodeURIComponent(textToSave);
+        hiddenElement.target = "_blank";
+        hiddenElement.download = "historial_eventos.txt";
+        hiddenElement.click();
+    }    
 
 
 </script>
