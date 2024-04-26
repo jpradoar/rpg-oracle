@@ -1,3 +1,9 @@
+<!-- 
+I know, this is a super bad organization and this file is to big, 
+but it was designed to use whitout internet and use during a plane trip or similar.
+
+I'll create next version but with best practices.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -110,6 +116,29 @@
     #closeButton:hover {
         background-color: #ccc;
     }
+    /* Estilos para el contenedor de la imagen */
+    #imageContainer {
+        display: none; /* Inicialmente oculto */
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        z-index: 9999; /* Asegura que el contenedor esté por encima de otros elementos */
+    }
+    
+    #imageContainer img {
+        max-width: 100%; /* Ajustar la imagen al ancho máximo del contenedor */
+        max-height: 80vh; /* Limitar la altura de la imagen para que quepa en la pantalla */
+    }    
+    #imageCaption {
+        font-size: 8px; /* Tamaño de fuente pequeño */
+        margin-top: 5px; /* Espacio superior */
+    }     
 </style>
 </head>
 <body>
@@ -420,8 +449,8 @@
 
   </tr>
   <tr>
-    <td><i class="fa fa-users" aria-hidden="true"></i> Mapa</td>
-    <td>Personaje	</td>
+    <td><i class="fa fa-map" aria-hidden="true"></i> Mapa</td>
+    <td><i class="fa fa-user" aria-hidden="true"> Personaje	</td>
    <td>Paso del tiempo</td>
     <td>Inventario & Notas</td>
   </tr>
@@ -450,12 +479,7 @@
 			<div id="Mapa-6Result" class="result"></div>																																									
 			<button class="button" onclick="generateResult('Mapa-7')" id="Mapa-7" >Mapa-7</button>
 			<button class="clearButton" onclick="clearResult('Mapa-7')">X</button>
-			<div id="Mapa-7Result" class="result"></div>
-			
-			<button class="button button2" onclick="generateResult('Mapa-select', this)">Zona mapa</button>
-      <button class="clearButton" onclick="clearResult('Mapa-select')">X</button>
-      <div id="MapaSelectResult" class="result"></div> 
-			
+			<div id="Mapa-7Result" class="result"></div>			
     </td>
     <td>
 			Salud:   <input type="number"  class="inputStats inputNumber" min="0" max="6"><br>
@@ -513,10 +537,16 @@
     </span>
 </div>
 
-<button id="closeButton" onclick="exportHistory()">Exportar Historial</button> <button id="closeButton" onclick="togglePopup()">Ejemplo de jugada</button>
+<button id="closeButton" onclick="toggleImage()">Mapa</button> <button id="closeButton" onclick="exportHistory()">Exportar Historial</button> <button id="closeButton" onclick="togglePopup()">Ejemplo de jugada</button>
 
 
 
+<!-- Contenedor de la imagen -->
+<div id="imageContainer">
+    <img src="https://raw.githubusercontent.com/jpradoar/rpg-oracle/main/img/barbarian_vince_map.png">
+    <div id="imageCaption">Barbarian Vince: Full Map (Optional) v1.4 (Jan 2018) Rocco Privetera & Cinnamon Curtis</div>
+    <button id="closeButton" onclick="toggleImage()">Cerrar</button>
+</div>
 
 <script>
 
@@ -1295,6 +1325,12 @@
         const popup = document.getElementById("popup");
         popup.style.display = (popup.style.display === "none") ? "block" : "none";
     }
+
+    function toggleImage() {
+        const imageContainer = document.getElementById("imageContainer");
+        // Alternar entre mostrar y ocultar el contenedor de la imagen
+        imageContainer.style.display = (imageContainer.style.display === "none") ? "block" : "none";
+    }   
 
     function exportHistory() {
         const eventList = document.getElementById("eventList");
