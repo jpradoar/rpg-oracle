@@ -151,10 +151,10 @@ I'll create next version but with best practices.
 
 <table>
   <tr>
-    <td><i class="fa fa-cloud" ></i> Environment</td>
-    <td><i class="fa fa-eye"></i> Discoveries</td>
-    <td><i class="fa fa-paw"></i> Dangers</td>
-    <td><i class="fa fa-tree"></i> Ground Encounters</td>
+    <td>🌤️ Environment</td>
+    <td>👁️‍🗨️ Discoveries</td>
+    <td>💀 Dangers</td>
+    <td>🏕️ Ground Encounters</td>
   </tr>
   <tr>
     <td>
@@ -242,9 +242,9 @@ I'll create next version but with best practices.
   </tr>
 <!-- RENGLON 02 -->
   <tr>
-    <td><i class="fa fa-bug"></i> Encuentro con ...</td>
+    <td>⚔️ Encuentro con ...</td>
     <td><i class="fa fa-home"></i> Asentamientos | <i class="fa fa-book"></i> Descripciones</td>
-    <td><i class="fa fa-archive"></i> Objetos | <i class="fa fa-magic"></i> Efectos Mágicos</td>
+    <td>🗝 Objetos | 🪄 Efectos Mágicos</td>
     <td><i class="fa fa-map"></i> Encuentros de Viaje</td>
   </tr>
   <tr>
@@ -341,10 +341,10 @@ I'll create next version but with best practices.
 
   </tr>
   <tr>
-    <td><i class="fa fa-users"></i> Personajes 1/2</td>
-    <td><i class="fa fa-users"></i> Personajes 2/2</td>
-    <td><i class="fa fa-list"></i> Misión</td>
-    <td><i class="fa fa-refresh"></i> Generico</td>
+    <td><i class="fa fa-users"></i> Characters 1/2</td>
+    <td><i class="fa fa-users"></i> Characters 2/2</td>
+    <td>📜 Mission</td>
+    <td>❓ Generic</td>
   </tr>
   <tr>
     <td>
@@ -391,6 +391,9 @@ I'll create next version but with best practices.
     <button class="button" onclick="generateResult('Character_Mname')">Nombres Masculinos</button>
     <button class="clearButton" onclick="clearResult('Character_Mname')">✖</button>
     <div id="Character_MnameResult" class="result"></div>     
+    <button class="button button2" onclick="generateResult('Character_Quest')">Quest</button>
+    <button class="clearButton" onclick="clearResult('Character_Quest')">✖</button>
+    <div id="Character_QuestResult" class="result"></div>      
     <!--
     <button class="button" onclick="generateResult('Character_Settlements_Suffix')">Sufijo de Asentamiento</button>
     <button class="clearButton" onclick="clearResult('Character_Settlements_Suffix')">✖</button>
@@ -456,10 +459,10 @@ I'll create next version but with best practices.
 
   </tr>
   <tr>
-    <td><i class="fa fa-map"></i> Mapa</td>
-    <td><i class="fa fa-user"></i> Your stats</td>
-   <td>Time</td>
-    <td>Your inventory & notes</td>
+    <td>🗺️ Map & zones</td>
+    <td>👤 Your stats</td>
+    <td>⏳ Time</td>
+    <td>📝 Your inventory & notes</td>
   </tr>
   <tr>
     <td>
@@ -486,26 +489,28 @@ I'll create next version but with best practices.
       <div id="Mapa-6Result" class="result"></div>                                                                                      
     </td>
     <td>
-      Salud:   <input type="number"  class="inputStats inputNumber" min="0" max="6" value="6"><br>
-      Fuerza: <input type="number"  class="inputStats inputNumber" min="0" max="6" value="0"><br>
+      ❤️: <input type="number"  class="inputStats inputNumber" min="0" max="6" value="6"><br>
+      🛡️: <input type="number"  class="inputStats inputNumber" min="0" max="6" value="0"><br>
+      ⚔️: <input type="number"  class="inputStats inputNumber" min="0" max="6" value="1"><br>
+      🍗: <input type="number" class="inputNumber" min="0" max="20" value="7"><br>
+      💰: <input type="number" class="inputNumber" min="0" max="1000000" value="0"><br>
+<!--
       Contador 1: <input type="number"  class="inputStats inputNumber"><br>
       Contador 2: <input type="number"  class="inputStats inputNumber"><br>
       Contador 3: <input type="number"  class="inputStats inputNumber"><br>
       Contador 4: <input type="number"  class="inputStats inputNumber"><br>
       Contador 5: <input type="number"  class="inputStats inputNumber"><br>
       Contador 6: <input type="number"  class="inputStats inputNumber"><br>
-
+-->
     </td>
     <td>
-        Dias:     <input type="number"  class="inputNumber" min="0" max="7"> <br>
-        Semanas:  <input type="number" class="inputNumber" min="0" max="4"> <br>
-        Meses:    <input type="number" class="inputNumber" min="0" max="12"> <br>
-        Años:     <input type="number" class="inputNumber" min="0" max="100"> <br>
-        Comida:   <input type="number" class="inputNumber" min="0" max="31"> (raciones)<br>
-        Dinero:   <input type="number" class="inputNumber" min="0" max="999999"> (monedas)
+        📅 <input type="number"  class="inputNumber" min="0" max="7"> days<br>
+        📅 <input type="number" class="inputNumber" min="0" max="4"> weeks<br>
+        🗓️ <input type="number" class="inputNumber" min="0" max="12"> months<br>
+        🗓️ <input type="number" class="inputNumber" min="0" max="100"> years<br>
     </td>
     <td>
-    <input type="text" class="inputs " ><br>
+    <input type="text" class="inputs"><br>
     <input type="text" class="inputs"><br>
     <input type="text" class="inputs"><br>
     <input type="text" class="inputs"><br>
@@ -946,8 +951,16 @@ You start in Nixi
               "5. Richard",
               "6. Rildor",
               ],
+          'Character_Quest': [
+              "1. Quest 1",
+              "2. Quest 2",
+              "3. Quest 3",
+              "4. Quest 4",
+              "5. Quest 5",
+              "6. Quest 6",
+              ],              
               'Character_FM': [
-              "1. Masculino",
+              "1. Femenino",
               "2. Masculino"
               ],
               'Character_Settlements_Suffix': [
