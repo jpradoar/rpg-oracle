@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Organization Map generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        #map-container {
+            position: relative;
+            width: 800px;
+            height: 500px;
+            margin: 1px auto;
+            background-color: #e0e0e0;
+            border: 2px solid #333;
+            background-image: url('https://m.media-amazon.com/images/I/81JDEgGCeTL._AC_UF350,350_QL80_.jpg');
+        }
+        .marker {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+        }
+        .marker-red {
+            background-color: red;
+        }
+        .marker-blue {
+            background-color: blue;
+        }
+        .markerTree {
+            background-image: url('https://i0.wp.com/www.fantasticmaps.com/wp-content/uploads/2012/02/tree.png');
+            background-size: cover;
+        }            
+        .markerWall {
+            background-image: url('https://static.vecteezy.com/system/resources/thumbnails/044/763/459/small_2x/rock-stone-isolated-grey-rock-top-view-png.png');
+            background-size: cover;
+         }  
+        .markerObjetive {
+            background-image: url('https://cdn-icons-png.freepik.com/512/13372/13372490.png');
+            background-size: cover;
+        } 
+    </style>
+</head>
+<body>
+
+<h1>R.P.M.G.   (Random Position Map Generator)</h1>
+<div id="map-container"></div>
+
+<script>
+    function generateMap() {
+        const mapContainer = document.getElementById('map-container');
+        const mapWidth = mapContainer.clientWidth;
+        const mapHeight = mapContainer.clientHeight;
+
+        // Variables para controlar la cantidad de marcadores y objetos
+        const markerRedCount = 4;
+        const markerBlueCount = 4;
+        const markerTree = 20;
+        const markerWallCount = 8;
+        const markerObjectiveCount = 0;
+
+        // Función para obtener una posición aleatoria en un área determinada
+        function getRandomPosition(minX, maxX, mapHeight, markerWidth, markerHeight) {
+            const x = Math.random() * (maxX - minX - markerWidth) + minX;
+            const y = Math.random() * (mapHeight - markerHeight);
+            return { x, y };
+        }
+
+        // Función para colocar un marcador en el mapa
+        function placeMarker(className, x, y, markerWidth, markerHeight, mapContainer) {
+            const marker = document.createElement('div');
+            marker.className = `marker ${className}`;
+            marker.style.left = `${x}px`;
+            marker.style.top = `${y}px`;
+            marker.style.width = `${markerWidth}px`;
+            marker.style.height = `${markerHeight}px`;
+            mapContainer.appendChild(marker);
+        }
+
+        // Función para colocar múltiples marcadores en una sección del mapa
+        function placeMarkersInArea(count, className, minX, maxX, markerWidth, markerHeight, mapWidth, mapHeight, mapContainer) {
+            for (let i = 0; i < count; i++) {
+                const { x, y } = getRandomPosition(minX, maxX, mapHeight, markerWidth, markerHeight);
+                placeMarker(className, x, y, markerWidth, markerHeight, mapContainer);
+            }
+        }
+        //----------------------------------------------------------------------
+        // Colocar marcadores izquierdo
+        //----------------------------------------------------------------------
+        placeMarkersInArea(markerRedCount, 'marker-red', 0, mapWidth / 3, 15, 15, mapWidth, mapHeight, mapContainer);
+        placeMarkersInArea(1, 'markerObjetive', 0, mapWidth / 3, 30, 30, mapWidth, mapHeight, mapContainer);
+
+
+        //----------------------------------------------------------------------
+        // Colocar objetos en todo el mapa
+        //----------------------------------------------------------------------
+        placeMarkersInArea(markerTree, 'markerTree', 0, mapWidth, 40, 40, mapWidth, mapHeight, mapContainer);
+        placeMarkersInArea(markerWallCount, 'markerWall', 0, mapWidth, 40, 40, mapWidth, mapHeight, mapContainer);
+
+        //----------------------------------------------------------------------
+        // Colocar objetos en la parte central del mapa
+        //----------------------------------------------------------------------
+        placeMarkersInArea(3, 'markerObjetive', mapWidth / 3, (2 * mapWidth) / 3, 45, 45, mapWidth, mapHeight, mapContainer);
+
+
+        //----------------------------------------------------------------------
+        // Colocar marcadores azules en el lado derecho
+        //----------------------------------------------------------------------
+        placeMarkersInArea(markerBlueCount, 'marker-blue',      (2 * mapWidth) / 3, mapWidth, 15, 15, mapWidth, mapHeight, mapContainer);
+        placeMarkersInArea(1,               'markerObjetive',   (2 * mapWidth) / 3, mapWidth, 30, 30, mapWidth, mapHeight, mapContainer)
+    }
+
+    generateMap();
+</script>
+
+</body>
+</html>
