@@ -3,7 +3,7 @@ This is a web/app to generate a simple RPG history. You can create "on the fly" 
 
 <div align="center">
 
- ## try it online:  https://jpradoar.github.io/rpg-oracle/
+ ## try it online:  [rpg-oracle](https://jpradoar.github.io/rpg-resources/)
 
  <br><br>
  <img src="img/01-full-pale.png"><br>
@@ -18,5 +18,17 @@ This is a web/app to generate a simple RPG history. You can create "on the fly" 
 * Red buttons: To clear specific text or output button
 
 
- 
+ <br><hr><br>
 
+ # R.P.M.G. (Random Position Map Generator)
+A simple tool that allows you to quickly and automatically create maps for role-playing games or skirmishes. 
+You can use it to play "on it" or to recreate the scenario in your real tabletop using you our markers and tokens
+
+## try it online:  [R.P.M.G. (Random Position Map Generator)](https://jpradoar.github.io/rpg-resources/rpmg.html)
+
+
+<br>
+<div align="center">
+  <img src="img/random-map-01.png"><br>
+  <img src="img/random-map-02.png"><br>
+</div>
