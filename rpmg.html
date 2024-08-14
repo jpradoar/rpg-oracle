@@ -48,20 +48,43 @@
 <body>
 
 <h1>R.P.M.G.   (Random Position Map Generator)</h1>
+
+<div>
+    <label for="markerRedCount">Red Markers:</label>
+    <input type="number" id="markerRedCount" value="4" min="0" max="20">
+    
+    <label for="markerBlueCount">Blue Markers:</label>
+    <input type="number" id="markerBlueCount" value="4" min="0" max="20">
+    
+    <label for="markerTreeCount"><img src="https://i0.wp.com/www.fantasticmaps.com/wp-content/uploads/2012/02/tree.png" width="20" height="20"></label>
+    <input type="number" id="markerTreeCount" value="20" min="0" max="50">
+    
+    <label for="markerWallCount"><img src="https://static.vecteezy.com/system/resources/thumbnails/044/763/459/small_2x/rock-stone-isolated-grey-rock-top-view-png.png" width="20" height="20"></label>
+    <input type="number" id="markerWallCount" value="8" min="0" max="30">
+    
+    <label for="markerObjectiveCount"><img src="https://cdn-icons-png.freepik.com/512/13372/13372490.png" width="20" height="20">Objetive:</label>
+    <input type="number" id="markerObjectiveCount" value="2" min="0" max="10">
+    
+    <button onclick="generateMap()">Generate Map</button>
+</div>
+
+
 <div id="map-container"></div>
 
 <script>
     function generateMap() {
         const mapContainer = document.getElementById('map-container');
+        mapContainer.innerHTML = ''; // Limpiar el mapa anterior
         const mapWidth = mapContainer.clientWidth;
         const mapHeight = mapContainer.clientHeight;
 
         // Variables para controlar la cantidad de marcadores y objetos
-        const markerRedCount = 4;
-        const markerBlueCount = 4;
-        const markerTree = 20;
-        const markerWallCount = 8;
-        const markerObjectiveCount = 0;
+        const markerRedCount = parseInt(document.getElementById('markerRedCount').value);
+        const markerBlueCount = parseInt(document.getElementById('markerBlueCount').value);
+        const markerTree = parseInt(document.getElementById('markerTreeCount').value);
+        const markerWallCount = parseInt(document.getElementById('markerWallCount').value);
+        const markerObjectiveCount = parseInt(document.getElementById('markerObjectiveCount').value);
+
 
         // Función para obtener una posición aleatoria en un área determinada
         function getRandomPosition(minX, maxX, mapHeight, markerWidth, markerHeight) {
@@ -104,7 +127,7 @@
         //----------------------------------------------------------------------
         // Colocar objetos en la parte central del mapa
         //----------------------------------------------------------------------
-        placeMarkersInArea(3, 'markerObjetive', mapWidth / 3, (2 * mapWidth) / 3, 45, 45, mapWidth, mapHeight, mapContainer);
+        placeMarkersInArea(markerObjectiveCount, 'markerObjetive', mapWidth / 3, (2 * mapWidth) / 3, 45, 45, mapWidth, mapHeight, mapContainer);
 
 
         //----------------------------------------------------------------------
