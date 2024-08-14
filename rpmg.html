@@ -23,48 +23,72 @@
             position: absolute;
             width: 15px;
             height: 15px;
-            border-radius: 50%;
         }
         .marker-red {
             background-color: red;
+            border-radius: 50%;
         }
         .marker-blue {
             background-color: blue;
+            border-radius: 50%;
         }
         .markerTree {
             background-image: url('https://i0.wp.com/www.fantasticmaps.com/wp-content/uploads/2012/02/tree.png');
-            background-size: cover;
+            background-size: contain;
+            background-repeat: no-repeat;
         }            
         .markerWall {
-            background-image: url('https://static.vecteezy.com/system/resources/thumbnails/044/763/459/small_2x/rock-stone-isolated-grey-rock-top-view-png.png');
-            background-size: cover;
+            /*background-image: url('https://static.vecteezy.com/system/resources/thumbnails/044/763/459/small_2x/rock-stone-isolated-grey-rock-top-view-png.png');*/
+            background-image: url('https://www.supergameasset.com/image/cache/data/Asset/Nature/Real%20Rocks%201%20icon-950x750.png');
+            background-size: contain;
+            background-repeat: no-repeat;
          }  
         .markerObjetive {
             background-image: url('https://cdn-icons-png.freepik.com/512/13372/13372490.png');
-            background-size: cover;
+            background-size: contain;
+            background-repeat: no-repeat;
         } 
+        .markerWarFlag {
+            background-image: url('https://t3.ftcdn.net/jpg/05/19/04/22/360_F_519042265_9KO1mYoepFSOyFiOImFRpQVH4L6wiaXo.jpg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            border-radius: 50%;
+        } 
+        .Building {
+            background-image: url('https://opengameart.org/sites/default/files/sprite0_2.png');
+            background-repeat: no-repeat;
+            background-size: contain; /* Muestra toda la imagen dentro del contenedor */
+            border-radius: 0; 
+        }         
+
+
+        
     </style>
 </head>
 <body>
 
-<h1>R.P.M.G.   (Random Position Map Generator)</h1>
+<h3>R.P.M.G.   (Random Position Map Generator)</h3>
 
 <div>
-    <label for="markerRedCount">Red Markers:</label>
+    <label for="markerRedCount"><img src="https://t3.ftcdn.net/jpg/05/19/04/22/360_F_519042265_9KO1mYoepFSOyFiOImFRpQVH4L6wiaXo.jpg" height="30" width="30"> Red</label>
     <input type="number" id="markerRedCount" value="4" min="0" max="20">
     
-    <label for="markerBlueCount">Blue Markers:</label>
+    <label for="markerBlueCount"><img src="https://t3.ftcdn.net/jpg/05/19/04/22/360_F_519042265_9KO1mYoepFSOyFiOImFRpQVH4L6wiaXo.jpg" height="30" width="30"> Blue </label>
     <input type="number" id="markerBlueCount" value="4" min="0" max="20">
     
     <label for="markerTreeCount"><img src="https://i0.wp.com/www.fantasticmaps.com/wp-content/uploads/2012/02/tree.png" width="20" height="20"></label>
-    <input type="number" id="markerTreeCount" value="20" min="0" max="50">
+    <input type="number" id="markerTreeCount" value="30" min="0" max="50">
     
     <label for="markerWallCount"><img src="https://static.vecteezy.com/system/resources/thumbnails/044/763/459/small_2x/rock-stone-isolated-grey-rock-top-view-png.png" width="20" height="20"></label>
     <input type="number" id="markerWallCount" value="8" min="0" max="30">
     
     <label for="markerObjectiveCount"><img src="https://cdn-icons-png.freepik.com/512/13372/13372490.png" width="20" height="20">Objetive:</label>
     <input type="number" id="markerObjectiveCount" value="2" min="0" max="10">
-    
+
+    <label for="Building"><img src="https://opengameart.org/sites/default/files/sprite0_2.png" height="30" width="30"></label>
+    <input type="number" id="Building" value="2" min="0" max="20">    
+
+
     <button onclick="generateMap()">Generate Map</button>
 </div>
 
@@ -84,6 +108,7 @@
         const markerTree = parseInt(document.getElementById('markerTreeCount').value);
         const markerWallCount = parseInt(document.getElementById('markerWallCount').value);
         const markerObjectiveCount = parseInt(document.getElementById('markerObjectiveCount').value);
+        const Building = parseInt(document.getElementById('Building').value);
 
 
         // Función para obtener una posición aleatoria en un área determinada
@@ -114,15 +139,15 @@
         //----------------------------------------------------------------------
         // Colocar marcadores izquierdo
         //----------------------------------------------------------------------
-        placeMarkersInArea(markerRedCount, 'marker-red', 0, mapWidth / 3, 15, 15, mapWidth, mapHeight, mapContainer);
-        placeMarkersInArea(1, 'markerObjetive', 0, mapWidth / 3, 30, 30, mapWidth, mapHeight, mapContainer);
-
+        placeMarkersInArea(markerRedCount,  'marker-red',    0, mapWidth / 3, 15, 15, mapWidth, mapHeight, mapContainer);
+        placeMarkersInArea(1,               'markerWarFlag', 0, mapWidth / 3, 30, 30, mapWidth, mapHeight, mapContainer);
 
         //----------------------------------------------------------------------
         // Colocar objetos en todo el mapa
         //----------------------------------------------------------------------
-        placeMarkersInArea(markerTree, 'markerTree', 0, mapWidth, 40, 40, mapWidth, mapHeight, mapContainer);
-        placeMarkersInArea(markerWallCount, 'markerWall', 0, mapWidth, 40, 40, mapWidth, mapHeight, mapContainer);
+        placeMarkersInArea(markerTree,      'markerTree', 0, mapWidth, 50, 50, mapWidth, mapHeight, mapContainer);
+        placeMarkersInArea(markerWallCount, 'markerWall', 0, mapWidth, 80, 80, mapWidth, mapHeight, mapContainer);
+        placeMarkersInArea(Building,        'Building',   0, mapWidth, 80, 80, mapWidth, mapHeight, mapContainer);
 
         //----------------------------------------------------------------------
         // Colocar objetos en la parte central del mapa
@@ -133,12 +158,13 @@
         //----------------------------------------------------------------------
         // Colocar marcadores azules en el lado derecho
         //----------------------------------------------------------------------
-        placeMarkersInArea(markerBlueCount, 'marker-blue',      (2 * mapWidth) / 3, mapWidth, 15, 15, mapWidth, mapHeight, mapContainer);
-        placeMarkersInArea(1,               'markerObjetive',   (2 * mapWidth) / 3, mapWidth, 30, 30, mapWidth, mapHeight, mapContainer)
+        placeMarkersInArea(markerBlueCount, 'marker-blue',     (2 * mapWidth) / 3, mapWidth, 15, 15, mapWidth, mapHeight, mapContainer);
+        placeMarkersInArea(1,               'markerWarFlag',   (2 * mapWidth) / 3, mapWidth, 30, 30, mapWidth, mapHeight, mapContainer)
     }
 
     generateMap();
-</script>
 
+</script>
+<h4> versio 1.0.0</h4>
 </body>
 </html>
