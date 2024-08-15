@@ -84,7 +84,7 @@
     <label for="markerWallCount"><img src="img/walls.png" width="20" height="20"></label>
     <input type="number" id="markerWallCount" value="8" min="0" max="30">
     
-    <label for="markerObjectiveCount"><img src="img/objetive.png" width="20" height="20">Objetive:</label>
+    <label for="markerObjectiveCount"><img src="img/objetive.png" width="20" height="20"></label>
     <input type="number" id="markerObjectiveCount" value="2" min="0" max="10">
 
     <label for="Building"><img src="img/building.png" height="30" width="30"></label>
@@ -100,7 +100,7 @@
 <script>
     function generateMap() {
         const mapContainer = document.getElementById('map-container');
-        mapContainer.innerHTML = ''; // Limpiar el mapa anterior
+        mapContainer.innerHTML = '';
         const mapWidth = mapContainer.clientWidth;
         const mapHeight = mapContainer.clientHeight;
 
