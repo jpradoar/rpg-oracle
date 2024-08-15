@@ -29,6 +29,9 @@ You can use it to play "on it" or to recreate the scenario in your real tabletop
 
 <br>
 <div align="center">
-  <img src="img/random-map-001.png"><br>
-  <img src="img/random-map-002.png"><br>
+ Player (red) vs Player (blue) 
+ <img src="img/random-map-002.png"><br><br>
+  Player (red) vs Monster
+ <img src="img/random-map-001.png"><br>
+
 </div>
