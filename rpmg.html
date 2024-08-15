@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +35,6 @@
             border-radius: 50%;
         }
         .markerTree {
-            background-image: url('https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/tree.png');
             background-size: contain;
             background-repeat: no-repeat;
         }            
@@ -46,9 +44,10 @@
             background-repeat: no-repeat;
          }  
         .markerObjetive {
-            background-image: url('https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/objetive.png');
+            background-image: url('https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/markerObjective_01.png');
             background-size: contain;
             background-repeat: no-repeat;
+            /*transform: rotateX(55deg) rotateY(0deg) rotateZ(-30deg);*/
         } 
         .markerWarFlag {
             background-image: url('https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/flag.jpg');
@@ -61,15 +60,26 @@
             background-repeat: no-repeat;
             background-size: contain; 
             border-radius: 0; 
-        }         
+        }  
+        .Enemy {
+            background-image: url('https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/Color_LizardEmpire_skink_shortbow_soldier1_A.png');
+            background-repeat: no-repeat;
+            background-size: contain; 
+            border-radius: 0; 
+        }      
+        .test {
+            background-image: url('/tmp/environments/things/building_31.png');
+            background-repeat: no-repeat;
+            background-size: contain; 
+            border-radius: 0; 
+        }
 
 
-        
     </style>
 </head>
 <body>
 
-<h3>R.P.M.G.   (Random Position Map Generator)</h3>
+<h3>R.P.M.G. (Random Position Map Generator)</h3>
 
 <div>
     <label for="markerRedCount"><img src="img/flag.jpg" height="30" width="30"> Red</label>
@@ -78,7 +88,7 @@
     <label for="markerBlueCount"><img src="img/flag.jpg" height="30" width="30"> Blue </label>
     <input type="number" id="markerBlueCount" value="4" min="0" max="20">
     
-    <label for="markerTreeCount"><img src="img/tree.png" width="20" height="20"></label>
+    <label for="markerTreeCount"><img src="img/_tree_01_00000.png" width="20" height="20"></label>
     <input type="number" id="markerTreeCount" value="30" min="0" max="50">
     
     <label for="markerWallCount"><img src="img/walls.png" width="20" height="20"></label>
@@ -89,11 +99,20 @@
 
     <label for="Building"><img src="img/building.png" height="30" width="30"></label>
     <input type="number" id="Building" value="2" min="0" max="20">    
+    <!--
+    <label for="Things">Things</label>
+    <input type="number" id="Things" value="0" min="0" max="10">        
+
+    <label for="Hero">Heros</label>
+    <input type="number" id="Hero" value="0" min="0" max="10">   
+    -->
+    
+    <label for="Enemy">Enemy</label>
+    <input type="number" id="Enemy" value="0" min="0" max="10">  
 
 
     <button onclick="generateMap()">Generate Map</button>
 </div>
-
 
 <div id="map-container"></div>
 
@@ -111,7 +130,33 @@
         const markerWallCount = parseInt(document.getElementById('markerWallCount').value);
         const markerObjectiveCount = parseInt(document.getElementById('markerObjectiveCount').value);
         const Building = parseInt(document.getElementById('Building').value);
+        const MarkerSize = "15";
 
+        const Enemy = parseInt(document.getElementById('Enemy').value);
+
+
+Enemy
+        // Array de URLs de imágenes de árboles
+        const treeImages = [
+            'img/_tree_01_00000.png',
+            'img/_tree_01_10000.png',
+            'img/_tree_01_20000.png',
+            'img/_tree_01_30000.png',
+            'img/_tree_01_40000.png',
+            'img/_tree_01_50000.png',
+            'img/_tree_01_60000.png',
+            'img/_tree_02_00000.png',
+            'img/_tree_14_00000.png',
+            'img/_tree_11_00000.png',
+            'img/Temperate_Trees_v2_size-3_A_green.png',
+        ];
+
+        
+        // Función para obtener una imagen aleatoria de árboles
+        function getRandomTreeImage() {
+            const randomIndex = Math.floor(Math.random() * treeImages.length);
+            return treeImages[randomIndex];
+        }
 
         // Función para obtener una posición aleatoria en un área determinada
         function getRandomPosition(minX, maxX, mapHeight, markerWidth, markerHeight) {
@@ -121,47 +166,58 @@
         }
 
         // Función para colocar un marcador en el mapa
-        function placeMarker(className, x, y, markerWidth, markerHeight, mapContainer) {
+        function placeMarker(className, x, y, markerWidth, markerHeight, mapContainer, backgroundImage) {
             const marker = document.createElement('div');
             marker.className = `marker ${className}`;
             marker.style.left = `${x}px`;
             marker.style.top = `${y}px`;
             marker.style.width = `${markerWidth}px`;
             marker.style.height = `${markerHeight}px`;
+
+            if (backgroundImage) {
+                marker.style.backgroundImage = `url(${backgroundImage})`;
+            }
+
             mapContainer.appendChild(marker);
         }
 
         // Función para colocar múltiples marcadores en una sección del mapa
-        function placeMarkersInArea(count, className, minX, maxX, markerWidth, markerHeight, mapWidth, mapHeight, mapContainer) {
+        function placeMarkersInArea(count, className, minX, maxX, markerWidth, markerHeight, mapWidth, mapHeight, mapContainer, isTree = false) {
             for (let i = 0; i < count; i++) {
                 const { x, y } = getRandomPosition(minX, maxX, mapHeight, markerWidth, markerHeight);
-                placeMarker(className, x, y, markerWidth, markerHeight, mapContainer);
+                const backgroundImage = isTree ? getRandomTreeImage(): null;
+                const backgroundImage2 = isTree ? getRandomTreeImage(): null;
+                placeMarker(className, x, y, markerWidth, markerHeight, mapContainer, backgroundImage);
             }
         }
+
         //----------------------------------------------------------------------
         // Colocar marcadores izquierdo
         //----------------------------------------------------------------------
-        placeMarkersInArea(markerRedCount,  'marker-red',    0, mapWidth / 3, 15, 15, mapWidth, mapHeight, mapContainer);
+        placeMarkersInArea(markerRedCount,  'marker-red', 0, mapWidth / 3, MarkerSize, MarkerSize, mapWidth, mapHeight, mapContainer);
         placeMarkersInArea(1,               'markerWarFlag', 0, mapWidth / 3, 30, 30, mapWidth, mapHeight, mapContainer);
+
 
         //----------------------------------------------------------------------
         // Colocar objetos en todo el mapa
         //----------------------------------------------------------------------
-        placeMarkersInArea(markerTree,      'markerTree', 0, mapWidth, 50, 50, mapWidth, mapHeight, mapContainer);
+        placeMarkersInArea(markerTree,      'markerTree', 0, mapWidth, 60, 60, mapWidth, mapHeight, mapContainer, true);
         placeMarkersInArea(markerWallCount, 'markerWall', 0, mapWidth, 80, 80, mapWidth, mapHeight, mapContainer);
-        placeMarkersInArea(Building,        'Building',   0, mapWidth, 80, 80, mapWidth, mapHeight, mapContainer);
+        placeMarkersInArea(Building,        'Building', 0, mapWidth, 80, 80, mapWidth, mapHeight, mapContainer);
+        
 
         //----------------------------------------------------------------------
         // Colocar objetos en la parte central del mapa
         //----------------------------------------------------------------------
-        placeMarkersInArea(markerObjectiveCount, 'markerObjetive', mapWidth / 3, (2 * mapWidth) / 3, 45, 45, mapWidth, mapHeight, mapContainer);
+        placeMarkersInArea(markerObjectiveCount, 'markerObjetive', mapWidth / 3, (2 * mapWidth) / 3, 70, 70, mapWidth, mapHeight, mapContainer);
+        placeMarkersInArea(Enemy,                'Enemy', 0, mapWidth, 80, 80, mapWidth, mapHeight, mapContainer);
 
 
         //----------------------------------------------------------------------
         // Colocar marcadores azules en el lado derecho
         //----------------------------------------------------------------------
-        placeMarkersInArea(markerBlueCount, 'marker-blue',     (2 * mapWidth) / 3, mapWidth, 15, 15, mapWidth, mapHeight, mapContainer);
-        placeMarkersInArea(1,               'markerWarFlag',   (2 * mapWidth) / 3, mapWidth, 30, 30, mapWidth, mapHeight, mapContainer)
+        placeMarkersInArea(markerBlueCount, 'marker-blue', (2 * mapWidth) / 3, mapWidth, MarkerSize, MarkerSize, mapWidth, mapHeight, mapContainer);
+        placeMarkersInArea(1,               'markerWarFlag', (2 * mapWidth) / 3, mapWidth, 30, 30, mapWidth, mapHeight, mapContainer);
     }
 
     generateMap();
