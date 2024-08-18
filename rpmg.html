@@ -65,7 +65,7 @@
     <input type="number" id="markerBlueCount" value="4" min="0" max="20">
     
     <label for="markerTreeCount"><img src="https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/_tree_01_00000.png" width="20" height="20"></label>
-    <input type="number" id="markerTreeCount" value="30" min="0" max="50">
+    <input type="number" id="markerTreeCount" value="35" min="0" max="50">
     
     <label for="markerWallCount"><img src="img/walls.png" width="20" height="20"></label>
     <input type="number" id="markerWallCount" value="8" min="0" max="30">
@@ -74,13 +74,13 @@
     <input type="number" id="markerObjectiveCount" value="2" min="0" max="10">
 
     <label for="Building"><img src="img/building.png" height="30" width="30"></label>
-    <input type="number" id="Building" value="2" min="0" max="20">    
+    <input type="number" id="Building" value="3" min="0" max="20">    
 
     <label for="Enemy">Enemy</label>
     <input type="number" id="Enemy" value="0" min="0" max="10">  
 
-    <label for="Generic">Cover</label>
-    <input type="number" id="Generic" value="2" min="0" max="20">    
+    <label for="Cover">Cover</label>
+    <input type="number" id="Cover" value="4" min="0" max="20">    
 
 
 
@@ -107,7 +107,7 @@
             markerObjectiveCount: parseInt(document.getElementById('markerObjectiveCount').value),
             buildingCount: parseInt(document.getElementById('Building').value),
             enemyCount: parseInt(document.getElementById('Enemy').value),
-            GenericCount: parseInt(document.getElementById('Generic').value),
+            CoverCount: parseInt(document.getElementById('Cover').value),
 
         };
 
@@ -226,9 +226,7 @@
         //----------------------------------------------------------------------
         placeMarkersInArea(markerConfig.markerObjectiveCount, 'markerObjetive', mapWidth / 3, (2 * mapWidth) / 3, 70, 70, mapWidth, mapHeight, mapContainer);
 
-        function xxxImages() {
-            placeMarkersInArea(markerConfig.GenericCount, 'GenericMarker', mapWidth / 3, (2 * mapWidth) / 3, 70, 70, mapWidth, mapHeight, mapContainer, xxx_array_Images);
-        }
+
 
 
         //----------------------------------------------------------------------
@@ -258,7 +256,7 @@
             placeMarkersInArea(markerConfig.markerObjectiveCount, 'GenericMarker', mapWidth / 3, (2 * mapWidth) / 3, 70, 70, mapWidth, mapHeight, mapContainer);
         }
         function CoverObjectImages() {
-            placeMarkersInArea(markerConfig.GenericCount, 'GenericMarker', 0, mapWidth, 60, 60, mapWidth, mapHeight, mapContainer, cover_objects_array_Images);
+            placeMarkersInArea(markerConfig.CoverCount, 'GenericMarker', 0, mapWidth, 60, 60, mapWidth, mapHeight, mapContainer, cover_objects_array_Images);
         }
 
 
