@@ -26,6 +26,11 @@
             width: 15px;
             height: 15px;
         }
+        .GenericMarker {
+            background-repeat: no-repeat;
+            background-size: contain; 
+            border-radius: 0; 
+        }   
         .marker-red {
             background-color: red;
             border-radius: 50%;
@@ -33,47 +38,30 @@
         .marker-blue {
             background-color: blue;
             border-radius: 50%;
-        }
-        .markerTree {
-            background-size: contain;
-            background-repeat: no-repeat;
-        }            
-        .markerWall {
-            background-image: url('https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/walls.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-         }  
+        }   
         .markerObjetive {
             background-image: url('https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/markerObjective_01.png');
             background-size: contain;
             background-repeat: no-repeat;
             /*transform: rotateX(55deg) rotateY(0deg) rotateZ(-30deg);*/
-        } 
+        }            
         .markerWarFlag {
             background-image: url('https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/flag.jpg');
             background-size: contain;
             background-repeat: no-repeat;
             border-radius: 50%;
-        } 
-        .Building {
-            background-image: url('https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/building.png');
-            background-repeat: no-repeat;
-            background-size: contain; 
-            border-radius: 0; 
-        }  
+        }   
         .Enemy {
             background-image: url('https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/Color_LizardEmpire_skink_shortbow_soldier1_A.png');
             background-repeat: no-repeat;
             background-size: contain; 
             border-radius: 0; 
         }      
-        .test {
-            background-image: url('/tmp/environments/things/building_31.png');
-            background-repeat: no-repeat;
-            background-size: contain; 
-            border-radius: 0; 
+        .xxx {
+          height: 16px;
+          width: 96px;
+          background-image: url('https://w7.pngwing.com/pngs/795/351/png-transparent-pond-tile-map-game-art-overlay-game-photography-landscape.png');
         }
-
 
     </style>
 </head>
@@ -99,16 +87,15 @@
 
     <label for="Building"><img src="img/building.png" height="30" width="30"></label>
     <input type="number" id="Building" value="2" min="0" max="20">    
-    <!--
-    <label for="Things">Things</label>
-    <input type="number" id="Things" value="0" min="0" max="10">        
 
-    <label for="Hero">Heros</label>
-    <input type="number" id="Hero" value="0" min="0" max="10">   
-    -->
-    
     <label for="Enemy">Enemy</label>
     <input type="number" id="Enemy" value="0" min="0" max="10">  
+
+    <label for="Generic">Cover</label>
+    <input type="number" id="Generic" value="2" min="0" max="20">    
+
+
+
 
 
     <button onclick="generateMap()">Generate Map</button>
@@ -123,21 +110,21 @@
         const mapWidth = mapContainer.clientWidth;
         const mapHeight = mapContainer.clientHeight;
 
-        // Variables para controlar la cantidad de marcadores y objetos
-        const markerRedCount = parseInt(document.getElementById('markerRedCount').value);
-        const markerBlueCount = parseInt(document.getElementById('markerBlueCount').value);
-        const markerTree = parseInt(document.getElementById('markerTreeCount').value);
-        const markerWallCount = parseInt(document.getElementById('markerWallCount').value);
-        const markerObjectiveCount = parseInt(document.getElementById('markerObjectiveCount').value);
-        const Building = parseInt(document.getElementById('Building').value);
-        const MarkerSize = "15";
+        // Configuraciones de los tipos de marcadores
+        const markerConfig = {
+            markerRedCount: parseInt(document.getElementById('markerRedCount').value),
+            markerBlueCount: parseInt(document.getElementById('markerBlueCount').value),
+            markerTreeCount: parseInt(document.getElementById('markerTreeCount').value),
+            markerWallCount: parseInt(document.getElementById('markerWallCount').value),
+            markerObjectiveCount: parseInt(document.getElementById('markerObjectiveCount').value),
+            buildingCount: parseInt(document.getElementById('Building').value),
+            enemyCount: parseInt(document.getElementById('Enemy').value),
+            GenericCount: parseInt(document.getElementById('Generic').value),
 
-        const Enemy = parseInt(document.getElementById('Enemy').value);
+        };
 
-
-
-        // Array de URLs de imágenes de árboles
-        const treeImages = [
+        // Arrays de URLs de imágenes para cada tipo de objeto
+        const tree_array_Images = [
             'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/_tree_01_00000.png',
             'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/_tree_01_10000.png',
             'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/_tree_01_20000.png',
@@ -150,11 +137,59 @@
             'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/_tree_11_00000.png',
             'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/Temperate_Trees_v2_size-3_A_green.png',
         ];
+
+        const Wall_array_Images = [
+            'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/walls.png',
+            ];
+
+        const building_array_Images = [
+            'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/building.png',
+            ];
+
+        const Enemy_array_Images = [
+            'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/Color_LizardEmpire_skink_shortbow_soldier1_A.png',
+            'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/',
+            'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/Color_DarkElves_character_evil_wizard_wand_skull.png',
+            'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/Color_LizardEmpire_chieftan_warrior_greatclub_saurian_B.png',
+            'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/Color_LizardEmpire_skink_shortbow_soldier1_A.png',
+            'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/Color_monster_mohrg_infected_skeleton2_B.png',
+            'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/color_monster_Nephilim_warrior_A.png',
+            'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/Color_monster_shadowDog_A.png',
+            'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/Color_monster_snakeman_warrior_B.png',
+            'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/Color_Rabbitfolk_hero_rogue_duellist_rapier_A.png',
+            'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/Color_Rabbitfolk_hero_rogue_ranger_daggers_bandit_A.png',
+            'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/Color_sharkkin_warrior_guard_fullarmour_B.png',
+            'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/Color_skeleton_warrior_axe_slayer.png',
+            'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/Color_skeleton_warrior_sword.png',
+            ];
+
+        const Warrior_array_Images = [
+            'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/warriors_color_barbarian_fighter.png',
+            'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/warriors_color_classic_fighter.png',
+            'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/warriors_color_fighter_barbarian_wood_sheild.png',
+            'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/warriors_color_golden_hammerlord.png',
+            'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/warriors_color_longbeard_fighter.png',
+            'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/warriors_color_warlord_skulls_red_greatsword.png',
+            ];
         
-        // Función para obtener una imagen aleatoria de árboles
-        function getRandomTreeImage() {
-            const randomIndex = Math.floor(Math.random() * treeImages.length);
-            return treeImages[randomIndex];
+        const cover_objects_array_Images = [
+            'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/cover_01.png',
+            'https://raw.githubusercontent.com/jpradoar/rpg-resources/main/img/cover_02.png',
+            ];
+
+
+        const object_array_Images = [
+            '/dev/null/none.png',
+            ];
+
+
+
+
+
+        // Función para obtener una imagen aleatoria de un array
+        function getRandomImage(imagesArray) {
+            const randomIndex = Math.floor(Math.random() * imagesArray.length);
+            return imagesArray[randomIndex];
         }
 
         // Función para obtener una posición aleatoria en un área determinada
@@ -176,52 +211,91 @@
             if (backgroundImage) {
                 marker.style.backgroundImage = `url(${backgroundImage})`;
             }
-
             mapContainer.appendChild(marker);
         }
 
-        // Función para colocar múltiples marcadores en una sección del mapa
-        function placeMarkersInArea(count, className, minX, maxX, markerWidth, markerHeight, mapWidth, mapHeight, mapContainer, isTree = false) {
+        // Función genérica para colocar múltiples marcadores en una sección del mapa
+        function placeMarkersInArea(count, className, minX, maxX, markerWidth, markerHeight, mapWidth, mapHeight, mapContainer, imagesArray = null) {
             for (let i = 0; i < count; i++) {
                 const { x, y } = getRandomPosition(minX, maxX, mapHeight, markerWidth, markerHeight);
-                const backgroundImage = isTree ? getRandomTreeImage(): null;
-                const backgroundImage2 = isTree ? getRandomTreeImage(): null;
+                const backgroundImage = imagesArray ? getRandomImage(imagesArray) : null;
                 placeMarker(className, x, y, markerWidth, markerHeight, mapContainer, backgroundImage);
             }
         }
 
-        //----------------------------------------------------------------------
-        // Colocar marcadores izquierdo
-        //----------------------------------------------------------------------
-        placeMarkersInArea(markerRedCount,  'marker-red', 0, mapWidth / 3, MarkerSize, MarkerSize, mapWidth, mapHeight, mapContainer);
-        placeMarkersInArea(1,               'markerWarFlag', 0, mapWidth / 3, 30, 30, mapWidth, mapHeight, mapContainer);
-
 
         //----------------------------------------------------------------------
-        // Colocar objetos en todo el mapa
+        // Colocar marcadores al lado izquierdo
         //----------------------------------------------------------------------
-        placeMarkersInArea(markerTree,      'markerTree', 0, mapWidth, 60, 60, mapWidth, mapHeight, mapContainer, true);
-        placeMarkersInArea(markerWallCount, 'markerWall', 0, mapWidth, 80, 80, mapWidth, mapHeight, mapContainer);
-        placeMarkersInArea(Building,        'Building', 0, mapWidth, 80, 80, mapWidth, mapHeight, mapContainer);
-        
+        placeMarkersInArea(markerConfig.markerRedCount, 'marker-red',    0, mapWidth / 3, 15, 15, mapWidth, mapHeight, mapContainer);
+        placeMarkersInArea(1,                           'markerWarFlag', 0, mapWidth / 3, 30, 30, mapWidth, mapHeight, mapContainer);
+
+
+
 
         //----------------------------------------------------------------------
         // Colocar objetos en la parte central del mapa
         //----------------------------------------------------------------------
-        placeMarkersInArea(markerObjectiveCount, 'markerObjetive', mapWidth / 3, (2 * mapWidth) / 3, 70, 70, mapWidth, mapHeight, mapContainer);
-        placeMarkersInArea(Enemy,                'Enemy', 0, mapWidth, 80, 80, mapWidth, mapHeight, mapContainer);
+        placeMarkersInArea(markerConfig.markerObjectiveCount, 'markerObjetive', mapWidth / 3, (2 * mapWidth) / 3, 70, 70, mapWidth, mapHeight, mapContainer);
+
+        function xxxImages() {
+            placeMarkersInArea(markerConfig.GenericCount, 'GenericMarker', mapWidth / 3, (2 * mapWidth) / 3, 70, 70, mapWidth, mapHeight, mapContainer, xxx_array_Images);
+        }
 
 
         //----------------------------------------------------------------------
-        // Colocar marcadores azules en el lado derecho
+        // Colocar marcadores azules al lado derecho
         //----------------------------------------------------------------------
-        placeMarkersInArea(markerBlueCount, 'marker-blue', (2 * mapWidth) / 3, mapWidth, MarkerSize, MarkerSize, mapWidth, mapHeight, mapContainer);
-        placeMarkersInArea(1,               'markerWarFlag', (2 * mapWidth) / 3, mapWidth, 30, 30, mapWidth, mapHeight, mapContainer);
+        placeMarkersInArea(markerConfig.markerBlueCount, 'marker-blue',   (2 * mapWidth) / 3, mapWidth, 15, 15, mapWidth, mapHeight, mapContainer);
+        placeMarkersInArea(1,                            'markerWarFlag', (2 * mapWidth) / 3, mapWidth, 30, 30, mapWidth, mapHeight, mapContainer);
+
+
+
+        //----------------------------------------------------------------------
+        // Colocar objetos en todo el mapa
+        //----------------------------------------------------------------------        
+        function placeTrees() {
+            placeMarkersInArea(markerConfig.markerTreeCount, 'GenericMarker', 0, mapWidth, 60, 60, mapWidth, mapHeight, mapContainer, tree_array_Images);
+        }
+        function placeWalls() {
+            placeMarkersInArea(markerConfig.markerWallCount, 'GenericMarker', 0, mapWidth, 80, 80, mapWidth, mapHeight, mapContainer, Wall_array_Images);
+        }
+        function placeBuildings() {
+            placeMarkersInArea(markerConfig.buildingCount, 'GenericMarker', 0, mapWidth, 80, 80, mapWidth, mapHeight, mapContainer,  building_array_Images);
+        }
+        function placeEnemies() {
+            placeMarkersInArea(markerConfig.enemyCount, 'GenericMarker', 0, mapWidth, 80, 80, mapWidth, mapHeight, mapContainer, Enemy_array_Images);
+        }
+        function placeObjectives() {
+            placeMarkersInArea(markerConfig.markerObjectiveCount, 'GenericMarker', mapWidth / 3, (2 * mapWidth) / 3, 70, 70, mapWidth, mapHeight, mapContainer);
+        }
+        function CoverObjectImages() {
+            placeMarkersInArea(markerConfig.GenericCount, 'GenericMarker', 0, mapWidth, 60, 60, mapWidth, mapHeight, mapContainer, cover_objects_array_Images);
+        }
+
+
+        // function GenericImages() {
+        //     placeMarkersInArea(markerConfig.GenericCount, 'GenericMarker', 0, mapWidth, 60, 60, mapWidth, mapHeight, mapContainer, object_array_Images);
+        // }
+        
+
+        
+        
+
+
+
+        // Colocar los diferentes tipos de objetos en el mapa
+        placeTrees();
+        placeWalls();
+        placeBuildings();
+        placeObjectives();
+        placeEnemies();
+        CoverObjectImages();
+        //GenericImages();
     }
+
+
 
     generateMap();
 
 </script>
-<button id="closeButton"><a href="https://github.com/jpradoar/rpg-resources/" target="_blank"><i class="fab fa-github"></i> v1.0.0 </a>
-</body>
-</html>
